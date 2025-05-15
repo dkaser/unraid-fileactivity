@@ -22,8 +22,8 @@ For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
 </CHANGES>
 
 <FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.05.14-noarch-1.txz">
-<URL>https://github.com/dkaser/unraid-file.activity/releases/download/2025.05.14/unraid-fileactivity-2025.05.14-noarch-1.txz</URL>
-<SHA256>b32e9476964d84eb9daed44bbd2f70ad1f788dbdf9aabc682a9b36356d04f00b</SHA256>
+<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.05.14/unraid-fileactivity-2025.05.14-noarch-1.txz</URL>
+<SHA256>d0619175c4a6f5a42f43d7ef31a23bbe41dc7ee30c3c685dc4a36519163fbcda</SHA256>
 </FILE>
 
 <!--
