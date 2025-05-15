@@ -19,41 +19,41 @@ Cond="$var['mdState'] == 'STARTED'"
 </table>
 
 <br>
-<?
+<?php
 echo $display['resize'] ? "<pre class='up' style='display:none'>" : "<pre class='up'>";
 
-$display_events		= ((isset($file_activity_cfg['DISPLAY_EVENTS'])) && ($file_activity_cfg['DISPLAY_EVENTS'])) ? $file_activity_cfg['DISPLAY_EVENTS'] : "25";
-$filesactive		= "";
+$display_events = ((isset($file_activity_cfg['DISPLAY_EVENTS'])) && ($file_activity_cfg['DISPLAY_EVENTS'])) ? $file_activity_cfg['DISPLAY_EVENTS'] : "25";
+$filesactive    = "";
 
-/* Disk activity. */
+// Disk activity.
 $disks = glob("/mnt/disk[^s]*");
 natcasesort($disks);
 foreach ($disks as $disk) {
-	$disk_dev = $disk."/";
-	$files = shell_exec("cat /var/log/file.activity.log 2>/dev/null | grep ".escapeshellarg($disk_dev)." | tail -n ".escapeshellarg($display_events));
-	if (!empty($files)) {
-		$filesactive .= "<strong>** Disk ".substr($disk,9)." **</strong>\n";
-		$filesactive .= $files;
-		$filesactive .= "\n";
-	}
+    $disk_dev = $disk . "/";
+    $files    = shell_exec("cat /var/log/file.activity.log 2>/dev/null | grep " . escapeshellarg($disk_dev) . " | tail -n " . escapeshellarg($display_events));
+    if ( ! empty($files)) {
+        $filesactive .= "<strong>** Disk " . substr($disk, 9) . " **</strong>\n";
+        $filesactive .= $files;
+        $filesactive .= "\n";
+    }
 }
 
-/* UD disks activity. */
-$files = shell_exec("cat /var/log/file.activity.log 2>/dev/null | grep '/mnt/disks/'"." | tail -n ".escapeshellarg($display_events));
-if (!empty($files)) {
-	$filesactive .= "<strong>** Unassigned Devices"." **</strong>\n";
-	$filesactive .= $files;
-	$filesactive .= "\n";
+// UD disks activity.
+$files = shell_exec("cat /var/log/file.activity.log 2>/dev/null | grep '/mnt/disks/' | tail -n " . escapeshellarg($display_events));
+if ( ! empty($files)) {
+    $filesactive .= "<strong>** Unassigned Devices **</strong>\n";
+    $filesactive .= $files;
+    $filesactive .= "\n";
 }
 
-/* Cache and pools activity. */
+// Cache and pools activity.
 foreach ($pools as $pool) {
-	$files = shell_exec("cat /var/log/file.activity.log 2>/dev/null | grep '/mnt/".$pool."'"." | tail -n ".escapeshellarg($display_events));
-	if (!empty($files)) {
-		$filesactive .= "<strong>** ".ucfirst($pool)." **</strong>\n";
-		$filesactive .= $files;
-		$filesactive .= "\n";
-	}
+    $files = shell_exec("cat /var/log/file.activity.log 2>/dev/null | grep '/mnt/" . $pool . "' | tail -n " . escapeshellarg($display_events));
+    if ( ! empty($files)) {
+        $filesactive .= "<strong>** " . ucfirst($pool) . " **</strong>\n";
+        $filesactive .= $files;
+        $filesactive .= "\n";
+    }
 }
 echo $filesactive;
 echo "</pre>";

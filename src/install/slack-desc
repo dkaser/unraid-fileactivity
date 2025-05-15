@@ -1,0 +1,9 @@
+                   |-----handy-ruler------------------------------------------------------|
+unraid-fileactivity: unraid-fileactivity
+unraid-fileactivity:
+unraid-fileactivity: This plugin displays recent write/modify file activity on each disk, 
+unraid-fileactivity: UD disks, and the cache in the Array. It can help to understand why 
+unraid-fileactivity: disks are spinning up from write/modify file activity.
+unraid-fileactivity:
+unraid-fileactivity: https://github.com/dkaser/unraid-fileactivity
+unraid-fileactivity:

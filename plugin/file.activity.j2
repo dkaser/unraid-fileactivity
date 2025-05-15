@@ -1,0 +1,64 @@
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE PLUGIN>
+
+<PLUGIN 
+  name="file.activity"
+  author="Derek Kaser"
+  version="{{ env['PLUGIN_VERSION'] }}"
+  pluginURL="https://raw.githubusercontent.com/dkaser/unraid-fileactivity/main/plugin/file.activity.plg"
+  support="https://forums.unraid.net/topic/54808-file-activity-plugin-how-can-i-figure-out-what-keeps-spinning-up-my-disks/"
+  min="7.0.0"
+  icon="folder"
+  launch="Tools/FileActivity"
+>
+
+<CHANGES>
+<![CDATA[
+###{{ env['PLUGIN_VERSION'] }}###
+{{ env['PLUGIN_CHANGELOG'] }}
+
+For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
+]]>
+</CHANGES>
+
+<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-{{ env['PLUGIN_VERSION'] }}-noarch-1.txz">
+<URL>https://github.com/dkaser/unraid-file.activity/releases/download/{{ env['PLUGIN_VERSION'] }}/unraid-fileactivity-{{ env['PLUGIN_VERSION'] }}-noarch-1.txz</URL>
+<SHA256>{{ env['PLUGIN_CHECKSUM'] }}</SHA256>
+</FILE>
+
+<!--
+The 'install' script.
+-->
+<FILE Run="/bin/bash">
+<INLINE>
+<![CDATA[
+upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-{{ env['PLUGIN_VERSION'] }}-noarch-1.txz
+
+# cleanup old versions
+rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '{{ env['PLUGIN_VERSION'] }}')
+
+echo ""
+echo "----------------------------------------------------"
+echo " file.activity has been installed."
+echo " Version: {{ env['PLUGIN_VERSION'] }}"
+echo "----------------------------------------------------"
+echo ""
+]]>
+</INLINE>
+</FILE>
+
+<!--
+The 'remove' script.
+-->
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+<![CDATA[
+removepkg unraid-fileactivity
+
+rm -rf /usr/local/emhttp/plugins/file.activity
+rm -rf /boot/config/plugins/file.activity
+]]>
+</INLINE>
+</FILE>
+
+</PLUGIN>

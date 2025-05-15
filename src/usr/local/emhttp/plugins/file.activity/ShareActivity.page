@@ -19,23 +19,23 @@ Cond="$var['mdState'] == 'STARTED'"
 </table>
 
 <br>
-<?
+<?php
 echo $display['resize'] ? "<pre class='up' style='display:none'>" : "<pre class='up'>";
 
-$display_events		= ((isset($file_activity_cfg['DISPLAY_EVENTS'])) && ($file_activity_cfg['DISPLAY_EVENTS'])) ? $file_activity_cfg['DISPLAY_EVENTS'] : "25";
-$filesactive		= "";
+$display_events = ((isset($file_activity_cfg['DISPLAY_EVENTS'])) && ($file_activity_cfg['DISPLAY_EVENTS'])) ? $file_activity_cfg['DISPLAY_EVENTS'] : "25";
+$filesactive    = "";
 
-/* Share activity. */
+// Share activity.
 $shares = glob("/mnt/user/*");
 natcasesort($shares);
 foreach ($shares as $share) {
-	$share_dev = basename($share)."/";
-	$files = shell_exec("cat /var/log/file.activity.log 2>/dev/null | grep  -P '/mnt/disk\d+/{$share_dev}' | tail -n ".escapeshellarg($display_events));
-	if ($files) {
-		$filesactive .= "<strong>** ".$share." **</strong>\n";
-		$filesactive .= $files;
-		$filesactive .= "\n";
-	}
+    $share_dev = basename($share) . "/";
+    $files     = shell_exec("cat /var/log/file.activity.log 2>/dev/null | grep  -P '/mnt/disk\d+/{$share_dev}' | tail -n " . escapeshellarg($display_events));
+    if ($files) {
+        $filesactive .= "<strong>** " . $share . " **</strong>\n";
+        $filesactive .= $files;
+        $filesactive .= "\n";
+    }
 }
 
 echo $filesactive;

@@ -1,0 +1,66 @@
+on:
+  release:
+    types:
+      - created
+
+env:
+  FILE_NAME: unraid-fileactivity
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: tag
+
+      - uses: actions/checkout@v3
+        with:
+          path: main
+          ref: main
+
+      - id: build_files
+        run: |
+          mkdir release
+          cd tag/src
+          tar --owner=0 --group=0 -cJf ../../release/${{ env.FILE_NAME }}-${{ github.event.release.name}}-noarch-1.txz *
+          cd ../../release
+          sha256sum ${{ env.FILE_NAME }}-${{ github.event.release.name}}-noarch-1.txz | awk '{print $1}' > ${{ env.FILE_NAME }}-${{ github.event.release.name}}-noarch-1.txz.sha256
+          echo "checksum=$(cat ${{ env.FILE_NAME }}-${{ github.event.release.name}}-noarch-1.txz.sha256)" >> $GITHUB_OUTPUT
+
+      - uses: shogo82148/actions-upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: release/*
+
+      - name: Add checksum to release description
+        uses: djn24/add-comment-to-release@v1
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          comment: |-
+            ## Checksum
+            ${{ env.FILE_NAME }}-${{ github.event.release.name}}-noarch-1.txz : ${{ steps.build_files.outputs.checksum }}
+
+      - name: Template
+        uses: cuchi/jinja2-action@0264c440d5561d32eee3d8239a9a637a96eb5a61
+        with:
+          template: main/plugin/file.activity.j2
+          output_file: main/plugin/file.activity.plg
+        env:
+          PLUGIN_VERSION: ${{ github.event.release.name }}
+          PLUGIN_CHECKSUM: ${{ steps.build_files.outputs.checksum }}
+          PLUGIN_CHANGELOG: ${{ github.event.release.body }}
+
+      - name: Commit plugin file
+        run: |
+          cd main
+          gh api graphql \
+            -F githubRepository=$GITHUB_REPOSITORY \
+            -F branchName=$BRANCH \
+            -F expectedHeadOid=$(git rev-parse HEAD) \
+            -F commitMessage="release: update plugin file for ${{ github.event.release.name }}" \
+            -F pluginFile[path]="plugin/file.activity.plg" -F pluginFile[contents]=$(base64 -w0 plugin/file.activity.plg) \
+            -F 'query=@.github/api/createCommitOnBranch.gql'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: "main"
