@@ -1,0 +1,64 @@
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE PLUGIN>
+
+<PLUGIN 
+  name="file.activity"
+  author="Derek Kaser"
+  version="2025.05.14"
+  pluginURL="https://raw.githubusercontent.com/dkaser/unraid-fileactivity/main/plugin/file.activity.plg"
+  support="https://forums.unraid.net/topic/54808-file-activity-plugin-how-can-i-figure-out-what-keeps-spinning-up-my-disks/"
+  min="7.0.0"
+  icon="folder"
+  launch="Tools/FileActivity"
+>
+
+<CHANGES>
+<![CDATA[
+###2025.05.14###
+- Migration to new repo
+
+For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
+]]>
+</CHANGES>
+
+<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.05.14-noarch-1.txz">
+<URL>https://github.com/dkaser/unraid-file.activity/releases/download/2025.05.14/unraid-fileactivity-2025.05.14-noarch-1.txz</URL>
+<SHA256>b32e9476964d84eb9daed44bbd2f70ad1f788dbdf9aabc682a9b36356d04f00b</SHA256>
+</FILE>
+
+<!--
+The 'install' script.
+-->
+<FILE Run="/bin/bash">
+<INLINE>
+<![CDATA[
+upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.05.14-noarch-1.txz
+
+# cleanup old versions
+rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.05.14')
+
+echo ""
+echo "----------------------------------------------------"
+echo " file.activity has been installed."
+echo " Version: 2025.05.14"
+echo "----------------------------------------------------"
+echo ""
+]]>
+</INLINE>
+</FILE>
+
+<!--
+The 'remove' script.
+-->
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+<![CDATA[
+removepkg unraid-fileactivity
+
+rm -rf /usr/local/emhttp/plugins/file.activity
+rm -rf /boot/config/plugins/file.activity
+]]>
+</INLINE>
+</FILE>
+
+</PLUGIN>
