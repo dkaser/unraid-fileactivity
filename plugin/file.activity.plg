@@ -4,7 +4,7 @@
 <PLUGIN 
   name="file.activity"
   author="Derek Kaser"
-  version="2025.05.14"
+  version="2025.05.14a"
   pluginURL="https://raw.githubusercontent.com/dkaser/unraid-fileactivity/main/plugin/file.activity.plg"
   support="https://forums.unraid.net/topic/54808-file-activity-plugin-how-can-i-figure-out-what-keeps-spinning-up-my-disks/"
   min="7.0.0"
@@ -14,16 +14,16 @@
 
 <CHANGES>
 <![CDATA[
-###2025.05.14###
-- Migration to new repo
+###2025.05.14a###
+- Fix permissions issues after migration
 
 For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
 ]]>
 </CHANGES>
 
-<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.05.14-noarch-1.txz">
-<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.05.14/unraid-fileactivity-2025.05.14-noarch-1.txz</URL>
-<SHA256>d0619175c4a6f5a42f43d7ef31a23bbe41dc7ee30c3c685dc4a36519163fbcda</SHA256>
+<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.05.14a-noarch-1.txz">
+<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.05.14a/unraid-fileactivity-2025.05.14a-noarch-1.txz</URL>
+<SHA256>c1f25ac4bf0b5690f1c530cf1fe5ec1f96e8c74492953386c1b9ab1c6e8b5d98</SHA256>
 </FILE>
 
 <!--
@@ -32,15 +32,15 @@ The 'install' script.
 <FILE Run="/bin/bash">
 <INLINE>
 <![CDATA[
-upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.05.14-noarch-1.txz
+upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.05.14a-noarch-1.txz
 
 # cleanup old versions
-rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.05.14')
+rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.05.14a')
 
 echo ""
 echo "----------------------------------------------------"
 echo " file.activity has been installed."
-echo " Version: 2025.05.14"
+echo " Version: 2025.05.14a"
 echo "----------------------------------------------------"
 echo ""
 ]]>
