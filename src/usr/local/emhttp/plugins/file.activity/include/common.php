@@ -1,9 +1,6 @@
-Menu="FileActivity:3"
-Title="Disk Activity"
-Cond="$var['mdState'] == 'STARTED'"
-Markdown="false"
----
 <?php
+
+namespace FileActivity;
 
 /*
     Copyright (C) 2025  Derek Kaser
@@ -22,11 +19,10 @@ Markdown="false"
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-try {
-    $docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
-    require_once "{$docroot}/plugins/file.activity/include/page.php";
-
-    echo FileActivity\getPage("DiskActivity", true, array("resize" => $display['resize'] ?? false, "pools" => $pools ?? array()));
-} catch (Throwable $e) {
-    echo "An error occurred: <pre>" . print_r($e, true) . "</pre>";
+foreach (glob("/usr/local/emhttp/plugins/file.activity/include/FileActivity/*.php") ?: array() as $file) {
+    try {
+        require $file;
+    } catch (\Throwable $e) {
+        Utils::logmsg("Caught exception in {$file} : " . $e->getMessage());
+    }
 }

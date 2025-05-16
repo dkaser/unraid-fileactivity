@@ -1,97 +1,102 @@
 #!/usr/bin/php
 <?php
-/* Copyright 2020-2025, Dan Landon
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- */
+/*
+    Copyright (C) 2017-2025, Dan Landon
 
-/* Define our plugin name. */
-if (!defined('FILE_ACTIVITY_PLUGIN')) {
-	define('FILE_ACTIVITY_PLUGIN', 'file.activity');
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+// Define our plugin name.
+if ( ! defined('FILE_ACTIVITY_PLUGIN')) {
+    define('FILE_ACTIVITY_PLUGIN', 'file.activity');
 }
 
-/* Define the docroot path. */
-if (!defined('DOCROOT')) {
-	define('DOCROOT', $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp');
+// Define the docroot path.
+if ( ! defined('DOCROOT')) {
+    define('DOCROOT', $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp');
 }
 
-$disks			= @parse_ini_file(DOCROOT."/state/disks.ini", true);
-$disks_file		="/tmp/".FILE_ACTIVITY_PLUGIN."/".FILE_ACTIVITY_PLUGIN.".disks";
+$disks      = @parse_ini_file(DOCROOT . "/state/disks.ini", true);
+$disks_file = "/tmp/" . FILE_ACTIVITY_PLUGIN . "/" . FILE_ACTIVITY_PLUGIN . ".disks";
 
-/* See if UD is installed */
+// See if UD is installed
 if (file_exists("plugins/unassigned.devices/include/lib.php")) {
-	require_once("plugins/unassigned.devices/include/lib.php");
-	$UD_installed = true;
+    require_once "plugins/unassigned.devices/include/lib.php";
+    $UD_installed = true;
 } else {
-	$UD_installed = false;
-}	
+    $UD_installed = false;
+}
 
 $excluded_names = array("parity", "parity2", "flash");
 
-$INCLUDE_UD		= (isset($argv[1])) ? $argv[1] : "no";
-$INCLUDE_CACHE	= (isset($argv[2])) ? $argv[2] : "no";
+$INCLUDE_UD    = (isset($argv[1])) ? $argv[1] : "no";
+$INCLUDE_CACHE = (isset($argv[2])) ? $argv[2] : "no";
 
-function is_array_disk($var) {
-
-	$rc			= strpos($var, "disk");
-	return ($rc !== false ? true : false);
+function is_array_disk($var)
+{
+    $rc = strpos($var, "disk");
+    return ($rc !== false ? true : false);
 }
 
-/* Get all unraid disk devices (array disks, cache, and pool devices) */
+// Get all unraid disk devices (array disks, cache, and pool devices)
 $all_disks = array();
 foreach ($disks as $key => $val) {
-	if (is_dir("/mnt/".$key."/")) {
-		$all_disks[] = $key;
-	}
+    if (is_dir("/mnt/" . $key . "/")) {
+        $all_disks[] = $key;
+    }
 }
 
 $array_disks = array_filter($all_disks, "is_array_disk");
-$pool_disks = array_diff($all_disks, $excluded_names);
-$pool_disks = array_diff($pool_disks, $array_disks);
+$pool_disks  = array_diff($all_disks, $excluded_names);
+$pool_disks  = array_diff($pool_disks, $array_disks);
 
 if (($UD_installed) && ($INCLUDE_UD == "yes")) {
-	/* If UD is installed, we need to exclude any samba and iso mounts */
-	$ud_mounts = array();
-	foreach (glob("/mnt/disks/*") as $filename) {
-		$ud_mounts[] = "disks/".basename($filename);
-	}
+    // If UD is installed, we need to exclude any samba and iso mounts
+    $ud_mounts = array();
+    foreach (glob("/mnt/disks/*") as $filename) {
+        $ud_mounts[] = "disks/" . basename($filename);
+    }
 
-	$excluded_shares = array();
-	/* Get the samba mounts */
-	$samba_mounts	= get_samba_mounts();
-	foreach (get_samba_mounts() as $name => $info) {
-		if ($info['target']) {
-			$s		= "disks/".basename($info['target']);
-			$excluded_shares[] .= $s;
-		}
-	}
+    $excluded_shares = array();
+    // Get the samba mounts
+    $samba_mounts = get_samba_mounts();
+    foreach (get_samba_mounts() as $name => $info) {
+        if ($info['target']) {
+            $s = "disks/" . basename($info['target']);
+            $excluded_shares[] .= $s;
+        }
+    }
 
-	/* Get ISO File Mounts */
-	foreach (get_iso_mounts() as $name => $info) {
-		$s			= "disks/".basename($info['target']);
-		$excluded_shares[] .= $s;
-	}
-	$ud_array = array_diff($ud_mounts, $excluded_shares);
+    // Get ISO File Mounts
+    foreach (get_iso_mounts() as $name => $info) {
+        $s = "disks/" . basename($info['target']);
+        $excluded_shares[] .= $s;
+    }
+    $ud_array = array_diff($ud_mounts, $excluded_shares);
 } else {
-	$ud_array = array();
+    $ud_array = array();
 }
 
 if ($INCLUDE_CACHE == "no") {
-	$pool_disks = array();
+    $pool_disks = array();
 }
 $disks_array = array_merge($array_disks, $pool_disks);
 $disks_array = array_merge($disks_array, $ud_array);
 
 $disks_text = "";
 foreach ($disks_array as $disk) {
-	$disks_text .= "/mnt/".$disk."\n";
+    $disks_text .= "/mnt/" . $disk . "\n";
 }
 
 file_put_contents($disks_file, $disks_text);
-
-?>

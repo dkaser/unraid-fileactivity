@@ -1,65 +1,32 @@
 Menu="FileActivity:2"
 Title="Share Activity"
 Cond="$var['mdState'] == 'STARTED'"
+Markdown="false"
 ---
 <?php
-/* Copyright 2017-2025, Dan Landon
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- */
-?>
 
-<table class="tablesorter shift ups">
-<thead><tr><th>_(Share File Activity)_</th></tr></thead>
-</table>
+/*
+    Copyright (C) 2025  Derek Kaser
 
-<br>
-<?php
-echo $display['resize'] ? "<pre class='up' style='display:none'>" : "<pre class='up'>";
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-$display_events = ((isset($file_activity_cfg['DISPLAY_EVENTS'])) && ($file_activity_cfg['DISPLAY_EVENTS'])) ? $file_activity_cfg['DISPLAY_EVENTS'] : "25";
-$filesactive    = "";
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-// Share activity.
-$shares = glob("/mnt/user/*");
-natcasesort($shares);
-foreach ($shares as $share) {
-    $share_dev = basename($share) . "/";
-    $files     = shell_exec("cat /var/log/file.activity.log 2>/dev/null | grep  -P '/mnt/disk\d+/{$share_dev}' | tail -n " . escapeshellarg($display_events));
-    if ($files) {
-        $filesactive .= "<strong>** " . $share . " **</strong>\n";
-        $filesactive .= $files;
-        $filesactive .= "\n";
-    }
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+try {
+    $docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
+    require_once "{$docroot}/plugins/file.activity/include/page.php";
+
+    echo FileActivity\getPage("ShareActivity", true, array("resize" => $display['resize'] ?? false));
+} catch (Throwable $e) {
+    echo "An error occurred: <pre>" . print_r($e, true) . "</pre>";
 }
-
-echo $filesactive;
-echo "</pre>";
-?>
-
-<script>
-<?if ($display['resize']):?>
-$(function() {
-  $('pre.up').css('height',Math.max(window.innerHeight-400,370)).show();
-});
-<?endif;?>
-</script>
-
-<div style="position:relative;float:left;text-align:right;margin-bottom:24px">
-	<input type="button" value="_(Refresh)_" title="_(Refresh Page)_" onclick="refresh()">
-</div>
-<div style="position:relative;float:left;text-align:right;margin-bottom:24px">
-	<form name="clear log" method="POST" action="/update.php" target="progressFrame">
-		<input type="hidden" name="#command" value="/plugins/file.activity/scripts/rc.file.activity">
-		<input type="hidden" name="#arg[1]" value="clear">
-		<input type="submit" value="_(Clear)_" title="_(Clear the File Activity log)_">
-	</form>
-</div>
-<div style="position:relative;float:left;text-align:right;margin-bottom:24px">
-	<input type="button" value="_(Done)_" onclick="done()">
-</div>

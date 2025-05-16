@@ -1,112 +1,31 @@
 Menu="FileActivity:1"
 Title="Settings"
+Markdown="false"
 ---
 <?php
-/* Copyright 2017-2025, Dan Landon
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- */
 
-// Define our plugin name.
-define('FILE_ACTIVITY_PLUGIN', 'file.activity');
+/*
+    Copyright (C) 2025  Derek Kaser
 
-// Define the docroot path.
-if ( ! defined('DOCROOT')) {
-    define('DOCROOT', $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp');
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+try {
+    $docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
+    require_once "{$docroot}/plugins/file.activity/include/page.php";
+
+    echo FileActivity\getPage("Settings", true, array("var" => $var ?? null));
+} catch (Throwable $e) {
+    echo "An error occurred: <pre>" . print_r($e, true) . "</pre>";
 }
-
-// Parse the plugin config file.
-$file_activity_cfg = parse_plugin_cfg(FILE_ACTIVITY_PLUGIN, true);
-?>
-
-<script>
-$(function() {
-	showStatus('pid','file.activity');
-
-	if ( typeof caPluginUpdateCheck === "function" ) {
-		caPluginUpdateCheck("file.activity.plg");
-	}
-});
-</script>
-
-<table class="tablesorter shift ups">
-<thead><tr><th>_(File Activity Settings)_</th></tr></thead>
-</table>
-
-<?if ($var['mdState']=="STARTED"):?>
-:file_activity_loggging_plug:
-> File Activity Monitoring:
->
-> File open, read, write, and modify activity is monitored and logged on the array using inotify and is displayed by disk or share, UD disks, and cache.
-> You need to start the File Activity in order to log the disk activity.
-> File Activity is intended to be running for short periods so you can check disk activity.
-> A server with a lot of file activity can fill the log space.
-> The 'appdata', 'docker', 'syslogs', and 'system' directories (case insensitive) are excluded.
->
-> Note: File Activity monitoring is stopped if the array is stopped, and will restart when the array is started if it is enabled.
-:end
-
-<div>
-	<form markdown="1" name="file_activity" method="POST" action="/update.php" target="progressFrame">
-	<input type="hidden" name="#file" value="file.activity/file.activity.cfg">
-	<input type="hidden" name="#command" value="/plugins/file.activity/scripts/rc.file.activity">
-	<input type="hidden" name="#arg[1]" value="update">
-
-	_(Enable File Activity Monitoring)_?
-	: <select name="SERVICE" size="1">
-		<?= mk_option($file_activity_cfg['SERVICE'], "disable", "_(No)_");?>
-		<?= mk_option($file_activity_cfg['SERVICE'], "enable", "_(Yes)_");?>
-	  </select>
-
-:file_activity_enable_logging_plug:
-> Set to **Yes** to enable File Activity monitoring when the server is started.
-:end
-
-_(Enable for Unassigned Devices)_?
-: <select name="INCLUDE_UD" size="1">
-	<?= mk_option($file_activity_cfg['INCLUDE_UD'], "yes", "_(Yes)_");?>
-	<?= mk_option($file_activity_cfg['INCLUDE_UD'], "no", "_(No)_");?>
-  </select>
-
-:file_activity_enable_ud_plug:
-> Set to **Yes** to enable File Activity monitoring for Unassigned Devices if the Unassigned Devices plugin is installed.
-:end
-
-_(Enable for Cache and Pool Disks)_?
-: <select name="INCLUDE_CACHE" size="1">
-	<?= mk_option($file_activity_cfg['INCLUDE_CACHE'], "no", "_(No)_");?>
-	<?= mk_option($file_activity_cfg['INCLUDE_CACHE'], "yes", "_(Yes)_");?>
-  </select>
-
-:file_activity_enable_cache_plug:
-> Set to **Yes** to enable File Activity monitoring for the Cache and Pool Disks.
-:end
-
-_(Display Events)_ :
-: <input type="text" name="DISPLAY_EVENTS" class="narrow" maxlength="4" value="<?= htmlspecialchars($file_activity_cfg['DISPLAY_EVENTS']);?>" placeholder="25">
-
-:file_activity_display_events_plug:
-> This is the number of file events shown on disks and shares from the File Activity log for each share or disk.
-:end
-
-<input type="submit" name="#default" value="_(Default)_" title="Load and apply default values.">
-<?if (! is_file("/var/run/file.activity.pid")):?>
-<input type="hidden" name="#command" value="/plugins/file.activity/scripts/rc.file.activity">
-<input type="hidden" name="#arg[1]" value="start">
-: <input type="submit" value="_(Start)_" title="_(Start File Activity Monitoring)_">
-<?else:?>
-<input type="hidden" name="#command" value="/plugins/file.activity/scripts/rc.file.activity">
-<input type="hidden" name="#arg[1]" value="stop">
-: <input type="submit" value="_(Stop)_" title="_(Stop File Activity Monitoring)_">
-<?endif;?>
-<input type="submit" name="#apply" value="_(Apply)_"><input type="button" value="_(Done)_" onclick="done()">
-</form>
-</div>
-<?else:?>
-	<p>Array is stopped!</p>
-<?endif;?>

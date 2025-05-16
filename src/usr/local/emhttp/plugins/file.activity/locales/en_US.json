@@ -1,0 +1,23 @@
+{
+    "plugin_settings": "File Activity Settings",
+    "default": "Default",
+    "start": "Start",
+    "stop": "Stop",
+    "start_monitoring": "Start File Activity Monitoring",
+    "stop_monitoring": "Stop File Activity Monitoring",
+    "apply": "Apply",
+    "array_stopped": "Array Stopped",
+    "display_events": "Display Events",
+    "enable_cache": "Enable for Cache and Pool Disks",
+    "enable_unassigned": "Enabled for Unassigned Devices",
+    "enable_monitoring": "Enable File Activity Monitoring",
+    "yes": "Yes",
+    "no": "No",
+    "done": "Done",
+    "disk_activity": "Disk File Activity",
+    "share_activity": "Share File Activity",
+    "refresh": "Refresh",
+    "clear": "Clear",
+    "refresh_page": "Refresh Page",
+    "clear_log": "Clear the File Activity log"
+}
