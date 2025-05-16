@@ -1,0 +1,7 @@
+{
+    "title": "File Activity",
+    "files": [
+        "/var/log/fileactivity*"
+    ],
+    "system_diagnostics": true
+}
