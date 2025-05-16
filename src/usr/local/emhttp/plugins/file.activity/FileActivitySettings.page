@@ -25,7 +25,12 @@ try {
     $docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
     require_once "{$docroot}/plugins/file.activity/include/page.php";
 
-    echo FileActivity\getPage("Settings", true, array("var" => $var ?? null));
+    $mdStarted = false;
+    if (isset($var['mdState'])) {
+        $mdStarted = $var['mdState'] == "STARTED";
+    }
+
+    echo FileActivity\getPage("Settings", true, array("mdStarted" => $mdStarted));
 } catch (Throwable $e) {
     echo "An error occurred: <pre>" . print_r($e, true) . "</pre>";
 }

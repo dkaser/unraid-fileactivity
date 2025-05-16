@@ -48,7 +48,7 @@ $(function() {
 <thead><tr><th><?= $tr->tr("plugin_settings"); ?></th></tr></thead>
 </table>
 
-<?if ($var['mdState']=="STARTED"):?>
+<?if ($mdStarted ?? false) { ?>
 <h3>File Activity Monitoring</h3>
 
 <p>File open, read, write, and modify activity is monitored and logged on the array using inotify and is displayed by disk or share, UD disks, and cache.
@@ -119,19 +119,19 @@ The 'appdata', 'docker', 'syslogs', and 'system' directories (case insensitive) 
             <input type="submit" name="#default" value="<?= $tr->tr("default"); ?>" title="Load and apply default values.">
         </dt>
         <dd>
-            <?if (! is_file("/var/run/file.activity.pid")):?>
+            <?if ( ! is_file("/var/run/file.activity.pid")) { ?>
                 <input type="hidden" name="#command" value="/plugins/file.activity/scripts/rc.file.activity">
                 <input type="hidden" name="#arg[1]" value="start">
                 <input type="submit" value="<?= $tr->tr("start"); ?>" title="<?= $tr->tr("start_monitoring"); ?>">
-            <?else:?>
+            <?} else { ?>
                 <input type="hidden" name="#command" value="/plugins/file.activity/scripts/rc.file.activity">
                 <input type="hidden" name="#arg[1]" value="stop">
                 <input type="submit" value="<?= $tr->tr("stop"); ?>" title="<?= $tr->tr("stop_monitoring"); ?>">
-            <?endif;?>
+            <?}?>
             <input type="submit" name="#apply" value="<?= $tr->tr("apply"); ?>"><input type="button" value="<?= $tr->tr("done"); ?>" onclick="done()">
         </dd>
 </form>
 </div>
-<?else:?>
+<?} else { ?>
 	<p><?= $tr->tr("array_stopped"); ?></p>
-<?endif;?>
+<?}?>
