@@ -55,7 +55,7 @@ echo "</pre>";
 ?>
 
 <script>
-<?if ($resize) { ?>
+<?if ($resize ?? false) { ?>
 $(function() {
   $('pre.up').css('height',Math.max(window.innerHeight-400,370)).show();
 });
