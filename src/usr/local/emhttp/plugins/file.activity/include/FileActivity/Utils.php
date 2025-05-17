@@ -61,7 +61,7 @@ class Utils
     public static function logmsg(string $message): void
     {
         $timestamp = date('Y/m/d H:i:s');
-        $filename  = basename($_SERVER['PHP_SELF']);
+        $filename  = basename(is_string($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : "");
         file_put_contents("/var/log/fileactivity.log", "{$timestamp} {$filename}: {$message}" . PHP_EOL, FILE_APPEND);
     }
 }
