@@ -19,7 +19,9 @@ namespace FileActivity;
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-foreach (glob("/usr/local/emhttp/plugins/file.activity/include/FileActivity/*.php") ?: array() as $file) {
+define(__NAMESPACE__ . "\PLUGIN_ROOT", dirname(dirname(__FILE__)));
+
+foreach (glob(PLUGIN_ROOT . "/include/" . __NAMESPACE__ . "/*.php") ?: array() as $file) {
     try {
         require $file;
     } catch (\Throwable $e) {

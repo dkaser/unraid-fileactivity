@@ -25,6 +25,7 @@ namespace FileActivity;
 function getPage(string $filename, bool $niceError = true, array $params = array()): string
 {
     try {
+        require_once dirname(__FILE__) . "/common.php";
         return includePage(dirname(__FILE__) . "/Pages/{$filename}.php", $params);
     } catch (\Throwable $e) {
         if ($niceError) {

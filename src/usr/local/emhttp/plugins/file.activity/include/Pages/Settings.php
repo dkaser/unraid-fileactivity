@@ -20,21 +20,10 @@ namespace FileActivity;
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-$docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
-require_once "{$docroot}/plugins/file.activity/include/common.php";
-
 $tr = $tr ?? new Translator();
 
-// Define our plugin name.
-define('FILE_ACTIVITY_PLUGIN', 'file.activity');
-
-// Define the docroot path.
-if ( ! defined('DOCROOT')) {
-    define('DOCROOT', $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp');
-}
-
 // Parse the plugin config file.
-$file_activity_cfg = Utils::parse_plugin_cfg(FILE_ACTIVITY_PLUGIN);
+$file_activity_cfg = Utils::parse_plugin_cfg('file.activity');
 ?>
 
 <script>

@@ -20,9 +20,6 @@ namespace FileActivity;
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-$docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
-require_once "{$docroot}/plugins/file.activity/include/common.php";
-
 $tr = $tr ?? new Translator();
 ?>
 

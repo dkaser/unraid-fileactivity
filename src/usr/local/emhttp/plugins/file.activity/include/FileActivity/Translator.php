@@ -11,13 +11,17 @@ class Translator
     {
         global $login_locale;
 
+        if ( ! defined(__NAMESPACE__ . "\PLUGIN_ROOT")) {
+            throw new \RuntimeException("PLUGIN_ROOT not defined");
+        }
+
         $dynamix = parse_ini_file('/boot/config/plugins/dynamix/dynamix.cfg', true) ?: array();
 
         $locale        = $_SESSION['locale'] ?? ($login_locale ?? ($dynamix['display']['locale'] ?? "none"));
-        $plugin_locale = (array) json_decode(file_get_contents("/usr/local/emhttp/plugins/file.activity/locales/en_US.json") ?: "{}", true);
+        $plugin_locale = (array) json_decode(file_get_contents(PLUGIN_ROOT . "/locales/en_US.json") ?: "{}", true);
 
-        if (file_exists("/usr/local/emhttp/plugins/file.activity/locales/{$locale}.json")) {
-            $current_locale = (array) json_decode(file_get_contents("/usr/local/emhttp/plugins/file.activity/locales/{$locale}.json") ?: "{}", true);
+        if (file_exists(PLUGIN_ROOT . "/locales/{$locale}.json")) {
+            $current_locale = (array) json_decode(file_get_contents(PLUGIN_ROOT . "/locales/{$locale}.json") ?: "{}", true);
             $plugin_locale  = array_replace_recursive($plugin_locale, $current_locale);
         }
 
