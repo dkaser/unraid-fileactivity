@@ -1,0 +1,9 @@
+project_id_env: CROWDIN_PROJECT_ID
+api_token_env: CROWDIN_PERSONAL_TOKEN
+
+preserve_hierarchy: true
+
+files:
+  - source: /src/usr/local/emhttp/plugins/file.activity/locales/en_US.json
+    dest: /unraid-fileactivity/en_US.json
+    translation: /src/usr/local/emhttp/plugins/file.activity/locales/%locale_with_underscore%.json
