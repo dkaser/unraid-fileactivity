@@ -1,0 +1,23 @@
+{
+    "plugin_settings": "文件活动设置",
+    "default": "默认",
+    "start": "启动",
+    "stop": "停止",
+    "start_monitoring": "开始文件活动监控",
+    "stop_monitoring": "停止文件活动监控",
+    "apply": "应用",
+    "array_stopped": "阵列已停止",
+    "display_events": "显示事件",
+    "enable_cache": "为缓存和池磁盘启用",
+    "enable_unassigned": "为未分配设备启用",
+    "enable_monitoring": "启用文件活动监控",
+    "yes": "是",
+    "no": "否",
+    "done": "完成",
+    "disk_activity": "磁盘文件活动",
+    "share_activity": "共享文件活动",
+    "refresh": "刷新",
+    "clear": "清除",
+    "refresh_page": "刷新页面",
+    "clear_log": "清除文件活动日志"
+}

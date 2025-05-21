@@ -1,0 +1,23 @@
+{
+    "plugin_settings": "Impostazioni attività file",
+    "default": "Predefinito",
+    "start": "Avvia",
+    "stop": "Ferma",
+    "start_monitoring": "Avvia monitoraggio attività file",
+    "stop_monitoring": "Ferma monitoraggio attività file",
+    "apply": "Applica",
+    "array_stopped": "Array fermato",
+    "display_events": "Mostra eventi",
+    "enable_cache": "Abilita per cache e pool dischi",
+    "enable_unassigned": "Abilitato per dispositivi non assegnati",
+    "enable_monitoring": "Abilita monitoraggio attività file",
+    "yes": "Sì",
+    "no": "No",
+    "done": "Fatto",
+    "disk_activity": "Attività file disco",
+    "share_activity": "Attività file condivisa",
+    "refresh": "Aggiorna",
+    "clear": "Pulisci",
+    "refresh_page": "Aggiorna pagina",
+    "clear_log": "Pulisci il registro attività file"
+}

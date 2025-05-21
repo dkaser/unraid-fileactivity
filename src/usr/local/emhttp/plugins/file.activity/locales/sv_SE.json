@@ -1,0 +1,23 @@
+{
+    "plugin_settings": "Inställningar för filaktivitet",
+    "default": "Standard",
+    "start": "Starta",
+    "stop": "Stoppa",
+    "start_monitoring": "Starta övervakning av filaktivitet",
+    "stop_monitoring": "Stoppa övervakning av filaktivitet",
+    "apply": "Tillämpa",
+    "array_stopped": "Array stoppad",
+    "display_events": "Visa händelser",
+    "enable_cache": "Aktivera för cache- och pooldiskar",
+    "enable_unassigned": "Aktiverad för oallokerade enheter",
+    "enable_monitoring": "Aktivera övervakning av filaktivitet",
+    "yes": "Ja",
+    "no": "Nej",
+    "done": "Klar",
+    "disk_activity": "Diskfilaktivitet",
+    "share_activity": "Delad filaktivitet",
+    "refresh": "Uppdatera",
+    "clear": "Rensa",
+    "refresh_page": "Uppdatera sidan",
+    "clear_log": "Rensa loggen för filaktivitet"
+}

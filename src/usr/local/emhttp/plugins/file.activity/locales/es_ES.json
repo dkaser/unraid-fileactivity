@@ -1,0 +1,23 @@
+{
+    "plugin_settings": "Configuración de actividad de archivos",
+    "default": "Por defecto",
+    "start": "Iniciar",
+    "stop": "Detener",
+    "start_monitoring": "Iniciar supervisión de actividad de archivos",
+    "stop_monitoring": "Detener supervisión de actividad de archivos",
+    "apply": "Aplicar",
+    "array_stopped": "Arreglo detenido",
+    "display_events": "Mostrar eventos",
+    "enable_cache": "Habilitar para discos de caché y de pool",
+    "enable_unassigned": "Habilitado para dispositivos no asignados",
+    "enable_monitoring": "Habilitar supervisión de actividad de archivos",
+    "yes": "Sí",
+    "no": "No",
+    "done": "Atrás",
+    "disk_activity": "Actividad de archivos del disco",
+    "share_activity": "Actividad de archivos de recurso compartido",
+    "refresh": "Actualizar",
+    "clear": "Borrar",
+    "refresh_page": "Actualizar página",
+    "clear_log": "Borrar el registro de actividad de archivos"
+}

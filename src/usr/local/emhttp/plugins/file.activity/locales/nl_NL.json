@@ -1,0 +1,23 @@
+{
+    "plugin_settings": "Bestandactiviteit-instellingen",
+    "default": "Standaard",
+    "start": "Starten",
+    "stop": "Stoppen",
+    "start_monitoring": "Start bestandsactiviteitsbewaking",
+    "stop_monitoring": "Stop bestandsactiviteitsbewaking",
+    "apply": "Toepassen",
+    "array_stopped": "Array gestopt",
+    "display_events": "Gebeurtenissen weergeven",
+    "enable_cache": "Inschakelen voor cache- en poolschijven",
+    "enable_unassigned": "Ingeschakeld voor niet-toegewezen apparaten",
+    "enable_monitoring": "Bestandsactiviteitbewaking inschakelen",
+    "yes": "Ja",
+    "no": "Nee",
+    "done": "Gereed",
+    "disk_activity": "Schijfbestandsactiviteit",
+    "share_activity": "Gedeelde bestandsactiviteit",
+    "refresh": "Vernieuwen",
+    "clear": "Wissen",
+    "refresh_page": "Pagina vernieuwen",
+    "clear_log": "Het logboek van bestandsactiviteiten wissen"
+}

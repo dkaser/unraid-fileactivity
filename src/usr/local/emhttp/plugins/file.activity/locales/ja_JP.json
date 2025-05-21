@@ -1,0 +1,23 @@
+{
+    "plugin_settings": "ファイルアクティビティ設定",
+    "default": "デフォルト",
+    "start": "開始",
+    "stop": "停止",
+    "start_monitoring": "ファイルアクティビティ監視を開始",
+    "stop_monitoring": "ファイルアクティビティ監視を停止",
+    "apply": "適用",
+    "array_stopped": "アレイが停止しました",
+    "display_events": "イベントを表示",
+    "enable_cache": "キャッシュおよびプールディスクに対して有効にする",
+    "enable_unassigned": "未割り当てデバイスに対して有効化",
+    "enable_monitoring": "ファイルアクティビティ監視を有効にする",
+    "yes": "はい",
+    "no": "いいえ",
+    "done": "完了",
+    "disk_activity": "ディスクファイルアクティビティ",
+    "share_activity": "共有ファイルアクティビティ",
+    "refresh": "更新",
+    "clear": "クリア",
+    "refresh_page": "ページを更新",
+    "clear_log": "ファイルアクティビティログをクリア"
+}

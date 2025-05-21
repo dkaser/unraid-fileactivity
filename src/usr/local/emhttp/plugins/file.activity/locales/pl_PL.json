@@ -1,0 +1,23 @@
+{
+    "plugin_settings": "Ustawienia aktywności plików",
+    "default": "Domyślne",
+    "start": "Start",
+    "stop": "Stop",
+    "start_monitoring": "Rozpocznij monitorowanie aktywności plików",
+    "stop_monitoring": "Zatrzymaj monitorowanie aktywności plików",
+    "apply": "Zastosuj",
+    "array_stopped": "Tablica zatrzymana",
+    "display_events": "Wyświetl zdarzenia",
+    "enable_cache": "Włącz dla dysków pamięci podręcznej i puli",
+    "enable_unassigned": "Włącz dla nieprzypisanych urządzeń",
+    "enable_monitoring": "Włącz monitorowanie aktywności plików",
+    "yes": "Tak",
+    "no": "Nie",
+    "done": "Gotowe",
+    "disk_activity": "Aktywność plików dysku",
+    "share_activity": "Aktywność plików udziału",
+    "refresh": "Odśwież",
+    "clear": "Wyczyść",
+    "refresh_page": "Odśwież stronę",
+    "clear_log": "Wyczyść dziennik aktywności plików"
+}

@@ -1,0 +1,23 @@
+{
+    "plugin_settings": "Paramètres d'activité des fichiers",
+    "default": "Par défaut",
+    "start": "Démarrer",
+    "stop": "Arrêter",
+    "start_monitoring": "Démarrer la surveillance de l'activité des fichiers",
+    "stop_monitoring": "Arrêter la surveillance de l'activité des fichiers",
+    "apply": "Appliquer",
+    "array_stopped": "Array arrêté",
+    "display_events": "Afficher les événements",
+    "enable_cache": "Activer pour les disques Cache et Pool",
+    "enable_unassigned": "Activé pour les appareils non assignés",
+    "enable_monitoring": "Activer la surveillance de l'activité des fichiers",
+    "yes": "Oui",
+    "no": "Non",
+    "done": "Terminé",
+    "disk_activity": "Activité des fichiers du disque",
+    "share_activity": "Activité des fichiers du partage",
+    "refresh": "Rafraîchir",
+    "clear": "Effacer",
+    "refresh_page": "Rafraîchir la page",
+    "clear_log": "Effacer le journal d'activité des fichiers"
+}

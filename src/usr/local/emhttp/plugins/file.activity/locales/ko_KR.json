@@ -1,0 +1,23 @@
+{
+    "plugin_settings": "파일 활동 설정",
+    "default": "기본값",
+    "start": "시작",
+    "stop": "중지",
+    "start_monitoring": "파일 활동 모니터링 시작",
+    "stop_monitoring": "파일 활동 모니터링 중지",
+    "apply": "적용",
+    "array_stopped": "어레이 중지됨",
+    "display_events": "이벤트 표시",
+    "enable_cache": "캐시 및 풀 디스크에 대해 활성화",
+    "enable_unassigned": "할당되지 않은 장치에 대해 활성화됨",
+    "enable_monitoring": "파일 활동 모니터링 활성화",
+    "yes": "예",
+    "no": "아니오",
+    "done": "완료",
+    "disk_activity": "디스크 파일 활동",
+    "share_activity": "공유 파일 활동",
+    "refresh": "새로고침",
+    "clear": "지우기",
+    "refresh_page": "페이지 새로고침",
+    "clear_log": "파일 활동 로그 지우기"
+}

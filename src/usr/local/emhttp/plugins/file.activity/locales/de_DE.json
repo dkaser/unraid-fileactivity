@@ -1,0 +1,23 @@
+{
+    "plugin_settings": "Einstellungen für Dateiaktivität",
+    "default": "Standard",
+    "start": "Start",
+    "stop": "Stopp",
+    "start_monitoring": "Dateiaktivitätsüberwachung starten",
+    "stop_monitoring": "Dateiaktivitätsüberwachung stoppen",
+    "apply": "Übernehmen",
+    "array_stopped": "Array gestoppt",
+    "display_events": "Ereignisse anzeigen",
+    "enable_cache": "Für Cache- und Pool-Laufwerke aktivieren",
+    "enable_unassigned": "Für nicht zugewiesene Geräte aktiviert",
+    "enable_monitoring": "Dateiaktivitätsüberwachung aktivieren",
+    "yes": "Ja",
+    "no": "Nein",
+    "done": "Fertig",
+    "disk_activity": "Festplatten-Dateiaktivität",
+    "share_activity": "Freigabe-Dateiaktivität",
+    "refresh": "Aktualisieren",
+    "clear": "Leeren",
+    "refresh_page": "Seite neu laden",
+    "clear_log": "Das Dateiaktivitätsprotokoll löschen"
+}
