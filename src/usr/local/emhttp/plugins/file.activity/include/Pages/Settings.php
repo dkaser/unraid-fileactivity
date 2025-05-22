@@ -24,6 +24,13 @@ $tr = $tr ?? new Translator();
 
 // Parse the plugin config file.
 $file_activity_cfg = Utils::parse_plugin_cfg('file.activity');
+
+if (!defined(__NAMESPACE__ . '\PLUGIN_NAME')) {
+    throw new \RuntimeException("PLUGIN_NAME not defined");
+}
+
+$usage_cfg     = parse_ini_file("/boot/config/plugins/" . PLUGIN_NAME . "/usage.cfg", false, INI_SCANNER_RAW) ?: array();
+$usage_allowed = $usage_cfg['usage_allowed'] ?? "yes";
 ?>
 
 <script>
@@ -124,3 +131,21 @@ The 'appdata', 'docker', 'syslogs', and 'system' directories (case insensitive) 
 <?} else { ?>
 	<p><?= $tr->tr("array_stopped"); ?></p>
 <?}?>
+<h3><?= $tr->tr("metrics.metrics"); ?></h3>
+
+<form method="POST" action="/update.php" target="progressFrame">
+<input type="hidden" name="#file" value="/boot/config/plugins/<?= PLUGIN_NAME; ?>/usage.cfg">
+
+<dl>
+        <dt><?= $tr->tr("metrics.usage"); ?></dt>
+        <dd>
+			<select name="usage_allowed" size="1">
+				<?= Utils::make_option($usage_allowed, "yes", $tr->tr("yes"));?>
+				<?= Utils::make_option($usage_allowed, "no", $tr->tr("no"));?>
+			</select>
+			<input type="submit" value='<?= $tr->tr("apply"); ?>'>
+        </dd>
+    </dl>
+    <blockquote class='inline_help'><?= $tr->tr("metrics.desc"); ?></blockquote>
+</form>
+</div>

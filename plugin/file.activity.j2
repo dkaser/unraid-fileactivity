@@ -37,6 +37,8 @@ upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-
 # cleanup old versions
 rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '{{ env['PLUGIN_VERSION'] }}')
 
+echo "VERSION={{ env['PLUGIN_VERSION'] }}" > /usr/local/emhttp/plugins/file.activity/version.ini
+
 echo ""
 echo "----------------------------------------------------"
 echo " file.activity has been installed."

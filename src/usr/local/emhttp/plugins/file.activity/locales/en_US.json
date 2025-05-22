@@ -19,5 +19,10 @@
     "refresh": "Refresh",
     "clear": "Clear",
     "refresh_page": "Refresh Page",
-    "clear_log": "Clear the File Activity log"
+    "clear_log": "Clear the File Activity log",
+    "metrics": {
+        "metrics": "Usage Data",
+        "usage": "Allow Usage Data Collection",
+        "desc": "Allows collection of usage data. This sends an anonymized identifier, the current Unraid version, the current version of the plugin, and the enabled/disabled status of some features. No personal or network information is collected."
+    }
 }
