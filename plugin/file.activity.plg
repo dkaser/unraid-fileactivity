@@ -4,7 +4,7 @@
 <PLUGIN 
   name="file.activity"
   author="Derek Kaser"
-  version="2025.05.15"
+  version="2025.05.22"
   pluginURL="https://raw.githubusercontent.com/dkaser/unraid-fileactivity/main/plugin/file.activity.plg"
   support="https://forums.unraid.net/topic/54808-file-activity-plugin-how-can-i-figure-out-what-keeps-spinning-up-my-disks/"
   min="7.0.0"
@@ -14,16 +14,19 @@
 
 <CHANGES>
 <![CDATA[
-###2025.05.15###
-- Migration to new repo
+###2025.05.22###
+- Various fixes
+- Add localization files
+- Add diagnostics support
+- Add metrics
 
 For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
 ]]>
 </CHANGES>
 
-<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.05.15-noarch-1.txz">
-<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.05.15/unraid-fileactivity-2025.05.15-noarch-1.txz</URL>
-<SHA256>f4ecbb64b905efc304506a950684d0d698461180430a69a996a678966697d38b</SHA256>
+<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.05.22-noarch-1.txz">
+<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.05.22/unraid-fileactivity-2025.05.22-noarch-1.txz</URL>
+<SHA256>38aa0004e16d189ae840479a326a3793e29f8489a016310e53d79f9e8e58e0db</SHA256>
 </FILE>
 
 <!--
@@ -32,15 +35,17 @@ The 'install' script.
 <FILE Run="/bin/bash">
 <INLINE>
 <![CDATA[
-upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.05.15-noarch-1.txz
+upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.05.22-noarch-1.txz
 
 # cleanup old versions
-rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.05.15')
+rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.05.22')
+
+echo "VERSION=2025.05.22" > /usr/local/emhttp/plugins/file.activity/version.ini
 
 echo ""
 echo "----------------------------------------------------"
 echo " file.activity has been installed."
-echo " Version: 2025.05.15"
+echo " Version: 2025.05.22"
 echo "----------------------------------------------------"
 echo ""
 ]]>
