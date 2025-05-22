@@ -25,7 +25,7 @@ $tr = $tr ?? new Translator();
 // Parse the plugin config file.
 $file_activity_cfg = Utils::parse_plugin_cfg('file.activity');
 
-if (!defined(__NAMESPACE__ . '\PLUGIN_NAME')) {
+if ( ! defined(__NAMESPACE__ . '\PLUGIN_NAME')) {
     throw new \RuntimeException("PLUGIN_NAME not defined");
 }
 
