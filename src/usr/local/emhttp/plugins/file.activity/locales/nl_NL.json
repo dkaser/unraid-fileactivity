@@ -19,5 +19,10 @@
     "refresh": "Vernieuwen",
     "clear": "Wissen",
     "refresh_page": "Pagina vernieuwen",
-    "clear_log": "Het logboek van bestandsactiviteiten wissen"
+    "clear_log": "Het logboek van bestandsactiviteiten wissen",
+    "metrics": {
+        "metrics": "Gebruiksgegevens",
+        "usage": "Verzamelen van verbruiksgegevens toestaan",
+        "desc": "Staat het verzamelen van gebruiksgegevens toe. Dit stuurt een geanonimiseerde identificatie, de huidige Unraid-versie, de huidige versie van de plugin en de in- of uitgeschakelde status van enkele functies. Er worden geen persoonlijke of netwerkgegevens verzameld."
+    }
 }

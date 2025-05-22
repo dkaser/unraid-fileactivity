@@ -19,5 +19,10 @@
     "refresh": "Atualizar",
     "clear": "Limpar",
     "refresh_page": "Atualizar Página",
-    "clear_log": "Limpar o log de Atividade de Arquivo"
+    "clear_log": "Limpar o log de Atividade de Arquivo",
+    "metrics": {
+        "metrics": "Dados de uso",
+        "usage": "Permitir Coleta de Dados de Uso",
+        "desc": "Permite a coleta de dados de uso. Envia um identificador anonimizado, a versão atual do Unraid, a versão atual do plugin e o status ativado/desativado de alguns recursos. Nenhuma informação pessoal ou de rede é coletada."
+    }
 }

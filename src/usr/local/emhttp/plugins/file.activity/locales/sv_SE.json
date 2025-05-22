@@ -19,5 +19,10 @@
     "refresh": "Uppdatera",
     "clear": "Rensa",
     "refresh_page": "Uppdatera sidan",
-    "clear_log": "Rensa loggen för filaktivitet"
+    "clear_log": "Rensa loggen för filaktivitet",
+    "metrics": {
+        "metrics": "Användningsdata",
+        "usage": "Tillåt insamling av användningsdata",
+        "desc": "Tillåter insamling av användningsdata. Detta skickar en anonymiserad identifierare, den nuvarande Unraid-versionen, den aktuella versionen av pluginet och statusen för vissa funktioner (aktiverad/inaktiverad). Ingen personlig eller nätverksinformation samlas in."
+    }
 }

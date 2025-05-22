@@ -19,5 +19,10 @@
     "refresh": "Oppdater",
     "clear": "Tøm",
     "refresh_page": "Oppdater side",
-    "clear_log": "Tøm logg for filaktivitet"
+    "clear_log": "Tøm logg for filaktivitet",
+    "metrics": {
+        "metrics": "Bruksdata",
+        "usage": "Tillat innsamling av bruksdata",
+        "desc": "Tillater innsamling av bruksdata. Dette sender en anonymisert identifikator, nåværende Unraid-versjon, nåværende versjon av pluginet, og aktivert/deaktivert-status for noen funksjoner. Ingen personlig eller nettverksinformasjon innhentes."
+    }
 }

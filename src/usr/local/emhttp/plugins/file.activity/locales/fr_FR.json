@@ -19,5 +19,10 @@
     "refresh": "Rafraîchir",
     "clear": "Effacer",
     "refresh_page": "Rafraîchir la page",
-    "clear_log": "Effacer le journal d'activité des fichiers"
+    "clear_log": "Effacer le journal d'activité des fichiers",
+    "metrics": {
+        "metrics": "Données d'utilisation",
+        "usage": "Autoriser la collecte des données d'utilisation",
+        "desc": "Permet la collecte de données d'utilisation. Cela envoie un identifiant anonyme, la version actuelle d'Unraid, la version actuelle du plugin, et l'état activé/désactivé de certaines fonctionnalités. Aucune information personnelle ou réseau n'est recueillie."
+    }
 }

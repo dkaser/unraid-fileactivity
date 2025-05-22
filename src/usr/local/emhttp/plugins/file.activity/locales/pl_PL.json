@@ -19,5 +19,10 @@
     "refresh": "Odśwież",
     "clear": "Wyczyść",
     "refresh_page": "Odśwież stronę",
-    "clear_log": "Wyczyść dziennik aktywności plików"
+    "clear_log": "Wyczyść dziennik aktywności plików",
+    "metrics": {
+        "metrics": "Dane dotyczące użycia",
+        "usage": "Zezwól na zbieranie danych o użytkowaniu",
+        "desc": "Pozwala na zbieranie danych dotyczących użycia. Wysyłany jest zanonimizowany identyfikator, aktualna wersja Unraid, aktualna wersja wtyczki oraz status włączenia/wyłączenia niektórych funkcji. Nie są zbierane żadne informacje osobiste ani dotyczące sieci."
+    }
 }

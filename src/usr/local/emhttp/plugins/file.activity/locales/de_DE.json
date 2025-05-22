@@ -19,5 +19,10 @@
     "refresh": "Aktualisieren",
     "clear": "Leeren",
     "refresh_page": "Seite neu laden",
-    "clear_log": "Das Dateiaktivitätsprotokoll löschen"
+    "clear_log": "Das Dateiaktivitätsprotokoll löschen",
+    "metrics": {
+        "metrics": "Nutzungsdaten",
+        "usage": "Erfassung von Nutzungsdaten zulassen",
+        "desc": "Ermöglicht die Erfassung von Nutzungsdaten. Dadurch werden eine anonymisierte Kennung, die aktuelle Unraid-Version, die aktuelle Version des Plugins und der aktivierte/deaktivierte Status einiger Funktionen gesendet. Es werden keine persönlichen oder Netzwerkinformationen gesammelt."
+    }
 }
