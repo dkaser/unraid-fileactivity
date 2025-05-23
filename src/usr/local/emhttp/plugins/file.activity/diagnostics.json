@@ -3,5 +3,6 @@
     "files": [
         "/var/log/fileactivity*"
     ],
-    "system_diagnostics": true
+    "system_diagnostics": false,
+    "upload": "https://plugin-diagnostics.edacerton.win"
 }
