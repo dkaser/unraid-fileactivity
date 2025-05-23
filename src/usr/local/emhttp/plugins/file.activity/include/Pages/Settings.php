@@ -131,6 +131,7 @@ The 'appdata', 'docker', 'syslogs', and 'system' directories (case insensitive) 
 <?} else { ?>
 	<p><?= $tr->tr("array_stopped"); ?></p>
 <?}?>
+<div>
 <h3><?= $tr->tr("metrics.metrics"); ?></h3>
 
 <form method="POST" action="/update.php" target="progressFrame">
