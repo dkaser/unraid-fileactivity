@@ -10,7 +10,7 @@
     "display_events": "Visa händelser",
     "enable_cache": "Aktivera för cache- och pooldiskar",
     "enable_unassigned": "Aktiverad för oallokerade enheter",
-    "enable_ssd": "",
+    "enable_ssd": "Aktivera för SSD:er",
     "enable_monitoring": "Aktivera övervakning av filaktivitet",
     "yes": "Ja",
     "no": "Nej",
