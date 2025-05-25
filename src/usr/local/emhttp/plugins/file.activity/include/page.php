@@ -25,6 +25,8 @@ namespace FileActivity;
 function getPage(string $filename, bool $niceError = true, array $params = array()): string
 {
     try {
+        $response = "";
+
         require_once dirname(__FILE__) . "/common.php";
         $response .= includePage(dirname(__FILE__) . "/Pages/Modal.php");
         $response .= includePage(dirname(__FILE__) . "/Pages/{$filename}.php", $params);
