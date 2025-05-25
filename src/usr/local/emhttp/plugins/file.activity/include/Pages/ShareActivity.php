@@ -41,7 +41,7 @@ foreach ($shares as $share) {
     $share_dev = basename($share) . "/";
     $files     = shell_exec("cat /var/log/file.activity.log 2>/dev/null | grep  -P '/mnt/disk\d+/{$share_dev}' | tail -n " . escapeshellarg($display_events));
     if ($files) {
-        $filesactive .= "<strong>** " . $share . " **</strong>\n";
+        $filesactive .= "<strong>** " . basename($share) . " **</strong>\n";
         $filesactive .= $files;
         $filesactive .= "\n";
     }

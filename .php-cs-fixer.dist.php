@@ -6,6 +6,7 @@ $finder = (new PhpCsFixer\Finder())
     ->name('*.php')
     ->name('*.page')
     ->name('*.inc')
+    ->name('configure_file_activity')
 ;
 
 return (new PhpCsFixer\Config())

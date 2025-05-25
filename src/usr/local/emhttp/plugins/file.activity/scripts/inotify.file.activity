@@ -16,7 +16,7 @@ if [ -e "/var/run/${plugin}.pid" ] && [ ! -e "/var/run/${inotify}.pid" ]; then
 	logger "File Activity inotify starting" -t"$PROG_NAME"
 
 	# Configure the disks_file based on the file activity settings.
-	/usr/local/emhttp/plugins/${plugin}/scripts/configure_file_activity ${INCLUDE_UD} ${INCLUDE_CACHE}
+	/usr/local/emhttp/plugins/${plugin}/scripts/configure_file_activity ${INCLUDE_SSD} ${INCLUDE_UD} ${INCLUDE_CACHE}
 
 	# Initialize directory count
 	dir_count=0

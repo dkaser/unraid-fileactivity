@@ -1,21 +1,15 @@
 #!/usr/bin/php
 <?php
-/*
-    Copyright (C) 2017-2025, Dan Landon
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+/* Copyright 2020-2025, Dan Landon
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ */
 
 // Define our plugin name.
 if ( ! defined('FILE_ACTIVITY_PLUGIN')) {
@@ -40,19 +34,27 @@ if (file_exists("plugins/unassigned.devices/include/lib.php")) {
 
 $excluded_names = array("parity", "parity2", "flash");
 
-$INCLUDE_UD    = (isset($argv[1])) ? $argv[1] : "no";
-$INCLUDE_CACHE = (isset($argv[2])) ? $argv[2] : "no";
+$INCLUDE_SSD   = (isset($argv[1])) ? $argv[1] : "no";
+$INCLUDE_UD    = (isset($argv[2])) ? $argv[2] : "no";
+$INCLUDE_CACHE = (isset($argv[3])) ? $argv[3] : "no";
 
 function is_array_disk($var)
 {
-    $rc = strpos($var, "disk");
-    return ($rc !== false ? true : false);
+    // An array or pool disk is any disk not starting with 'parity' or 'flash'
+    $rc = true;
+
+    if (strpos($var, 'parity') === 0 || strpos($var, 'flash') === 0) {
+        $rc = false;
+    }
+
+    return $rc;
 }
 
 // Get all unraid disk devices (array disks, cache, and pool devices)
 $all_disks = array();
 foreach ($disks as $key => $val) {
-    if (is_dir("/mnt/" . $key . "/")) {
+    // Only monitor rotational devices for file activity if enabled.
+    if (is_dir("/mnt/" . $key . "/") && (($val['rotational'] == "1") || (($val['rotational'] == "0") && ($INCLUDE_SSD == "yes")))) {
         $all_disks[] = $key;
     }
 }
@@ -61,31 +63,23 @@ $array_disks = array_filter($all_disks, "is_array_disk");
 $pool_disks  = array_diff($all_disks, $excluded_names);
 $pool_disks  = array_diff($pool_disks, $array_disks);
 
-if (($UD_installed) && ($INCLUDE_UD == "yes")) {
-    // If UD is installed, we need to exclude any samba and iso mounts
-    $ud_mounts = array();
-    foreach (glob("/mnt/disks/*") as $filename) {
-        $ud_mounts[] = "disks/" . basename($filename);
-    }
+// Initialize the UD devices array.
+$ud_array = array();
 
-    $excluded_shares = array();
-    // Get the samba mounts
-    $samba_mounts = get_samba_mounts();
-    foreach (get_samba_mounts() as $name => $info) {
-        if ($info['target']) {
-            $s = "disks/" . basename($info['target']);
-            $excluded_shares[] .= $s;
+// Add UD devices if UD installed and include UD disks is enabled.
+if (($UD_installed) && ($INCLUDE_UD == "yes")) {
+    // Get all the UD disks.
+    $ud_disks = get_all_disks_info();
+
+    foreach ($ud_disks as $key => $val) {
+        // Skip UD device if there are no partitions.
+        if ($val['partitions']) {
+            // Only monitor mounted rotational devices for file activity if enabled.
+            if (($val['partitions'][0]['mounted']) && (( ! $val['ssd']) || (($val['ssd']) && ($INCLUDE_SSD == "yes")))) {
+                $ud_array[] = "disks/" . basename($val['partitions'][0]['mountpoint']);
+            }
         }
     }
-
-    // Get ISO File Mounts
-    foreach (get_iso_mounts() as $name => $info) {
-        $s = "disks/" . basename($info['target']);
-        $excluded_shares[] .= $s;
-    }
-    $ud_array = array_diff($ud_mounts, $excluded_shares);
-} else {
-    $ud_array = array();
 }
 
 if ($INCLUDE_CACHE == "no") {

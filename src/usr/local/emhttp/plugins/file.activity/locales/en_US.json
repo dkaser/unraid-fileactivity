@@ -10,6 +10,7 @@
     "display_events": "Display Events",
     "enable_cache": "Enable for Cache and Pool Disks",
     "enable_unassigned": "Enabled for Unassigned Devices",
+    "enable_ssd": "Enable for SSDs",
     "enable_monitoring": "Enable File Activity Monitoring",
     "yes": "Yes",
     "no": "No",

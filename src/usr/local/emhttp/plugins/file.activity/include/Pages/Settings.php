@@ -73,6 +73,19 @@ The 'appdata', 'docker', 'syslogs', and 'system' directories (case insensitive) 
     <blockquote class="inline_help">
         Set to **Yes** to enable File Activity monitoring when the server is started.
     </blockquote>
+
+    <dl>
+        <dt><?= $tr->tr("enable_ssd"); ?></dt>
+        <dd>
+            <select name="INCLUDE_SSD" size="1">
+		        <?= Utils::make_option($file_activity_cfg['INCLUDE_SSD'] == "no", "no", $tr->tr("no"));?>
+		        <?= Utils::make_option($file_activity_cfg['INCLUDE_SSD'] == "yes", "yes", $tr->tr("yes"));?>
+	        </select>
+        </dd>
+    </dl>
+    <blockquote class="inline_help">
+        Set to **Yes** to enable File Activity monitoring for any SSD Devices, otherwise only Spinning Devices are monitored. Monitoring SSD devices can overwhelm the server from hyper activity on SSDs.
+    </blockquote>
 	
     <dl>
         <dt><?= $tr->tr("enable_unassigned"); ?></dt>
