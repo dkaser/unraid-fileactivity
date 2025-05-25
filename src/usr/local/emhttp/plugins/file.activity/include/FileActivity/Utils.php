@@ -120,7 +120,7 @@ class Utils
         }
 
         $usage_cfg = parse_ini_file("/boot/config/plugins/" . PLUGIN_NAME . "/usage.cfg", false, INI_SCANNER_RAW) ?: array();
-        if (($usage_cfg['usage_allowed'] ?? "yes") != "yes") {
+        if ((($usage_cfg['usage_allowed'] ?? "no") != "yes") || (($usage_cfg['modal_displayed'] ?? "no") != "yes")) {
             Utils::logmsg("Usage data not allowed, skipping.");
             return;
         }

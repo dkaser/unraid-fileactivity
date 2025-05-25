@@ -26,7 +26,9 @@ function getPage(string $filename, bool $niceError = true, array $params = array
 {
     try {
         require_once dirname(__FILE__) . "/common.php";
-        return includePage(dirname(__FILE__) . "/Pages/{$filename}.php", $params);
+        $response .= includePage(dirname(__FILE__) . "/Pages/Modal.php");
+        $response .= includePage(dirname(__FILE__) . "/Pages/{$filename}.php", $params);
+        return $response;
     } catch (\Throwable $e) {
         if ($niceError) {
             file_put_contents("/var/log/fileactivity-error.log", print_r($e, true) . PHP_EOL, FILE_APPEND);

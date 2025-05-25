@@ -24,6 +24,7 @@
     "metrics": {
         "metrics": "Usage Data",
         "usage": "Allow Usage Data Collection",
-        "desc": "Allows collection of usage data. This sends an anonymized identifier, the current Unraid version, the current version of the plugin, and the enabled/disabled status of some features. No personal or network information is collected."
+        "desc": "Allows collection of usage data. This sends an anonymized identifier, the current Unraid version, the current version of the plugin, and the enabled/disabled status of some features. No personal or network information is collected.",
+        "modal": "This plugin shares basic info like the plugin and Unraid version with the developer to help improve future updates. It doesn't collect any personal data. Please click Agree to permit this or Decline to disable."
     }
 }
