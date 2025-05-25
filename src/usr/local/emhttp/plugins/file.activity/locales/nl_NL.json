@@ -10,6 +10,7 @@
     "display_events": "Gebeurtenissen weergeven",
     "enable_cache": "Inschakelen voor cache- en poolschijven",
     "enable_unassigned": "Ingeschakeld voor niet-toegewezen apparaten",
+    "enable_ssd": "Inschakelen voor SSD's",
     "enable_monitoring": "Bestandsactiviteitbewaking inschakelen",
     "yes": "Ja",
     "no": "Nee",
@@ -23,6 +24,7 @@
     "metrics": {
         "metrics": "Gebruiksgegevens",
         "usage": "Verzamelen van verbruiksgegevens toestaan",
-        "desc": "Staat het verzamelen van gebruiksgegevens toe. Dit stuurt een geanonimiseerde identificatie, de huidige Unraid-versie, de huidige versie van de plugin en de in- of uitgeschakelde status van enkele functies. Er worden geen persoonlijke of netwerkgegevens verzameld."
+        "desc": "Staat het verzamelen van gebruiksgegevens toe. Dit stuurt een geanonimiseerde identificatie, de huidige Unraid-versie, de huidige versie van de plugin en de in- of uitgeschakelde status van enkele functies. Er worden geen persoonlijke of netwerkgegevens verzameld.",
+        "modal": "Deze plugin deelt basisinformatie, zoals de plugin- en Unraid-versie, met de ontwikkelaar om toekomstige updates te verbeteren. Er worden geen persoonlijke gegevens verzameld. Klik op Akkoord om dit toe te staan of op Weigeren om het uit te schakelen."
     }
 }

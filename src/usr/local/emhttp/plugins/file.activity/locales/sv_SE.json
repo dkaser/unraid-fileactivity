@@ -10,6 +10,7 @@
     "display_events": "Visa händelser",
     "enable_cache": "Aktivera för cache- och pooldiskar",
     "enable_unassigned": "Aktiverad för oallokerade enheter",
+    "enable_ssd": "",
     "enable_monitoring": "Aktivera övervakning av filaktivitet",
     "yes": "Ja",
     "no": "Nej",
@@ -23,6 +24,7 @@
     "metrics": {
         "metrics": "Användningsdata",
         "usage": "Tillåt insamling av användningsdata",
-        "desc": "Tillåter insamling av användningsdata. Detta skickar en anonymiserad identifierare, den nuvarande Unraid-versionen, den aktuella versionen av pluginet och statusen för vissa funktioner (aktiverad/inaktiverad). Ingen personlig eller nätverksinformation samlas in."
+        "desc": "Tillåter insamling av användningsdata. Detta skickar en anonymiserad identifierare, den nuvarande Unraid-versionen, den aktuella versionen av pluginet och statusen för vissa funktioner (aktiverad/inaktiverad). Ingen personlig eller nätverksinformation samlas in.",
+        "modal": "Det här insticksprogrammet delar grundläggande information som versionen av insticksprogrammet och Unraid med utvecklaren för att hjälpa till att förbättra framtida uppdateringar. Det samlar inte in någon personlig data. Klicka på Godkänn för att tillåta detta eller Avböj för att inaktivera."
     }
 }

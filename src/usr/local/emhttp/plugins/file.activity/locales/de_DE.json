@@ -10,6 +10,7 @@
     "display_events": "Ereignisse anzeigen",
     "enable_cache": "Für Cache- und Pool-Laufwerke aktivieren",
     "enable_unassigned": "Für nicht zugewiesene Geräte aktiviert",
+    "enable_ssd": "Für SSDs aktivieren",
     "enable_monitoring": "Dateiaktivitätsüberwachung aktivieren",
     "yes": "Ja",
     "no": "Nein",
@@ -23,6 +24,7 @@
     "metrics": {
         "metrics": "Nutzungsdaten",
         "usage": "Erfassung von Nutzungsdaten zulassen",
-        "desc": "Ermöglicht die Erfassung von Nutzungsdaten. Dadurch werden eine anonymisierte Kennung, die aktuelle Unraid-Version, die aktuelle Version des Plugins und der aktivierte/deaktivierte Status einiger Funktionen gesendet. Es werden keine persönlichen oder Netzwerkinformationen gesammelt."
+        "desc": "Ermöglicht die Erfassung von Nutzungsdaten. Dadurch werden eine anonymisierte Kennung, die aktuelle Unraid-Version, die aktuelle Version des Plugins und der aktivierte/deaktivierte Status einiger Funktionen gesendet. Es werden keine persönlichen oder Netzwerkinformationen gesammelt.",
+        "modal": "Dieses Plugin übermittelt grundlegende Informationen wie die Plugin- und Unraid-Version an den Entwickler, um zukünftige Updates zu verbessern. Es werden keine persönlichen Daten gesammelt. Bitte klicken Sie auf \"Zustimmen\", um dies zu erlauben, oder auf \"Ablehnen\", um es zu deaktivieren."
     }
 }

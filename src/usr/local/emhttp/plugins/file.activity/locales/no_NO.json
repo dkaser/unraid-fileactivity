@@ -10,6 +10,7 @@
     "display_events": "Vis hendelser",
     "enable_cache": "Aktiver for cache og pool-disker",
     "enable_unassigned": "Aktivert for utilordnede enheter",
+    "enable_ssd": "",
     "enable_monitoring": "Aktiver overvåking av filaktivitet",
     "yes": "Ja",
     "no": "Nei",
@@ -23,6 +24,7 @@
     "metrics": {
         "metrics": "Bruksdata",
         "usage": "Tillat innsamling av bruksdata",
-        "desc": "Tillater innsamling av bruksdata. Dette sender en anonymisert identifikator, nåværende Unraid-versjon, nåværende versjon av pluginet, og aktivert/deaktivert-status for noen funksjoner. Ingen personlig eller nettverksinformasjon innhentes."
+        "desc": "Tillater innsamling av bruksdata. Dette sender en anonymisert identifikator, nåværende Unraid-versjon, nåværende versjon av pluginet, og aktivert/deaktivert-status for noen funksjoner. Ingen personlig eller nettverksinformasjon innhentes.",
+        "modal": "Dette programtillegget deler grunnleggende informasjon som programtillegg- og Unraid-versjon med utvikleren for å hjelpe til med å forbedre fremtidige oppdateringer. Det samler ikke inn personopplysninger. Vennligst klikk på Godta for å gi tillatelse til dette eller Avslå for å deaktivere."
     }
 }

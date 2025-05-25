@@ -10,6 +10,7 @@
     "display_events": "Afficher les événements",
     "enable_cache": "Activer pour les disques Cache et Pool",
     "enable_unassigned": "Activé pour les appareils non assignés",
+    "enable_ssd": "Activer pour les SSD",
     "enable_monitoring": "Activer la surveillance de l'activité des fichiers",
     "yes": "Oui",
     "no": "Non",
@@ -23,6 +24,7 @@
     "metrics": {
         "metrics": "Données d'utilisation",
         "usage": "Autoriser la collecte des données d'utilisation",
-        "desc": "Permet la collecte de données d'utilisation. Cela envoie un identifiant anonyme, la version actuelle d'Unraid, la version actuelle du plugin, et l'état activé/désactivé de certaines fonctionnalités. Aucune information personnelle ou réseau n'est recueillie."
+        "desc": "Permet la collecte de données d'utilisation. Cela envoie un identifiant anonyme, la version actuelle d'Unraid, la version actuelle du plugin, et l'état activé/désactivé de certaines fonctionnalités. Aucune information personnelle ou réseau n'est recueillie.",
+        "modal": "Ce plugin partage des informations de base, comme la version du plugin et la version d'Unraid, avec le développeur pour aider à améliorer les futures mises à jour. Aucune donnée personnelle n'est collectée. Veuillez cliquer sur Accepter pour autoriser ceci ou Refuser pour désactiver."
     }
 }

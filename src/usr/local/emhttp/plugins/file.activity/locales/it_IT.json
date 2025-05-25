@@ -10,6 +10,7 @@
     "display_events": "Mostra eventi",
     "enable_cache": "Abilita per cache e pool dischi",
     "enable_unassigned": "Abilitato per dispositivi non assegnati",
+    "enable_ssd": "Abilita per SSD",
     "enable_monitoring": "Abilita monitoraggio attività file",
     "yes": "Sì",
     "no": "No",
@@ -23,6 +24,7 @@
     "metrics": {
         "metrics": "Dati di utilizzo",
         "usage": "Consenti raccolta dati di utilizzo",
-        "desc": "Consente la raccolta di dati di utilizzo. Invia un identificativo anonimizzato, la versione attuale di Unraid, la versione attuale del plugin e lo stato abilitato/disabilitato di alcune funzionalità. Nessuna informazione personale o di rete sarà raccolta."
+        "desc": "Consente la raccolta di dati di utilizzo. Invia un identificativo anonimizzato, la versione attuale di Unraid, la versione attuale del plugin e lo stato abilitato/disabilitato di alcune funzionalità. Nessuna informazione personale o di rete sarà raccolta.",
+        "modal": "Questo plugin condivide informazioni di base come la versione del plugin e di Unraid con lo sviluppatore per aiutare a migliorare gli aggiornamenti futuri. Non raccoglie alcun dato personale. Fare clic su Accetta per consentire o Rifiuta per disabilitare."
     }
 }
