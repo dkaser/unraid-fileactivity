@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: php-actions/composer@v6
         with:
-          working_dir: "src/usr/local/php/unraid-enhancedlog"
+          working_dir: "src/usr/local/php/unraid-fileactivity"
       - run: "vendor/bin/phpstan"
 
   commitlint:

@@ -30,7 +30,7 @@ try {
         $mdStarted = $var['mdState'] == "STARTED";
     }
 
-    echo FileActivity\getPage("Settings", true, array("mdStarted" => $mdStarted));
+    echo EDACerton\FileActivity\getPage("Settings", true, array("mdStarted" => $mdStarted));
 } catch (Throwable $e) {
     echo "An error occurred: <pre>" . print_r($e, true) . "</pre>";
 }

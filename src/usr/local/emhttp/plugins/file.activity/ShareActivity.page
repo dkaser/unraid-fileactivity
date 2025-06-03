@@ -26,7 +26,7 @@ try {
     $docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
     require_once "{$docroot}/plugins/file.activity/include/page.php";
 
-    echo FileActivity\getPage("ShareActivity", true, array("resize" => $display['resize'] ?? false));
+    echo EDACerton\FileActivity\getPage("ShareActivity", true, array("resize" => $display['resize'] ?? false));
 } catch (Throwable $e) {
     echo "An error occurred: <pre>" . print_r($e, true) . "</pre>";
 }

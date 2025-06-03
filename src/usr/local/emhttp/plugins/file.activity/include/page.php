@@ -1,6 +1,6 @@
 <?php
 
-namespace FileActivity;
+namespace EDACerton\FileActivity;
 
 /*
     Copyright (C) 2025  Derek Kaser
