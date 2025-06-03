@@ -1,6 +1,9 @@
 <?php
 
-namespace FileActivity;
+namespace EDACerton\FileActivity;
+
+use EDACerton\PluginUtils\Translator;
+use EDACerton\PluginUtils\Utils;
 
 /*
     Copyright (C) 2017-2025, Dan Landon
@@ -20,7 +23,11 @@ namespace FileActivity;
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-$tr = $tr ?? new Translator();
+if ( ! defined(__NAMESPACE__ . '\PLUGIN_ROOT') || ! defined(__NAMESPACE__ . '\PLUGIN_NAME')) {
+    throw new \RuntimeException("Common file not loaded.");
+}
+
+$tr = $tr ?? new Translator(PLUGIN_ROOT);
 
 // Parse the plugin config file.
 $file_activity_cfg = Utils::parse_plugin_cfg('file.activity');

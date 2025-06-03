@@ -19,6 +19,12 @@ jobs:
           path: main
           ref: main
 
+      - name: Install dependencies
+        uses: "php-actions/composer@v6"
+        with:
+          dev: no
+          working_dir: "tag/src/usr/local/php/${{ env.FILE_NAME }}"
+
       - id: build_files
         run: |
           mkdir release

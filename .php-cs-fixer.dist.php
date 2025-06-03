@@ -7,6 +7,7 @@ $finder = (new PhpCsFixer\Finder())
     ->name('*.page')
     ->name('*.inc')
     ->name('configure_file_activity')
+    ->exclude(['vendor'])
 ;
 
 return (new PhpCsFixer\Config())

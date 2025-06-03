@@ -1,6 +1,8 @@
 <?php
 
-namespace FileActivity;
+namespace EDACerton\FileActivity;
+
+use EDACerton\PluginUtils\Translator;
 
 /*
     Copyright (C) 2017-2025, Dan Landon
@@ -20,7 +22,11 @@ namespace FileActivity;
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-$tr = $tr ?? new Translator();
+if ( ! defined(__NAMESPACE__ . '\PLUGIN_ROOT') || ! defined(__NAMESPACE__ . '\PLUGIN_NAME')) {
+    throw new \RuntimeException("Common file not loaded.");
+}
+
+$tr = $tr ?? new Translator(PLUGIN_ROOT);
 ?>
 
 <table class="tablesorter shift ups">

@@ -6,3 +6,5 @@ parameters:
 		- inc
 	paths:
 		- src
+	excludePaths:
+		- */vendor/*

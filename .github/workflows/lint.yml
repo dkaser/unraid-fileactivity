@@ -24,9 +24,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: php-actions/composer@v6
-      - uses: php-actions/phpstan@v3
         with:
-          version: composer
+          working_dir: "src/usr/local/php/unraid-enhancedlog"
+      - run: "vendor/bin/phpstan"
 
   commitlint:
     name: Commitlint

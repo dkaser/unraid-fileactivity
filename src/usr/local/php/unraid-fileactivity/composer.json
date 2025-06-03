@@ -1,0 +1,28 @@
+{
+    "name": "dkaser/unraid-fileactivity",
+    "description": "Utility classes",
+    "type": "library",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Derek Kaser"
+        }
+    ],
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpstan/phpstan": "^2.1"
+    },
+    "config": {
+        "sort-packages": true,
+        "bin-dir": "../../../../../vendor/bin/"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/dkaser/unraid-utils.git"
+        }
+    ],
+    "require": {
+        "edacerton/plugin-utils": "^1.0"
+    }
+}
