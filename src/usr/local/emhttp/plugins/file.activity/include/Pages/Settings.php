@@ -52,11 +52,11 @@ $(function() {
 </table>
 
 <?if ($mdStarted ?? false) { ?>
-<h3><?= $tr->tr("settings.monitoring") ?></h3>
+<h3><?= $tr->tr("settings.monitoring"); ?></h3>
 
-<p><?= $tr->tr("settings.description") ?></p>
+<p><?= $tr->tr("settings.description"); ?></p>
 
-<p><?= $tr->tr("settings.note") ?></p>
+<p><?= $tr->tr("settings.note"); ?></p>
 
 <div>
 	<form markdown="1" name="file_activity" method="POST" action="/update.php" target="progressFrame">
@@ -74,7 +74,7 @@ $(function() {
         </dd>
     </dl>
     <blockquote class="inline_help">
-        <?= $tr->tr("settings.help.enable_monitoring") ?>
+        <?= $tr->tr("settings.help.enable_monitoring"); ?>
     </blockquote>
 
     <dl>
@@ -87,7 +87,7 @@ $(function() {
         </dd>
     </dl>
     <blockquote class="inline_help">
-        <?= $tr->tr("settings.help.enable_ssd") ?>
+        <?= $tr->tr("settings.help.enable_ssd"); ?>
     </blockquote>
 	
     <dl>
@@ -100,7 +100,7 @@ $(function() {
         </dd>
     </dl>
     <blockquote class="inline_help">
-        <?= $tr->tr("settings.help.enable_unassigned") ?>
+        <?= $tr->tr("settings.help.enable_unassigned"); ?>
     </blockquote>
 
     <dl>
@@ -113,7 +113,7 @@ $(function() {
         </dd>
     </dl>
     <blockquote class="inline_help">
-        <?= $tr->tr("settings.help.enable_cache") ?>
+        <?= $tr->tr("settings.help.enable_cache"); ?>
     </blockquote>
 
     <dl>
@@ -123,7 +123,7 @@ $(function() {
         </dd>
     </dl>
     <blockquote class="inline_help">
-        <?= $tr->tr("settings.help.display_events") ?>
+        <?= $tr->tr("settings.help.display_events"); ?>
     </blockquote>
 
     <dl>
