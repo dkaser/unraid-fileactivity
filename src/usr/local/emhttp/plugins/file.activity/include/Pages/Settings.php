@@ -52,15 +52,11 @@ $(function() {
 </table>
 
 <?if ($mdStarted ?? false) { ?>
-<h3>File Activity Monitoring</h3>
+<h3><?= $tr->tr("settings.monitoring") ?></h3>
 
-<p>File open, read, write, and modify activity is monitored and logged on the array using inotify and is displayed by disk or share, UD disks, and cache.
-You need to start the File Activity in order to log the disk activity.
-File Activity is intended to be running for short periods so you can check disk activity.
-A server with a lot of file activity can fill the log space.
-The 'appdata', 'docker', 'syslogs', and 'system' directories (case insensitive) are excluded.</p>
+<p><?= $tr->tr("settings.description") ?></p>
 
-<p>Note: File Activity monitoring is stopped if the array is stopped, and will restart when the array is started if it is enabled.</p>
+<p><?= $tr->tr("settings.note") ?></p>
 
 <div>
 	<form markdown="1" name="file_activity" method="POST" action="/update.php" target="progressFrame">
@@ -78,7 +74,7 @@ The 'appdata', 'docker', 'syslogs', and 'system' directories (case insensitive) 
         </dd>
     </dl>
     <blockquote class="inline_help">
-        Set to **Yes** to enable File Activity monitoring when the server is started.
+        <?= $tr->tr("settings.help.enable_monitoring") ?>
     </blockquote>
 
     <dl>
@@ -91,7 +87,7 @@ The 'appdata', 'docker', 'syslogs', and 'system' directories (case insensitive) 
         </dd>
     </dl>
     <blockquote class="inline_help">
-        Set to **Yes** to enable File Activity monitoring for any SSD Devices, otherwise only Spinning Devices are monitored. Monitoring SSD devices can overwhelm the server from hyper activity on SSDs.
+        <?= $tr->tr("settings.help.enable_ssd") ?>
     </blockquote>
 	
     <dl>
@@ -104,7 +100,7 @@ The 'appdata', 'docker', 'syslogs', and 'system' directories (case insensitive) 
         </dd>
     </dl>
     <blockquote class="inline_help">
-        Set to **Yes** to enable File Activity monitoring for Unassigned Devices if the Unassigned Devices plugin is installed.
+        <?= $tr->tr("settings.help.enable_unassigned") ?>
     </blockquote>
 
     <dl>
@@ -117,7 +113,7 @@ The 'appdata', 'docker', 'syslogs', and 'system' directories (case insensitive) 
         </dd>
     </dl>
     <blockquote class="inline_help">
-        Set to **Yes** to enable File Activity monitoring for the Cache and Pool Disks.
+        <?= $tr->tr("settings.help.enable_cache") ?>
     </blockquote>
 
     <dl>
@@ -127,12 +123,12 @@ The 'appdata', 'docker', 'syslogs', and 'system' directories (case insensitive) 
         </dd>
     </dl>
     <blockquote class="inline_help">
-        This is the number of file events shown on disks and shares from the File Activity log for each share or disk.
+        <?= $tr->tr("settings.help.display_events") ?>
     </blockquote>
 
     <dl>
         <dt>
-            <input type="submit" name="#default" value="<?= $tr->tr("default"); ?>" title="Load and apply default values.">
+            <input type="submit" name="#default" value="<?= $tr->tr("default"); ?>" title="<?= $tr->tr("settings.apply_defaults"); ?>">
         </dt>
         <dd>
             <?if ( ! is_file("/var/run/file.activity.pid")) { ?>
