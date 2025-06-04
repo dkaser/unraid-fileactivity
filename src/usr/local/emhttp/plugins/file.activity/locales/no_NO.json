@@ -10,7 +10,7 @@
     "display_events": "Vis hendelser",
     "enable_cache": "Aktiver for cache og pool-disker",
     "enable_unassigned": "Aktivert for utilordnede enheter",
-    "enable_ssd": "",
+    "enable_ssd": "Aktiver for SSD-er",
     "enable_monitoring": "Aktiver overvåking av filaktivitet",
     "yes": "Ja",
     "no": "Nei",
@@ -21,10 +21,17 @@
     "clear": "Tøm",
     "refresh_page": "Oppdater side",
     "clear_log": "Tøm logg for filaktivitet",
-    "metrics": {
-        "metrics": "Bruksdata",
-        "usage": "Tillat innsamling av bruksdata",
-        "desc": "Tillater innsamling av bruksdata. Dette sender en anonymisert identifikator, nåværende Unraid-versjon, nåværende versjon av pluginet, og aktivert/deaktivert-status for noen funksjoner. Ingen personlig eller nettverksinformasjon innhentes.",
-        "modal": "Dette programtillegget deler grunnleggende informasjon som programtillegg- og Unraid-versjon med utvikleren for å hjelpe til med å forbedre fremtidige oppdateringer. Det samler ikke inn personopplysninger. Vennligst klikk på Godta for å gi tillatelse til dette eller Avslå for å deaktivere."
+    "settings": {
+        "monitoring": "Overvåking av filaktivitet",
+        "description": "Filåpning, lesing, skriving og endringsaktivitet overvåkes og logges på arrayet ved hjelp av inotify og vises etter disk eller deling, UD-disker og cache. Du må starte File Activity for å logge diskaktivitet. File Activity er ment å kjøres i korte perioder slik at du kan sjekke diskaktiviteten. En server med mye filaktivitet kan fylle loggområdet. Katalogene 'appdata', 'docker', 'syslogs' og 'system' (skiller ikke mellom små og store bokstaver) er ekskludert.",
+        "note": "Merk: Overvåking av filaktivitet stoppes hvis arrayet stoppes, og vil starte på nytt når arrayet startes, hvis den er aktivert.",
+        "apply_defaults": "Last inn og bruk standardverdier",
+        "help": {
+            "enable_monitoring": "Sett til **Ja** for å aktivere overvåking av filaktivitet når serveren startes.",
+            "enable_ssd": "Sett til **Ja** for å aktivere overvåking av filaktivitet for alle SSD-enheter; ellers overvåkes kun roterende enheter. Overvåking av SSD-enheter kan overbelaste serveren på grunn av mye aktivitet på SSD-ene.",
+            "enable_unassigned": "Sett til **Ja** for å aktivere overvåking av filaktivitet for Unassigned Devices hvis Unassigned Devices-pluginen er installert.",
+            "enable_cache": "Sett til **Ja** for å aktivere overvåking av filaktivitet for cache- og pool-disker.",
+            "display_events": "Dette er antallet filhendelser som vises på diskene og delingene fra loggen for filaktivitet for hver deling eller disk."
+        }
     }
 }

@@ -21,10 +21,17 @@
     "clear": "Effacer",
     "refresh_page": "Rafraîchir la page",
     "clear_log": "Effacer le journal d'activité des fichiers",
-    "metrics": {
-        "metrics": "Données d'utilisation",
-        "usage": "Autoriser la collecte des données d'utilisation",
-        "desc": "Permet la collecte de données d'utilisation. Cela envoie un identifiant anonyme, la version actuelle d'Unraid, la version actuelle du plugin, et l'état activé/désactivé de certaines fonctionnalités. Aucune information personnelle ou réseau n'est recueillie.",
-        "modal": "Ce plugin partage des informations de base, comme la version du plugin et la version d'Unraid, avec le développeur pour aider à améliorer les futures mises à jour. Aucune donnée personnelle n'est collectée. Veuillez cliquer sur Accepter pour autoriser ceci ou Refuser pour désactiver."
+    "settings": {
+        "monitoring": "Surveillance de l'activité des fichiers",
+        "description": "L'activité d'ouverture, de lecture, d'écriture et de modification des fichiers est surveillée et enregistrée sur la grappe à l'aide d'inotify et s'affiche par disque ou partage, disques UD et cache. Vous devez démarrer l'activité des fichiers pour pouvoir enregistrer l'activité des disques. L'activité des fichiers est prévue pour fonctionner durant de courtes périodes afin de vérifier l'activité des disques. Un serveur avec beaucoup d'activité de fichiers peut remplir l'espace de logs. Les dossiers « appdata », « docker », « syslogs » et « system » (insensible à la casse) sont exclus.",
+        "note": "Remarque : la surveillance de l'activité des fichiers s'arrête si la grappe est arrêtée, et elle redémarrera lorsque la grappe sera relancée si elle est activée.",
+        "apply_defaults": "Charger et appliquer les valeurs par défaut",
+        "help": {
+            "enable_monitoring": "Sélectionnez **Oui** pour activer la surveillance de l'activité des fichiers au démarrage du serveur.",
+            "enable_ssd": "Sélectionnez **Oui** pour activer la surveillance de l'activité des fichiers sur les périphériques SSD, sinon seuls les périphériques à plateaux seront surveillés. La surveillance des SSD peut surcharger le serveur en cas d'activité importante sur les SSD.",
+            "enable_unassigned": "Sélectionnez **Oui** pour activer la surveillance de l'activité des fichiers pour les périphériques non assignés si le plugin Unassigned Devices est installé.",
+            "enable_cache": "Sélectionnez **Oui** pour activer la surveillance de l'activité des fichiers pour les disques cache et de pool.",
+            "display_events": "Ceci est le nombre d'événements de fichiers affichés sur les disques et partages depuis le journal d'activité des fichiers pour chaque partage ou disque."
+        }
     }
 }

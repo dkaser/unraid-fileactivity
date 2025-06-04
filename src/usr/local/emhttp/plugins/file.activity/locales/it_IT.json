@@ -21,10 +21,17 @@
     "clear": "Pulisci",
     "refresh_page": "Aggiorna pagina",
     "clear_log": "Pulisci il registro attività file",
-    "metrics": {
-        "metrics": "Dati di utilizzo",
-        "usage": "Consenti raccolta dati di utilizzo",
-        "desc": "Consente la raccolta di dati di utilizzo. Invia un identificativo anonimizzato, la versione attuale di Unraid, la versione attuale del plugin e lo stato abilitato/disabilitato di alcune funzionalità. Nessuna informazione personale o di rete sarà raccolta.",
-        "modal": "Questo plugin condivide informazioni di base come la versione del plugin e di Unraid con lo sviluppatore per aiutare a migliorare gli aggiornamenti futuri. Non raccoglie alcun dato personale. Fare clic su Accetta per consentire o Rifiuta per disabilitare."
+    "settings": {
+        "monitoring": "Monitoraggio dell'attività dei file",
+        "description": "Le attività di apertura, lettura, scrittura e modifica dei file vengono monitorate e registrate sull'array usando inotify e vengono visualizzate per disco o condivisione, dischi UD e cache. È necessario avviare Attività File per registrare l'attività del disco. Attività File è pensata per essere eseguita per brevi periodi per consentirti di verificare l'attività del disco. Un server con molta attività di file può riempire lo spazio dei log. Le cartelle \"appdata\", \"docker\", \"syslogs\" e \"system\" (senza distinzione tra maiuscole e minuscole) sono escluse.",
+        "note": "Nota: Il monitoraggio dell'attività dei file viene arrestato se l'array viene fermato e si riavvierà quando l'array sarà riavviato, se abilitato.",
+        "apply_defaults": "Carica e applica i valori predefiniti",
+        "help": {
+            "enable_monitoring": "Imposta su **Sì** per abilitare il monitoraggio dell'attività dei file all'avvio del server.",
+            "enable_ssd": "Imposta su **Sì** per abilitare il monitoraggio dell'attività dei file per tutti i dispositivi SSD, altrimenti verranno monitorati solo i dispositivi meccanici. Il monitoraggio dei dispositivi SSD può sovraccaricare il server a causa dell'elevata attività sugli SSD.",
+            "enable_unassigned": "Imposta su **Sì** per abilitare il monitoraggio dell'attività dei file per i Dispositivi Non Assegnati se il plugin Dispositivi Non Assegnati è installato.",
+            "enable_cache": "Imposta su **Sì** per abilitare il monitoraggio dell'attività dei file per il Cache e i Dischi del Pool.",
+            "display_events": "Questo è il numero di eventi sui file mostrati su dischi e condivisioni dal registro dell'Attività File per ogni condivisione o disco."
+        }
     }
 }

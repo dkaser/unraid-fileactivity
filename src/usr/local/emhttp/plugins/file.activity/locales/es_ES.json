@@ -21,10 +21,17 @@
     "clear": "Borrar",
     "refresh_page": "Actualizar página",
     "clear_log": "Borrar el registro de actividad de archivos",
-    "metrics": {
-        "metrics": "Datos de uso",
-        "usage": "Permitir recolección de datos de uso",
-        "desc": "Permite la recolección de datos de uso. Esto envía un identificador anónimo, la versión actual de Unraid, la versión actual del plugin y el estado habilitado/desactivado de algunas características. No se recopila información personal ni de red.",
-        "modal": "Este complemento comparte información básica como la versión del complemento y de Unraid con el desarrollador para ayudar a mejorar futuras actualizaciones. No recopila ningún dato personal. Por favor, haz clic en Aceptar para permitir esto o en Rechazar para deshabilitarlo."
+    "settings": {
+        "monitoring": "Supervisión de actividad de archivos",
+        "description": "La actividad de apertura, lectura, escritura y modificación de archivos se supervisa y registra en el array utilizando inotify y se muestra por disco o recurso compartido, discos UD y caché. Debe iniciar la actividad de archivos para registrar la actividad del disco. La actividad de archivos está pensada para ejecutarse por períodos cortos, de modo que pueda revisar la actividad del disco. Un servidor con mucha actividad de archivos puede llenar el espacio del registro. Los directorios 'appdata', 'docker', 'syslogs' y 'system' (no distingue mayúsculas/minúsculas) están excluidos.",
+        "note": "Nota: La supervisión de actividad de archivos se detendrá si se detiene el array y se reiniciará cuando se inicie el array, si está habilitado.",
+        "apply_defaults": "Cargar y aplicar valores predeterminados",
+        "help": {
+            "enable_monitoring": "Establezca en **Sí** para habilitar la supervisión de actividad de archivos cuando el servidor se inicie.",
+            "enable_ssd": "Establezca en **Sí** para habilitar la supervisión de actividad de archivos en cualquier dispositivo SSD, de lo contrario solo se supervisarán los dispositivos giratorios. Supervisar dispositivos SSD puede sobrecargar el servidor debido a la hiperactividad en los SSD.",
+            "enable_unassigned": "Establezca en **Sí** para habilitar la supervisión de actividad de archivos para Dispositivos Sin Asignar si el complemento de Dispositivos Sin Asignar está instalado.",
+            "enable_cache": "Establezca en **Sí** para habilitar la supervisión de actividad de archivos en los discos de caché y pool.",
+            "display_events": "Este es el número de eventos de archivo que se muestran en discos y recursos compartidos desde el registro de actividad de archivos para cada recurso compartido o disco."
+        }
     }
 }

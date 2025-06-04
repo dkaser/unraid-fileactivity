@@ -21,10 +21,17 @@
     "clear": "Rensa",
     "refresh_page": "Uppdatera sidan",
     "clear_log": "Rensa loggen för filaktivitet",
-    "metrics": {
-        "metrics": "Användningsdata",
-        "usage": "Tillåt insamling av användningsdata",
-        "desc": "Tillåter insamling av användningsdata. Detta skickar en anonymiserad identifierare, den nuvarande Unraid-versionen, den aktuella versionen av pluginet och statusen för vissa funktioner (aktiverad/inaktiverad). Ingen personlig eller nätverksinformation samlas in.",
-        "modal": "Det här insticksprogrammet delar grundläggande information som versionen av insticksprogrammet och Unraid med utvecklaren för att hjälpa till att förbättra framtida uppdateringar. Det samlar inte in någon personlig data. Klicka på Godkänn för att tillåta detta eller Avböj för att inaktivera."
+    "settings": {
+        "monitoring": "Övervakning av filaktivitet",
+        "description": "Öppning, läsning, skrivning och ändring av filer övervakas och loggas på arrayen med inotify och visas per disk eller share, UD-diskar och cache. Du måste starta Filaktivitet för att logga diskkaktiviteten. Filaktivitet är avsedd att köras under korta perioder så att du kan kontrollera diskaktivitet. En server med mycket filaktivitet kan fylla loggutrymmet. Katalogerna \"appdata\", \"docker\", \"syslogs\" och \"system\" (skiftlägesokänsligt) är undantagna.",
+        "note": "Observera: Övervakning av filaktivitet stoppas om arrayen stoppas, och startar om när arrayen startas om det är aktiverat.",
+        "apply_defaults": "Ladda och använd standardvärden",
+        "help": {
+            "enable_monitoring": "Ställ in på **Ja** för att aktivera övervakning av filaktivitet när servern startas.",
+            "enable_ssd": "Ställ in på **Ja** för att aktivera övervakning av filaktivitet för alla SSD-enheter, annars övervakas endast roterande enheter. Övervakning av SSD-enheter kan överbelasta servern vid hög aktivitet på SSD:er.",
+            "enable_unassigned": "Ställ in på **Ja** för att aktivera övervakning av filaktivitet för Oassignerade enheter om Oassignerade enheter-pluginet är installerat.",
+            "enable_cache": "Ställ in på **Ja** för att aktivera övervakning av filaktivitet för cache och pool-diskar.",
+            "display_events": "Detta är antalet filhändelser som visas på diskar och shares från loggen för filaktivitet för varje share eller disk."
+        }
     }
 }

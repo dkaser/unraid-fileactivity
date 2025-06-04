@@ -21,10 +21,17 @@
     "clear": "Limpar",
     "refresh_page": "Atualizar Página",
     "clear_log": "Limpar o log de Atividade de Arquivo",
-    "metrics": {
-        "metrics": "Dados de uso",
-        "usage": "Permitir Coleta de Dados de Uso",
-        "desc": "Permite a coleta de dados de uso. Envia um identificador anonimizado, a versão atual do Unraid, a versão atual do plugin e o status ativado/desativado de alguns recursos. Nenhuma informação pessoal ou de rede é coletada.",
-        "modal": "Este plugin compartilha informações básicas, como a versão do plugin e do Unraid, com o desenvolvedor para ajudar a melhorar futuras atualizações. Nenhum dado pessoal é coletado. Por favor, clique em Concordar para permitir isso ou Recusar para desabilitar."
+    "settings": {
+        "monitoring": "Monitoramento de Atividade de Arquivos",
+        "description": "A atividade de abrir, ler, gravar e modificar arquivos é monitorada e registrada no array usando o inotify e exibida por disco ou compartilhamento, discos UD e cache. Você precisa iniciar a Atividade de Arquivos para registrar a atividade do disco. A Atividade de Arquivos deve ser executada por períodos curtos para que você possa verificar a atividade do disco. Um servidor com muita atividade de arquivo pode preencher o espaço de log. Os diretórios 'appdata', 'docker', 'syslogs' e 'system' (não diferenciam maiúsculas de minúsculas) são excluídos.",
+        "note": "Nota: O monitoramento de Atividade de Arquivos é interrompido se o array for parado, e será reiniciado quando o array for iniciado, se estiver ativado.",
+        "apply_defaults": "Carregar e aplicar valores padrão",
+        "help": {
+            "enable_monitoring": "Defina como **Sim** para ativar o monitoramento de Atividade de Arquivos quando o servidor for iniciado.",
+            "enable_ssd": "Defina como **Sim** para ativar o monitoramento de Atividade de Arquivos para quaisquer Dispositivos SSD, caso contrário, somente Dispositivos de Disco Giratório serão monitorados. Monitorar dispositivos SSD pode sobrecarregar o servidor devido à hiperatividade nos SSDs.",
+            "enable_unassigned": "Defina como **Sim** para ativar o monitoramento de Atividade de Arquivos para Dispositivos não Atribuídos, se o plugin Dispositivos não Atribuídos estiver instalado.",
+            "enable_cache": "Defina como **Sim** para ativar o monitoramento de Atividade de Arquivos para os Discos de Cache e de Pool.",
+            "display_events": "Este é o número de eventos de arquivo exibidos em discos e compartilhamentos a partir do log de Atividade de Arquivos para cada compartilhamento ou disco."
+        }
     }
 }
