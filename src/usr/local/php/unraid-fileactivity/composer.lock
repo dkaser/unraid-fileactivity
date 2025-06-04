@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "edacerton/plugin-utils",
-            "version": "1.2.0-stable",
+            "version": "1.2.1-stable",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dkaser/unraid-utils.git",
-                "reference": "747e0c1f2aac4862dee723ce01139969a5c2d409"
+                "reference": "da010094bd0c4ac8f9be2ed03e949544bb0b53bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dkaser/unraid-utils/zipball/747e0c1f2aac4862dee723ce01139969a5c2d409",
-                "reference": "747e0c1f2aac4862dee723ce01139969a5c2d409",
+                "url": "https://api.github.com/repos/dkaser/unraid-utils/zipball/da010094bd0c4ac8f9be2ed03e949544bb0b53bc",
+                "reference": "da010094bd0c4ac8f9be2ed03e949544bb0b53bc",
                 "shasum": ""
             },
             "require-dev": {
@@ -40,10 +40,10 @@
             ],
             "description": "Utility classes",
             "support": {
-                "source": "https://github.com/dkaser/unraid-utils/tree/1.2.0-stable",
+                "source": "https://github.com/dkaser/unraid-utils/tree/1.2.1-stable",
                 "issues": "https://github.com/dkaser/unraid-utils/issues"
             },
-            "time": "2025-06-04T02:23:51+00:00"
+            "time": "2025-06-04T03:29:23+00:00"
         }
     ],
     "packages-dev": [
