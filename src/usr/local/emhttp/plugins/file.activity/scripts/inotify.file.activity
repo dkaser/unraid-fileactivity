@@ -71,7 +71,7 @@ if [ -e "/var/run/${plugin}.pid" ] && [ ! -e "/var/run/${inotify}.pid" ]; then
 
 	# Start inotifywait and send output to FIFO
 	inotifywait --monitor -rs --quiet --event open,attrib,move,create,delete,modify \
-		--exclude '(appdata|docker|syslogs|system)' \
+		--excludei '(appdata|docker|syslogs|system)' \
 		--timefmt '%b %d %H:%M:%S' \
 		--format '%T %e => %w%f' \
 		--fromfile "${disks_file}" > "$FIFO_PATH" &
