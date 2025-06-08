@@ -3,6 +3,11 @@
     "description": "Utility classes",
     "type": "library",
     "license": "GPL-3.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "EDACerton\\FileActivity\\": "unraid-fileactivity/"
+        }
+    },
     "authors": [
         {
             "name": "Derek Kaser"
@@ -23,6 +28,8 @@
         }
     ],
     "require": {
-        "edacerton/plugin-utils": "^1.0"
+        "edacerton/plugin-utils": "^1.0",
+        "slim/psr7": "^1.7",
+        "slim/slim": "4.*"
     }
 }

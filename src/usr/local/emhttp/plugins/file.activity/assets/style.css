@@ -1,0 +1,7 @@
+button.select2-selection__choice__remove {
+    min-width: 0;
+    max-width: none;
+    margin: 0 0 0 0;
+    border: none;
+    background: none;
+}
