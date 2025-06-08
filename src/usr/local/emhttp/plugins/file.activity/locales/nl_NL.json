@@ -21,6 +21,10 @@
     "clear": "Wissen",
     "refresh_page": "Pagina vernieuwen",
     "clear_log": "Het logboek van bestandsactiviteiten wissen",
+    "date": "Datum",
+    "action": "Actie",
+    "file_path": "Bestandspad",
+    "reset": "Filters resetten",
     "settings": {
         "monitoring": "Bestandsactiviteitsbewaking",
         "description": "Bestandsopeningen, lezen, schrijven en aanpassingen worden bewaakt en gelogd op de array met gebruik van inotify. Dit wordt weergegeven per schijf of share, UD-schijven en cache. U moet de Bestandsactiviteit starten om de schijfactiviteit te loggen. Bestandsactiviteit is bedoeld om slechts korte periodes te draaien, zodat u de schijfactiviteit kunt controleren. Een server met veel bestandsactiviteit kan de logruimte snel vullen. De mappen 'appdata', 'docker', 'syslogs' en 'system' (hoofdletterongevoelig) zijn uitgesloten.",

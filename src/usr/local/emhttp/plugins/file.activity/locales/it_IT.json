@@ -21,6 +21,10 @@
     "clear": "Pulisci",
     "refresh_page": "Aggiorna pagina",
     "clear_log": "Pulisci il registro attività file",
+    "date": "Data",
+    "action": "Azione",
+    "file_path": "Percorso file",
+    "reset": "Reimposta filtri",
     "settings": {
         "monitoring": "Monitoraggio dell'attività dei file",
         "description": "Le attività di apertura, lettura, scrittura e modifica dei file vengono monitorate e registrate sull'array usando inotify e vengono visualizzate per disco o condivisione, dischi UD e cache. È necessario avviare Attività File per registrare l'attività del disco. Attività File è pensata per essere eseguita per brevi periodi per consentirti di verificare l'attività del disco. Un server con molta attività di file può riempire lo spazio dei log. Le cartelle \"appdata\", \"docker\", \"syslogs\" e \"system\" (senza distinzione tra maiuscole e minuscole) sono escluse.",
