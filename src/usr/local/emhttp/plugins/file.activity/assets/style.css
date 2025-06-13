@@ -1,7 +1,26 @@
-button.select2-selection__choice__remove {
+button.select2-selection__choice__remove,
+button.dt-datetime-button,
+button.dtcc-button {
     min-width: 0;
     max-width: none;
     margin: 0 0 0 0;
     border: none;
     background: none;
+}
+
+div.dtcc-list * {
+    min-width: 0;
+    max-width: none;
+    margin: 0 0 0 0;
+}
+
+button.dtcc-list-selectAll,
+button.dtcc-list-selectNone,
+button.fg-button {
+    min-width: 0;
+    max-width: none;
+    margin: 0 0 0 0;
+    border: none;
+    background: none;
+    letter-spacing: initial;
 }

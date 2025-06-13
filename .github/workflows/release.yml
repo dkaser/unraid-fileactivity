@@ -19,6 +19,17 @@ jobs:
           path: main
           ref: main
 
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: tag/fileactivity-watcher/go.mod
+          cache-dependency-path: tag/fileactivity-watcher/go.sum
+
+      - name: Build application
+        run: |
+          cd tag/fileactivity-watcher/
+          ./build.sh
+
       - name: Install dependencies
         uses: "php-actions/composer@v6"
         with:
