@@ -33,10 +33,8 @@ $tr = $tr ?? new Translator(PLUGIN_ROOT);
 ?>
 <link type="text/css" rel="stylesheet" href="/plugins/file.activity/assets/style.css">
 
-<link href="/plugins/file.activity/assets/select2.min.css" rel="stylesheet">
-<script src="/plugins/file.activity/assets/select2.min.js"></script>
-<link href="/plugins/file.activity/assets/datatables.css" rel="stylesheet">
-<script src="/plugins/file.activity/assets/datatables.js"></script>
+<link href="/plugins/file.activity/assets/datatables.min.css" rel="stylesheet">
+<script src="/plugins/file.activity/assets/datatables.min.js"></script>
 <script src="/plugins/file.activity/assets/luxon.min.js"></script>
 <script src="/plugins/file.activity/assets/fileactivity.js"></script>
 

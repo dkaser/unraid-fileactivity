@@ -2,7 +2,6 @@ const minDate = {};
 const maxDate = {};
 
 DataTable.ext.search.push(function (settings, data, dataIndex) {
-    console.log("filtering");
     if (minDate[settings.sTableId] === undefined || maxDate[settings.sTableId] === undefined) {
         return true;
     }

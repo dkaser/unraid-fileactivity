@@ -28,7 +28,6 @@ jobs:
       - name: Build application
         run: |
           cd tag/fileactivity-watcher/
-          go get .
           ./build.sh
 
       - name: Install dependencies

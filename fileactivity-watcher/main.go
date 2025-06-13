@@ -147,7 +147,7 @@ func loadDisks() {
 			continue
 		}
 		if !newDisk.Rotational && !includeSSD {
-			log.Debugf("Skipping rotational disk: %s", newDisk.Name)
+			log.Debugf("Skipping SSD: %s", newDisk.Name)
 			continue
 		}
 		if newDisk.Type == "data" {
