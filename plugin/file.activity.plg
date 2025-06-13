@@ -4,7 +4,7 @@
 <PLUGIN 
   name="file.activity"
   author="Derek Kaser"
-  version="2025.06.08"
+  version="2025.06.13"
   pluginURL="https://raw.githubusercontent.com/dkaser/unraid-fileactivity/main/plugin/file.activity.plg"
   support="https://forums.unraid.net/topic/54808-file-activity-plugin-how-can-i-figure-out-what-keeps-spinning-up-my-disks/"
   min="7.0.0"
@@ -14,17 +14,18 @@
 
 <CHANGES>
 <![CDATA[
-###2025.06.08###
-- Make system exclusions case-insensitive
-- New display for activity reports
+###2025.06.13###
+- New/improved background process for collecting activity data
+- Improved styling of log display
+- Added ability to filter based on date/time, defaulting to last 30 minutes of data
 
 For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
 ]]>
 </CHANGES>
 
-<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.06.08-noarch-1.txz">
-<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.06.08/unraid-fileactivity-2025.06.08-noarch-1.txz</URL>
-<SHA256>8f16e3a4a78fdbf845018077ce2e5cb2f039584f8e331ecaa9d46907fcd6b658</SHA256>
+<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.06.13-noarch-1.txz">
+<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.06.13/unraid-fileactivity-2025.06.13-noarch-1.txz</URL>
+<SHA256>23104242c80837560d2779a9bdf00cceefad3f76814637bc3d493367f3c11aa1</SHA256>
 </FILE>
 
 <!--
@@ -33,17 +34,27 @@ The 'install' script.
 <FILE Run="/bin/bash">
 <INLINE>
 <![CDATA[
-upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.06.08-noarch-1.txz
+killall --ns $$ --wait fileactivity-watcher >/dev/null 2>&1
+
+# remove any old inotifywait processes
+for pid in $(ps -eo pid,cmd | grep 'inotifywait' | grep 'file.activity' | grep -v grep | awk '{print $1}')
+do
+    kill $pid >/dev/null 2>&1
+done
+
+upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.06.13-noarch-1.txz
 
 # cleanup old versions
-rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.06.08')
+rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.06.13')
 
-echo "VERSION=2025.06.08" > /usr/local/emhttp/plugins/file.activity/version.ini
+mkdir -p /var/log/file.activity
+
+/usr/local/emhttp/plugins/file.activity/scripts/rc.file.activity update
 
 echo ""
 echo "----------------------------------------------------"
 echo " file.activity has been installed."
-echo " Version: 2025.06.08"
+echo " Version: 2025.06.13"
 echo "----------------------------------------------------"
 echo ""
 ]]>
