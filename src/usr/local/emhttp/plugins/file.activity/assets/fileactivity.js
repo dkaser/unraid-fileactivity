@@ -39,14 +39,14 @@ DataTable.feature.register('dateRange', function (settings, opts) {
     let toolbar = document.createElement('div');
     toolbar.appendChild(document.createTextNode('From: '));
 
-    minInput = document.createElement('input');
+    const minInput = document.createElement('input');
     minInput.id = 'min-' + settings.sTableId;
     minInput.name = 'min-' + settings.sTableId;
     minInput.type = 'text';
     toolbar.appendChild(minInput);
 
     toolbar.appendChild(document.createTextNode(' To: '));
-    maxInput = document.createElement('input');
+    const maxInput = document.createElement('input');
     maxInput.id = 'max-' + settings.sTableId;
     maxInput.name = 'max-' + settings.sTableId;
     maxInput.type = 'text';
