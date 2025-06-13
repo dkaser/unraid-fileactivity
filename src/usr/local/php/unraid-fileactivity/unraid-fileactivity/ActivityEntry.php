@@ -27,11 +27,11 @@ class ActivityEntry
 
     public function __construct(string $line)
     {
-        $data = str_getcsv($line, escape: "");
+        $data = str_getcsv($line);
 
-        $this->timestamp = $data[0] ?: "";
-        $this->action    = $data[1] ?: "";
-        $this->filePath  = $data[2] ?: "";
+        $this->timestamp = $data[0] ?? "";
+        $this->action    = $data[1] ?? "";
+        $this->filePath  = $data[2] ?? "";
     }
 
     public function getTimestamp(): string
