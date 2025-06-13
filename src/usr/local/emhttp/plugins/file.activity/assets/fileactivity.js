@@ -6,11 +6,9 @@ DataTable.ext.search.push(function (settings, data, dataIndex) {
         return true;
     }
 
-    const compareFormat = 'yyyy-MM-dd HH:mm';
-
-    minVal = minDate[settings.sTableId].val();
-    maxVal = maxDate[settings.sTableId].val();
-    dateVal = new Date(data[0]);
+    const minVal = minDate[settings.sTableId].val();
+    const maxVal = maxDate[settings.sTableId].val();
+    const dateVal = new Date(data[0]);
 
     if (minVal === null && maxVal === null) {
         return true;
