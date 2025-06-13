@@ -234,7 +234,12 @@ func setInotifyLimit() {
 		log.Fatalf("Error converting current inotify watch limit to int: %v", err)
 	}
 	if wantedNotifyLimit > currentNotifyLimitInt {
-		sysctl.Sysctl("fs/inotify/max_user_watches", strconv.Itoa(wantedNotifyLimit))
+		_, err = sysctl.Sysctl("fs/inotify/max_user_watches", strconv.Itoa(wantedNotifyLimit))
+		if err != nil {
+			log.Fatalf("Error setting inotify watch limit: %v", err)
+		} else {
+			log.Infof("Inotify watch limit increased to: %d", wantedNotifyLimit)
+		}
 	}
 }
 
