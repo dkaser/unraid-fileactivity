@@ -1,0 +1,50 @@
+linters:
+  # Disable all linters.
+  # Default: false
+  disable-all: true
+  # Enable specific linter
+  # https://golangci-lint.run/usage/linters/#enabled-by-default
+  enable:
+    - asciicheck
+    - bidichk
+    - copyloopvar
+    - decorder
+    - dupl
+    - dupword
+    - err113
+    - errcheck
+    - exhaustive
+    - fatcontext
+    - forcetypeassert
+    - funlen
+    - gochecknoinits
+    - gochecksumtype
+    - gocognit
+    - goconst
+    - gocyclo
+    - godox
+    - gofmt
+    - goheader
+    - goimports
+    - gosec
+    - gosimple
+    - govet
+    - importas
+    - inamedparam
+    - ineffassign
+    - intrange
+    - misspell
+    - nestif
+    - nlreturn
+    - revive
+    - staticcheck
+    - tagalign
+    - tenv
+    - unconvert
+    - unparam
+    - unused
+    - usestdlibvars
+    - varnamelen
+    - wastedassign
+    - whitespace
+    - wrapcheck

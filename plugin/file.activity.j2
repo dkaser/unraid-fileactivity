@@ -32,12 +32,22 @@ The 'install' script.
 <FILE Run="/bin/bash">
 <INLINE>
 <![CDATA[
+killall --ns $$ --wait fileactivity-watcher >/dev/null 2>&1
+
+# remove any old inotifywait processes
+for pid in $(ps -eo pid,cmd | grep 'inotifywait' | grep 'file.activity' | grep -v grep | awk '{print $1}')
+do
+    kill $pid >/dev/null 2>&1
+done
+
 upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-{{ env['PLUGIN_VERSION'] }}-noarch-1.txz
 
 # cleanup old versions
 rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '{{ env['PLUGIN_VERSION'] }}')
 
-echo "VERSION={{ env['PLUGIN_VERSION'] }}" > /usr/local/emhttp/plugins/file.activity/version.ini
+mkdir -p /var/log/file.activity
+
+/usr/local/emhttp/plugins/file.activity/scripts/rc.file.activity update
 
 echo ""
 echo "----------------------------------------------------"

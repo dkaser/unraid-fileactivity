@@ -29,7 +29,7 @@ class Activity
     {
         // Constructor can be used for initialization if needed.
         $file_activity_cfg    = Utils::parse_plugin_cfg('file.activity');
-        $this->display_events = ((isset($file_activity_cfg['DISPLAY_EVENTS'])) && (is_numeric($file_activity_cfg['DISPLAY_EVENTS']))) ? intval($file_activity_cfg['DISPLAY_EVENTS']) : 25;
+        $this->display_events = ((isset($file_activity_cfg['DISPLAY_EVENTS'])) && (is_numeric($file_activity_cfg['DISPLAY_EVENTS']))) ? intval($file_activity_cfg['DISPLAY_EVENTS']) : 250;
     }
     /**
      * @return array<string, list<array<string, string>>>
@@ -123,7 +123,7 @@ class Activity
      */
     private function getActivityEntries(string $disk, int $display_events): array
     {
-        $files      = shell_exec("cat /var/log/file.activity.log 2>/dev/null | grep -P " . escapeshellarg($disk) . " | tail -n " . strval($display_events));
+        $files      = shell_exec("cat /var/log/file.activity/data.log.1 /var/log/file.activity/data.log  2>/dev/null | grep -P " . escapeshellarg($disk) . " | tail -n " . strval($display_events));
         $filesArray = array();
 
         if ($files) {

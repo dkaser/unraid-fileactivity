@@ -2,3 +2,5 @@
 ._.DS_Store
 .php-cs-fixer.cache
 vendor
+fileactivity-watcher/fileactivity-watcher
+src/usr/local/php/unraid-fileactivity/bin/fileactivity-watcher

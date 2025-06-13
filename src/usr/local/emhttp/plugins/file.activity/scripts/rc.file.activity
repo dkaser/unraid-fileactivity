@@ -4,50 +4,24 @@
 #
 
 file_activity_start() {
-	# Is file activity running?
-	if [ ! -e "/var/run/${plugin}.pid" ]; then
-		echo "Starting File Activity..."
-		logger "Starting File Activity" -t"$PROG_NAME"
-
-		# Start inotify script to monitor disk events
-		/usr/local/emhttp/plugins/file.activity/scripts/inotify.file.activity >/dev/null 2>&1 & disown
-
-		# Create pid to show file activity is running.
-		echo $$ > /var/run/${plugin}.pid
-
-		sleep 2
-	else
-		echo "File Activity already running"
-		logger "File Activity already running" -t"$PROG_NAME"
-	fi
+	file_activity_stop
+	
+	# Start inotify script to monitor disk events
+	/usr/local/php/unraid-fileactivity/bin/fileactivity-watcher >/dev/null 2>&1 & disown
 }
 
 file_activity_stop() {
-	# Is the files active inotify script running?
-	if [ -e "/var/run/${plugin}.pid" ]; then
-		echo "Stopping File Activity..."
-		logger "Stopping File Activity" -t"$PROG_NAME"
-
-		# Kill all file activity processes.
-		for pid in $(ps -eo pid,cmd | grep 'inotifywait' | grep 'file.activity' | grep -v grep | awk '{print $1}')
-		do
-			kill $pid >/dev/null 2>&1
-		done	
-
-		# Remove pid file to show file activity is not running.
-		rm -f /var/run/${plugin}.pid
-
-		sleep 2
-	fi
+	# Kill all file activity processes.
+	killall --ns $$ --wait fileactivity-watcher >/dev/null 2>&1
 }
 
 file_activity_clear() {
 	# Clear the file activity log.
-	echo "" > /var/log/file.activity.log
+	echo "" > /var/log/fileactivity-data.log
 }
 
 file_activity_update() {
-	file_activity_stop
+	file_activity_stop 
 
 	# Start file activity if service is enabled and not already running.
 	if [ "$SERVICE" = "enable" ]; then

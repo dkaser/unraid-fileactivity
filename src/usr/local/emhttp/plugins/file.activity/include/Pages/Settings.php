@@ -32,17 +32,11 @@ $tr = $tr ?? new Translator(PLUGIN_ROOT);
 // Parse the plugin config file.
 $file_activity_cfg = Utils::parse_plugin_cfg('file.activity');
 
-if ( ! defined(__NAMESPACE__ . '\PLUGIN_NAME')) {
-    throw new \RuntimeException("PLUGIN_NAME not defined");
-}
-
-$usage_cfg     = parse_ini_file("/boot/config/plugins/" . PLUGIN_NAME . "/usage.cfg", false, INI_SCANNER_RAW) ?: array();
-$usage_allowed = $usage_cfg['usage_allowed'] ?? "yes";
 ?>
 
 <script>
 $(function() {
-	showStatus('pid','file.activity');
+	showStatus('fileactivity-watcher');
 });
 </script>
 
@@ -131,15 +125,6 @@ $(function() {
             <input type="submit" name="#default" value="<?= $tr->tr("default"); ?>" title="<?= $tr->tr("settings.apply_defaults"); ?>">
         </dt>
         <dd>
-            <?if ( ! is_file("/var/run/file.activity.pid")) { ?>
-                <input type="hidden" name="#command" value="/plugins/file.activity/scripts/rc.file.activity">
-                <input type="hidden" name="#arg[1]" value="start">
-                <input type="submit" value="<?= $tr->tr("start"); ?>" title="<?= $tr->tr("start_monitoring"); ?>">
-            <?} else { ?>
-                <input type="hidden" name="#command" value="/plugins/file.activity/scripts/rc.file.activity">
-                <input type="hidden" name="#arg[1]" value="stop">
-                <input type="submit" value="<?= $tr->tr("stop"); ?>" title="<?= $tr->tr("stop_monitoring"); ?>">
-            <?}?>
             <input type="submit" name="#apply" value="<?= $tr->tr("apply"); ?>"><input type="button" value="<?= $tr->tr("done"); ?>" onclick="done()">
         </dd>
 </form>
