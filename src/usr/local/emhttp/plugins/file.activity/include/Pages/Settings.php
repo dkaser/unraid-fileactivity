@@ -112,7 +112,7 @@ $(function() {
     <dl>
         <dt><?= $tr->tr("display_events"); ?></dt>
         <dd>
-            <input type="number" name="DISPLAY_EVENTS" class="narrow" value="<?= htmlspecialchars($file_activity_cfg['DISPLAY_EVENTS']);?>" placeholder="250">
+            <input type="number" name="DISPLAY_EVENTS" min="1" step="1" class="narrow" value="<?= htmlspecialchars($file_activity_cfg['DISPLAY_EVENTS']);?>" placeholder="250">
         </dd>
     </dl>
     <blockquote class="inline_help">
@@ -129,7 +129,7 @@ $(function() {
     </dl>
 </form>
 <form method="POST" action="/update.php" target="progressFrame">
-<input type="hidden" name="#command" value="/usr/local/emhttp/plugins/file.activity/scripts/rc.file.activity">
+<input type="hidden" name="#command" value="/plugins/file.activity/scripts/rc.file.activity">
 <input type="hidden" name="#arg[1]" value="clear">
 <dl>
     <dt><strong><?= $tr->tr("settings.clear_data_description"); ?></strong></dt>
