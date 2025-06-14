@@ -11,4 +11,4 @@ require (
 
 require golang.org/x/sys v0.33.0 // indirect
 
-replace github.com/fsnotify/fsnotify => github.com/dkaser/fsnotify v1.9.3
+replace github.com/fsnotify/fsnotify => github.com/dkaser/fsnotify v1.9.4
