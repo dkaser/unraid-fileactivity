@@ -4,7 +4,7 @@
 <PLUGIN 
   name="file.activity"
   author="Derek Kaser"
-  version="2025.06.13"
+  version="2025.06.14"
   pluginURL="https://raw.githubusercontent.com/dkaser/unraid-fileactivity/main/plugin/file.activity.plg"
   support="https://forums.unraid.net/topic/191180-plugin-file-activity-see-whats-keeping-your-unraid-disks-busy/"
   min="7.0.0"
@@ -14,18 +14,16 @@
 
 <CHANGES>
 <![CDATA[
-###2025.06.13###
-- New/improved background process for collecting activity data
-- Improved styling of log display
-- Added ability to filter based on date/time, defaulting to last 30 minutes of data
+###2025.06.14###
+- Fix: Ignore directory activity
 
 For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
 ]]>
 </CHANGES>
 
-<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.06.13-noarch-1.txz">
-<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.06.13/unraid-fileactivity-2025.06.13-noarch-1.txz</URL>
-<SHA256>23104242c80837560d2779a9bdf00cceefad3f76814637bc3d493367f3c11aa1</SHA256>
+<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.06.14-noarch-1.txz">
+<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.06.14/unraid-fileactivity-2025.06.14-noarch-1.txz</URL>
+<SHA256>2bff90ca50212920c8dcf25d59e1785e2664c8cd263d910ae943986eff7d2112</SHA256>
 </FILE>
 
 <!--
@@ -42,10 +40,10 @@ do
     kill $pid >/dev/null 2>&1
 done
 
-upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.06.13-noarch-1.txz
+upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.06.14-noarch-1.txz
 
 # cleanup old versions
-rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.06.13')
+rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.06.14')
 
 mkdir -p /var/log/file.activity
 
@@ -54,7 +52,7 @@ mkdir -p /var/log/file.activity
 echo ""
 echo "----------------------------------------------------"
 echo " file.activity has been installed."
-echo " Version: 2025.06.13"
+echo " Version: 2025.06.14"
 echo "----------------------------------------------------"
 echo ""
 ]]>
