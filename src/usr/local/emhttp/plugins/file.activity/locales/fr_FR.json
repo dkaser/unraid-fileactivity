@@ -25,11 +25,14 @@
     "action": "Action",
     "file_path": "Chemin du fichier",
     "reset": "Réinitialiser les filtres",
+    "group": "Groupe",
     "settings": {
         "monitoring": "Surveillance de l'activité des fichiers",
         "description": "L'activité d'ouverture, de lecture, d'écriture et de modification des fichiers est surveillée et enregistrée sur la grappe à l'aide d'inotify et s'affiche par disque ou partage, disques UD et cache. Vous devez démarrer l'activité des fichiers pour pouvoir enregistrer l'activité des disques. L'activité des fichiers est prévue pour fonctionner durant de courtes périodes afin de vérifier l'activité des disques. Un serveur avec beaucoup d'activité de fichiers peut remplir l'espace de logs. Les dossiers « appdata », « docker », « syslogs » et « system » (insensible à la casse) sont exclus.",
         "note": "Remarque : la surveillance de l'activité des fichiers s'arrête si la grappe est arrêtée, et elle redémarrera lorsque la grappe sera relancée si elle est activée.",
         "apply_defaults": "Charger et appliquer les valeurs par défaut",
+        "clear_data": "Effacer les données",
+        "clear_data_description": "Effacer le journal d'activité des fichiers.",
         "help": {
             "enable_monitoring": "Sélectionnez **Oui** pour activer la surveillance de l'activité des fichiers au démarrage du serveur.",
             "enable_ssd": "Sélectionnez **Oui** pour activer la surveillance de l'activité des fichiers sur les périphériques SSD, sinon seuls les périphériques à plateaux seront surveillés. La surveillance des SSD peut surcharger le serveur en cas d'activité importante sur les SSD.",

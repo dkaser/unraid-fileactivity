@@ -25,11 +25,14 @@
     "action": "Åtgärd",
     "file_path": "Sökväg till fil",
     "reset": "Återställ filter",
+    "group": "Grupp",
     "settings": {
         "monitoring": "Övervakning av filaktivitet",
         "description": "Öppning, läsning, skrivning och ändring av filer övervakas och loggas på arrayen med inotify och visas per disk eller share, UD-diskar och cache. Du måste starta Filaktivitet för att logga diskkaktiviteten. Filaktivitet är avsedd att köras under korta perioder så att du kan kontrollera diskaktivitet. En server med mycket filaktivitet kan fylla loggutrymmet. Katalogerna \"appdata\", \"docker\", \"syslogs\" och \"system\" (skiftlägesokänsligt) är undantagna.",
         "note": "Observera: Övervakning av filaktivitet stoppas om arrayen stoppas, och startar om när arrayen startas om det är aktiverat.",
         "apply_defaults": "Ladda och använd standardvärden",
+        "clear_data": "Rensa data",
+        "clear_data_description": "Radera loggen för filaktivitet.",
         "help": {
             "enable_monitoring": "Ställ in på **Ja** för att aktivera övervakning av filaktivitet när servern startas.",
             "enable_ssd": "Ställ in på **Ja** för att aktivera övervakning av filaktivitet för alla SSD-enheter, annars övervakas endast roterande enheter. Övervakning av SSD-enheter kan överbelasta servern vid hög aktivitet på SSD:er.",

@@ -25,11 +25,14 @@
     "action": "Aktion",
     "file_path": "Dateipfad",
     "reset": "Filter zurücksetzen",
+    "group": "Gruppe",
     "settings": {
         "monitoring": "Dateiaktivitätsüberwachung",
         "description": "Das Öffnen, Lesen, Schreiben und Ändern von Dateien wird auf dem Array mithilfe von inotify überwacht und protokolliert und wird nach Laufwerk oder Freigabe, UD-Laufwerken und Cache angezeigt. Um die Festplattenaktivität zu protokollieren, müssen Sie die Dateiaktivitätsüberwachung starten. Die Dateiaktivitätsüberwachung ist dafür gedacht, nur für kurze Zeiträume zu laufen, damit Sie die Festplattenaktivität überprüfen können. Bei einem Server mit vielen Dateiaktivitäten kann der Protokollspeicher schnell gefüllt werden. Die Verzeichnisse \"appdata\", \"docker\", \"syslogs\" und \"system\" (Groß-/Kleinschreibung wird nicht beachtet) sind ausgeschlossen.",
         "note": "Hinweis: Die Dateiaktivitätsüberwachung wird gestoppt, wenn das Array gestoppt wird und startet neu, wenn das Array gestartet wird, sofern sie aktiviert ist.",
         "apply_defaults": "Standardwerte laden und anwenden",
+        "clear_data": "Daten löschen",
+        "clear_data_description": "Das Dateiaktivitätsprotokoll löschen.",
         "help": {
             "enable_monitoring": "Auf **Ja** setzen, um die Dateiaktivitätsüberwachung beim Start des Servers zu aktivieren.",
             "enable_ssd": "Auf **Ja** setzen, um die Dateiaktivitätsüberwachung für alle SSD-Geräte zu aktivieren, ansonsten werden nur sich drehende Geräte überwacht. Die Überwachung von SSD-Geräten kann durch hohe Aktivität auf SSDs den Server überfordern.",
