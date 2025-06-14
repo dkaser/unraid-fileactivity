@@ -31,6 +31,8 @@
         "description": "File open, read, write, and modify activity is monitored and logged on the array using inotify and is displayed by disk or share, UD disks, and cache. You need to start the File Activity in order to log the disk activity. File Activity is intended to be running for short periods so you can check disk activity. A server with a lot of file activity can fill the log space. The 'appdata', 'docker', 'syslogs', and 'system' directories (case insensitive) are excluded.",
         "note": "Note: File Activity monitoring is stopped if the array is stopped, and will restart when the array is started if it is enabled.",
         "apply_defaults": "Load and apply default values",
+        "clear_data": "Clear data",
+        "clear_data_description": "Erase the file activity log.",
         "help": {
             "enable_monitoring": "Set to **Yes** to enable File Activity monitoring when the server is started.",
             "enable_ssd": "Set to **Yes** to enable File Activity monitoring for any SSD Devices, otherwise only Spinning Devices are monitored. Monitoring SSD devices can overwhelm the server from hyper activity on SSDs.",

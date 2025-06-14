@@ -25,11 +25,14 @@
     "action": "Akcja",
     "file_path": "Ścieżka pliku",
     "reset": "Resetuj filtry",
+    "group": "Grupa",
     "settings": {
         "monitoring": "Monitorowanie aktywności plików",
         "description": "Aktywność otwierania, odczytu, zapisu i modyfikacji plików jest monitorowana i rejestrowana na macierzy za pomocą inotify i wyświetlana według dysku lub udziału, dysków UD oraz pamięci podręcznej. Aby rejestrować aktywność dysków, musisz uruchomić monitorowanie aktywności plików. Monitorowanie aktywności plików jest przeznaczone do uruchamiania na krótkie okresy, aby sprawdzić aktywność dysków. Serwer z dużą aktywnością plików może szybko zapełnić miejsce w logach. Katalogi 'appdata', 'docker', 'syslogs' oraz 'system' (niezależnie od wielkości liter) są pomijane.",
         "note": "Uwaga: Monitorowanie aktywności plików zostaje zatrzymane, jeżeli macierz zostanie zatrzymana i zostanie wznowione po uruchomieniu macierzy, jeżeli funkcja jest włączona.",
         "apply_defaults": "Załaduj i zastosuj wartości domyślne",
+        "clear_data": "Wyczyść dane",
+        "clear_data_description": "Usuń dziennik aktywności plików.",
         "help": {
             "enable_monitoring": "Ustaw na **Tak**, aby włączyć monitorowanie aktywności plików po uruchomieniu serwera.",
             "enable_ssd": "Ustaw na **Tak**, aby włączyć monitorowanie aktywności plików dla wszystkich urządzeń SSD, w przeciwnym razie monitorowane będą tylko urządzenia talerzowe. Monitorowanie urządzeń SSD może przeciążyć serwer z powodu bardzo wysokiej aktywności SSD.",

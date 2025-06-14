@@ -25,11 +25,14 @@
     "action": "Ação",
     "file_path": "Caminho do Arquivo",
     "reset": "Redefinir filtros",
+    "group": "Grupo",
     "settings": {
         "monitoring": "Monitoramento de Atividade de Arquivos",
         "description": "A atividade de abrir, ler, gravar e modificar arquivos é monitorada e registrada no array usando o inotify e exibida por disco ou compartilhamento, discos UD e cache. Você precisa iniciar a Atividade de Arquivos para registrar a atividade do disco. A Atividade de Arquivos deve ser executada por períodos curtos para que você possa verificar a atividade do disco. Um servidor com muita atividade de arquivo pode preencher o espaço de log. Os diretórios 'appdata', 'docker', 'syslogs' e 'system' (não diferenciam maiúsculas de minúsculas) são excluídos.",
         "note": "Nota: O monitoramento de Atividade de Arquivos é interrompido se o array for parado, e será reiniciado quando o array for iniciado, se estiver ativado.",
         "apply_defaults": "Carregar e aplicar valores padrão",
+        "clear_data": "Limpar dados",
+        "clear_data_description": "Limpar o log de Atividade de Arquivo.",
         "help": {
             "enable_monitoring": "Defina como **Sim** para ativar o monitoramento de Atividade de Arquivos quando o servidor for iniciado.",
             "enable_ssd": "Defina como **Sim** para ativar o monitoramento de Atividade de Arquivos para quaisquer Dispositivos SSD, caso contrário, somente Dispositivos de Disco Giratório serão monitorados. Monitorar dispositivos SSD pode sobrecarregar o servidor devido à hiperatividade nos SSDs.",

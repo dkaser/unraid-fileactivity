@@ -25,11 +25,14 @@
     "action": "Handling",
     "file_path": "Filbane",
     "reset": "Tilbakestill filtre",
+    "group": "Gruppe",
     "settings": {
         "monitoring": "Overvåking av filaktivitet",
         "description": "Filåpning, lesing, skriving og endringsaktivitet overvåkes og logges på arrayet ved hjelp av inotify og vises etter disk eller deling, UD-disker og cache. Du må starte File Activity for å logge diskaktivitet. File Activity er ment å kjøres i korte perioder slik at du kan sjekke diskaktiviteten. En server med mye filaktivitet kan fylle loggområdet. Katalogene 'appdata', 'docker', 'syslogs' og 'system' (skiller ikke mellom små og store bokstaver) er ekskludert.",
         "note": "Merk: Overvåking av filaktivitet stoppes hvis arrayet stoppes, og vil starte på nytt når arrayet startes, hvis den er aktivert.",
         "apply_defaults": "Last inn og bruk standardverdier",
+        "clear_data": "Tøm data",
+        "clear_data_description": "Tøm logg for filaktivitet.",
         "help": {
             "enable_monitoring": "Sett til **Ja** for å aktivere overvåking av filaktivitet når serveren startes.",
             "enable_ssd": "Sett til **Ja** for å aktivere overvåking av filaktivitet for alle SSD-enheter; ellers overvåkes kun roterende enheter. Overvåking av SSD-enheter kan overbelaste serveren på grunn av mye aktivitet på SSD-ene.",

@@ -3,30 +3,44 @@
 # start|stop|clear|update.
 #
 
+log() {
+  LOG_TIME=`date '+%Y/%m/%d %H:%M:%S'`
+  CALLER=`basename "$0"`
+  echo "$LOG_TIME $CALLER: $1" >> /var/log/fileactivity.log
+}
+
 file_activity_start() {
-	file_activity_stop
+	if pgrep -f "/usr/local/php/unraid-fileactivity/bin/fileactivity-watcher" >/dev/null; then
+		file_activity_stop
+	fi
 	
-	# Start inotify script to monitor disk events
-	/usr/local/php/unraid-fileactivity/bin/fileactivity-watcher >/dev/null 2>&1 & disown
+	if [ "$SERVICE" = "enable" ]; then
+		log "Starting file activity monitoring."
+		/usr/local/php/unraid-fileactivity/bin/fileactivity-watcher >/dev/null 2>&1 & disown
+	else
+		log "File activity monitoring is disabled."
+	fi
 }
 
 file_activity_stop() {
-	# Kill all file activity processes.
+	log "Stopping file activity monitoring."
+	
 	killall --ns $$ --wait fileactivity-watcher >/dev/null 2>&1
 }
 
 file_activity_clear() {
-	# Clear the file activity log.
-	echo "" > /var/log/fileactivity-data.log
+	file_activity_stop
+
+	log "Clearing file activity log."
+	rm -f /var/log/file.activity/data.log >/dev/null 2>&1
+	rm -f /var/log/file.activity/data.log.1 >/dev/null 2>&1
+
+	file_activity_start
 }
 
 file_activity_update() {
-	file_activity_stop 
-
-	# Start file activity if service is enabled and not already running.
-	if [ "$SERVICE" = "enable" ]; then
-		file_activity_start
-	fi
+	log "Updating file activity configuration."
+	file_activity_start
 }
 
 plugin="file.activity"

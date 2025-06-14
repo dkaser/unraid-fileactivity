@@ -25,11 +25,14 @@
     "action": "Actie",
     "file_path": "Bestandspad",
     "reset": "Filters resetten",
+    "group": "Groep",
     "settings": {
         "monitoring": "Bestandsactiviteitsbewaking",
         "description": "Bestandsopeningen, lezen, schrijven en aanpassingen worden bewaakt en gelogd op de array met gebruik van inotify. Dit wordt weergegeven per schijf of share, UD-schijven en cache. U moet de Bestandsactiviteit starten om de schijfactiviteit te loggen. Bestandsactiviteit is bedoeld om slechts korte periodes te draaien, zodat u de schijfactiviteit kunt controleren. Een server met veel bestandsactiviteit kan de logruimte snel vullen. De mappen 'appdata', 'docker', 'syslogs' en 'system' (hoofdletterongevoelig) zijn uitgesloten.",
         "note": "Let op: Bestandsactiviteitsbewaking wordt gestopt als de array wordt gestopt, en zal opnieuw starten wanneer de array gestart wordt indien deze is ingeschakeld.",
         "apply_defaults": "Standaardwaarden laden en toepassen",
+        "clear_data": "Gegevens wissen",
+        "clear_data_description": "Het logboek van bestandsactiviteiten wissen.",
         "help": {
             "enable_monitoring": "Stel in op **Ja** om bestandsactiviteitsbewaking in te schakelen wanneer de server wordt gestart.",
             "enable_ssd": "Stel in op **Ja** om bestandsactiviteitsbewaking voor SSD-apparaten in te schakelen, anders worden alleen roterende apparaten bewaakt. Het monitoren van SSD-apparaten kan de server overbelasten door hyperactiviteit op SSDs.",

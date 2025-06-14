@@ -45,7 +45,6 @@ $(function() {
 <thead><tr><th><?= $tr->tr("plugin_settings"); ?></th></tr></thead>
 </table>
 
-<?if ($mdStarted ?? false) { ?>
 <h3><?= $tr->tr("settings.monitoring"); ?></h3>
 
 <p><?= $tr->tr("settings.description"); ?></p>
@@ -113,7 +112,7 @@ $(function() {
     <dl>
         <dt><?= $tr->tr("display_events"); ?></dt>
         <dd>
-            <input type="text" name="DISPLAY_EVENTS" class="narrow" maxlength="4" value="<?= htmlspecialchars($file_activity_cfg['DISPLAY_EVENTS']);?>" placeholder="25">
+            <input type="number" name="DISPLAY_EVENTS" min="1" step="1" class="narrow" value="<?= htmlspecialchars($file_activity_cfg['DISPLAY_EVENTS']);?>" placeholder="250">
         </dd>
     </dl>
     <blockquote class="inline_help">
@@ -127,8 +126,16 @@ $(function() {
         <dd>
             <input type="submit" name="#apply" value="<?= $tr->tr("apply"); ?>"><input type="button" value="<?= $tr->tr("done"); ?>" onclick="done()">
         </dd>
+    </dl>
+</form>
+<form method="POST" action="/update.php" target="progressFrame">
+<input type="hidden" name="#command" value="/plugins/file.activity/scripts/rc.file.activity">
+<input type="hidden" name="#arg[1]" value="clear">
+<dl>
+    <dt><strong><?= $tr->tr("settings.clear_data_description"); ?></strong></dt>
+    <dd>
+        <input type="submit" value="<?= $tr->tr('settings.clear_data'); ?>">
+    </dd>
+</dl>
 </form>
 </div>
-<?} else { ?>
-	<p><?= $tr->tr("array_stopped"); ?></p>
-<?}?>
