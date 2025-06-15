@@ -36,7 +36,12 @@ $tr = $tr ?? new Translator(PLUGIN_ROOT);
 <link href="/plugins/file.activity/assets/datatables.min.css" rel="stylesheet">
 <script src="/plugins/file.activity/assets/datatables.min.js"></script>
 <script src="/plugins/file.activity/assets/luxon.min.js"></script>
+<script src="/plugins/file.activity/assets/flatpickr.min.js"></script>
+<link rel="stylesheet" href="/plugins/file.activity/assets/flatpickr.min.css">
+
 <script src="/plugins/file.activity/assets/fileactivity.js"></script>
+
+
 
 <table id='logTable' class="stripe compact">
     <thead>

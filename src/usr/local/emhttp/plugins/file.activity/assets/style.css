@@ -24,3 +24,7 @@ button.fg-button {
     background: none;
     letter-spacing: initial;
 }
+
+div.flatpickr-calendar {
+    font-size: 1.2rem;
+}
