@@ -28,3 +28,17 @@ button.fg-button {
 div.flatpickr-calendar {
     font-size: 1.2rem;
 }
+
+div.dtcc-dropdown * {
+    color: black
+}
+
+span.dtcc-button-icon svg {
+    color: white;
+    background-color: gray;
+    padding: 2px 2px 2px 2px;
+}
+
+div.dt-button-info {
+    color: black
+}
