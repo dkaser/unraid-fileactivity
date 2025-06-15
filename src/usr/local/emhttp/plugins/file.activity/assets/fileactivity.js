@@ -6,26 +6,22 @@ DataTable.ext.search.push(function (settings, data, dataIndex) {
         return true;
     }
 
-    const minVal = minDate[settings.sTableId].val();
-    const maxVal = maxDate[settings.sTableId].val();
+    const minVal = minDate[settings.sTableId].selectedDates;
+    const maxVal = maxDate[settings.sTableId].selectedDates;
     const dateVal = new Date(data[0]);
 
-    if (minVal === null && maxVal === null) {
+    const minValEmpty = !Array.isArray(minVal) || !minVal.length;
+    const maxValEmpty = !Array.isArray(maxVal) || !maxVal.length;
+
+    if (minValEmpty && maxValEmpty) {
         return true;
     }
 
-    let min = (minVal === null) ? luxon.DateTime.fromMillis(0) : luxon.DateTime.fromJSDate(minVal);
-    let max = (maxVal === null) ? luxon.DateTime.now().plus({ hours: 1}) : luxon.DateTime.fromJSDate(maxVal);
-    let date = luxon.DateTime.fromJSDate(dateVal);
+    let min = (minValEmpty) ? luxon.DateTime.fromMillis(0).toJSDate() : minVal[0];
+    let max = (maxValEmpty) ? luxon.DateTime.now().plus({ hours: 1}).toJSDate() : maxVal[0];
 
-    min = min.minus({ minutes: min.offset });
-    max = max.minus({ minutes: max.offset });
-
-    min = min.toJSDate();
-    max = max.toJSDate();
-    date = date.toJSDate();
     if (
-        (min <= date && date <= max)
+        (min <= dateVal && dateVal <= max)
     ) {
         return true;
     }
@@ -55,16 +51,14 @@ DataTable.feature.register('dateRange', function (settings, opts) {
     const minTime = calcTime.minus({ minutes: 30 }).toJSDate();
 
     const dateSettings = {
-        format: 'D HH:mm',
-        buttons: {
-            clear: true
-        }
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
     }
 
-    minDate[settings.sTableId] = new DateTime(minInput, dateSettings);
-    maxDate[settings.sTableId] = new DateTime(maxInput, dateSettings);
+    minDate[settings.sTableId] = new flatpickr(minInput, dateSettings);
+    maxDate[settings.sTableId] = new flatpickr(maxInput, dateSettings);
 
-    minDate[settings.sTableId].val(minTime);
+    minDate[settings.sTableId].setDate(minTime);
 
     minInput.addEventListener('change', () => settings.api.draw());
     maxInput.addEventListener('change', () => settings.api.draw());
@@ -134,8 +128,8 @@ function getDatatableConfig(url, refreshText, tableName) {
                     {
                         text: "Clear Filters",
                         action: function ( e, dt, node, config ) {
-                            minDate[dt.settings()[0].sTableId].val(null);
-                            maxDate[dt.settings()[0].sTableId].val(null);
+                            minDate[dt.settings()[0].sTableId].clear();
+                            maxDate[dt.settings()[0].sTableId].clear();
                             dt.search('');
                             dt.columns().ccSearchClear();
                             dt.draw();
