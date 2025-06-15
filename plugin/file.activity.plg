@@ -4,7 +4,7 @@
 <PLUGIN 
   name="file.activity"
   author="Derek Kaser"
-  version="2025.06.14"
+  version="2025.06.15"
   pluginURL="https://raw.githubusercontent.com/dkaser/unraid-fileactivity/main/plugin/file.activity.plg"
   support="https://forums.unraid.net/topic/191180-plugin-file-activity-see-whats-keeping-your-unraid-disks-busy/"
   min="7.0.0"
@@ -14,16 +14,16 @@
 
 <CHANGES>
 <![CDATA[
-###2025.06.14###
-- Fix: Ignore directory activity
+###2025.06.15###
+- Fix: replace date picker
 
 For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
 ]]>
 </CHANGES>
 
-<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.06.14-noarch-1.txz">
-<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.06.14/unraid-fileactivity-2025.06.14-noarch-1.txz</URL>
-<SHA256>2bff90ca50212920c8dcf25d59e1785e2664c8cd263d910ae943986eff7d2112</SHA256>
+<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.06.15-noarch-1.txz">
+<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.06.15/unraid-fileactivity-2025.06.15-noarch-1.txz</URL>
+<SHA256>a6892c29a164c652907f1b680ddd31eed9581353cba338ae070e49832cfd38c8</SHA256>
 </FILE>
 
 <!--
@@ -40,10 +40,10 @@ do
     kill $pid >/dev/null 2>&1
 done
 
-upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.06.14-noarch-1.txz
+upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.06.15-noarch-1.txz
 
 # cleanup old versions
-rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.06.14')
+rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.06.15')
 
 mkdir -p /var/log/file.activity
 
@@ -52,7 +52,7 @@ mkdir -p /var/log/file.activity
 echo ""
 echo "----------------------------------------------------"
 echo " file.activity has been installed."
-echo " Version: 2025.06.14"
+echo " Version: 2025.06.15"
 echo "----------------------------------------------------"
 echo ""
 ]]>
