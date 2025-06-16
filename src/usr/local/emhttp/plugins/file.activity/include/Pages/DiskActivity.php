@@ -52,8 +52,3 @@ $tr = $tr ?? new Translator(PLUGIN_ROOT);
     </tfoot>
 </table>
 
-<script>
-$(document).ready( function () {
-    $('#diskTable').DataTable(getDatatableConfig('/plugins/file.activity/data.php/disk', '<?= $tr->tr("refresh"); ?>', 'disk'));
-} );
-</script>

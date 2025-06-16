@@ -33,6 +33,11 @@ $tr = $tr ?? new Translator(PLUGIN_ROOT);
 ?>
 <link type="text/css" rel="stylesheet" href="/plugins/file.activity/assets/style.css">
 
+<script src="/plugins/file.activity/assets/translate.js"></script>
+<script>
+    const translator = new Translator("/plugins/file.activity");
+</script>
+
 <link href="/plugins/file.activity/assets/datatables.min.css" rel="stylesheet">
 <script src="/plugins/file.activity/assets/datatables.min.js"></script>
 <script src="/plugins/file.activity/assets/luxon.min.js"></script>
@@ -40,8 +45,6 @@ $tr = $tr ?? new Translator(PLUGIN_ROOT);
 <link rel="stylesheet" href="/plugins/file.activity/assets/flatpickr.min.css">
 
 <script src="/plugins/file.activity/assets/fileactivity.js"></script>
-
-
 
 <table id='logTable' class="stripe compact">
     <thead>
@@ -65,8 +68,10 @@ $tr = $tr ?? new Translator(PLUGIN_ROOT);
 </table>
 
 <script>
-$(document).ready( function () {
-    $('#logTable').DataTable(getDatatableConfig('/plugins/file.activity/data.php/share', '<?= $tr->tr("refresh"); ?>', 'share'));
+$(document).ready( async function () {
+    await translator.init();
+    $('#logTable').DataTable(getDatatableConfig('/plugins/file.activity/data.php/share'));
+    $('#diskTable').DataTable(getDatatableConfig('/plugins/file.activity/data.php/disk'));
 } );
 </script>
 
