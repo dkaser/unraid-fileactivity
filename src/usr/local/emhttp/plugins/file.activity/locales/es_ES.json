@@ -26,6 +26,7 @@
     "file_path": "Ruta de archivo",
     "reset": "Restablecer filtros",
     "group": "Grupo",
+    "clear_filters": "Borrar filtros",
     "settings": {
         "monitoring": "Supervisión de actividad de archivos",
         "description": "La actividad de apertura, lectura, escritura y modificación de archivos se supervisa y registra en el array utilizando inotify y se muestra por disco o recurso compartido, discos UD y caché. Debe iniciar la actividad de archivos para registrar la actividad del disco. La actividad de archivos está pensada para ejecutarse por períodos cortos, de modo que pueda revisar la actividad del disco. Un servidor con mucha actividad de archivos puede llenar el espacio del registro. Los directorios 'appdata', 'docker', 'syslogs' y 'system' (no distingue mayúsculas/minúsculas) están excluidos.",

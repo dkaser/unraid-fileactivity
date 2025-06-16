@@ -26,6 +26,7 @@
     "file_path": "文件路径",
     "reset": "重置筛选器",
     "group": "分组",
+    "clear_filters": "清除筛选器",
     "settings": {
         "monitoring": "文件活动监控",
         "description": "文件的打开、读取、写入和修改活动会通过 inotify 在阵列上被监控并记录，并按磁盘或共享、UD 磁盘和缓存显示。你需要启动文件活动才能记录磁盘活动。文件活动主要用于短时间运行以便检查磁盘活动。如果服务器的文件活动过多，可能会填满日志空间。“appdata”、“docker”、“syslogs” 和 “system” 目录（不区分大小写）会被排除。",

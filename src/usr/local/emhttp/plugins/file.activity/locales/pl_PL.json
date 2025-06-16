@@ -26,6 +26,7 @@
     "file_path": "Ścieżka pliku",
     "reset": "Resetuj filtry",
     "group": "Grupa",
+    "clear_filters": "Wyczyść filtry",
     "settings": {
         "monitoring": "Monitorowanie aktywności plików",
         "description": "Aktywność otwierania, odczytu, zapisu i modyfikacji plików jest monitorowana i rejestrowana na macierzy za pomocą inotify i wyświetlana według dysku lub udziału, dysków UD oraz pamięci podręcznej. Aby rejestrować aktywność dysków, musisz uruchomić monitorowanie aktywności plików. Monitorowanie aktywności plików jest przeznaczone do uruchamiania na krótkie okresy, aby sprawdzić aktywność dysków. Serwer z dużą aktywnością plików może szybko zapełnić miejsce w logach. Katalogi 'appdata', 'docker', 'syslogs' oraz 'system' (niezależnie od wielkości liter) są pomijane.",
