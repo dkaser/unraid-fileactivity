@@ -33,9 +33,9 @@ $tr = $tr ?? new Translator(PLUGIN_ROOT);
 ?>
 <link type="text/css" rel="stylesheet" href="/plugins/file.activity/assets/style.css">
 
-<script src="/plugins/open.files/assets/translate.js"></script>
+<script src="/plugins/file.activity/assets/translate.js"></script>
 <script>
-    const translator = new Translator("/plugins/file.activity/");
+    const translator = new Translator("/plugins/file.activity");
 </script>
 
 <link href="/plugins/file.activity/assets/datatables.min.css" rel="stylesheet">
