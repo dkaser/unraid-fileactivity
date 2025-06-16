@@ -42,3 +42,12 @@ span.dtcc-button-icon svg {
 div.dt-button-info {
     color: black
 }
+
+input.flatpickr-input {
+    width: 150px;
+}
+
+.overflow-anywhere {
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
