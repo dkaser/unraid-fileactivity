@@ -63,8 +63,20 @@ class Translator {
 
     let localeFlat = {};
     if (locale !== "en_US") {
-      const localeObj = await fetchJson(localePath);
-      localeFlat = Translator.flattenObject(localeObj);
+      // Get the list of locales from the server
+      const localesResponse = await fetch(`${this.basePath}/data.php/locales`);
+      if (localesResponse.ok) {
+        // Check if the current locale is in the list of available locales
+        let locales = await localesResponse.json();
+        locales = Object.values(locales);
+
+        if (locales.includes(locale)) {
+          const localeObj = await fetchJson(localePath);
+          localeFlat = Translator.flattenObject(localeObj);
+        } else {
+          console.warn(`Locale ${locale} not found in available locales.`);
+        }
+      }
     }
 
     // Merge: localeFlat overrides enUSFlat if key exists and is not blank
