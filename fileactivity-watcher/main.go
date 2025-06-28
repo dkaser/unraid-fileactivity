@@ -63,8 +63,7 @@ func init() {
 	cfg, err := ini.Load("/boot/config/plugins/file.activity/file.activity.cfg")
 
 	if err != nil {
-		log.WithFields(log.Fields{"error": err}).Error("Error loading config file")
-		os.Exit(1)
+		log.WithFields(log.Fields{"error": err}).Fatal("Error loading config file")
 	}
 
 	includeCache = cfg.Section("").Key("INCLUDE_CACHE").MustBool(false)
@@ -323,7 +322,7 @@ func startEventListener(watcher *fsnotify.Watcher) {
 					}
 
 					if currentEventLimitInt > 300000 {
-						log.WithFields(log.Fields{"currentLimit": currentEventLimitInt}).Info("monitor", "Current inotify event limit is high, not increasing, ignoring overflow")
+						log.WithFields(log.Fields{"currentLimit": currentEventLimitInt}).Info("Current inotify event limit is high, not increasing, ignoring overflow")
 						ignoreOverflow = true
 						continue
 					}
