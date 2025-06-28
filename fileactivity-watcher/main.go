@@ -334,7 +334,7 @@ func startEventListener(watcher *fsnotify.Watcher) {
 						log.InfoL("monitor", "Current fsnotify event limit is high, not increasing", logrus.Fields{"current_limit": currentEventLimitInt})
 						continue
 					}
-					wantedEventLimit := currentEventLimitInt * 2 // Increase by 1000, adjust as needed
+					wantedEventLimit := currentEventLimitInt * 2
 					_, err = sysctl.Sysctl("fs/inotify/max_queued_events", strconv.Itoa(wantedEventLimit))
 					if err != nil {
 						log.ErrorL("monitor", "Error setting fsnotify event limit", logrus.Fields{"error": err})
