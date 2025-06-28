@@ -4,7 +4,7 @@
 <PLUGIN 
   name="file.activity"
   author="Derek Kaser"
-  version="2025.06.17"
+  version="2025.06.28"
   pluginURL="https://raw.githubusercontent.com/dkaser/unraid-fileactivity/main/plugin/file.activity.plg"
   support="https://forums.unraid.net/topic/191180-plugin-file-activity-see-whats-keeping-your-unraid-disks-busy/"
   min="7.0.0"
@@ -14,16 +14,16 @@
 
 <CHANGES>
 <![CDATA[
-###2025.06.17###
-- Clean up syslog messages if a translation does not exist for the browser locale
+###2025.06.28###
+* feat: better handling of inotify overflows in high activity situations
 
 For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
 ]]>
 </CHANGES>
 
-<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.06.17-noarch-1.txz">
-<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.06.17/unraid-fileactivity-2025.06.17-noarch-1.txz</URL>
-<SHA256>547092b46d490f62f80ae4bbf2e59a875ab6d008c29debd92efa37eee2044542</SHA256>
+<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.06.28-noarch-1.txz">
+<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.06.28/unraid-fileactivity-2025.06.28-noarch-1.txz</URL>
+<SHA256>8252d8e789490c80b96d309dfe45a2e8b3c544f5e1497a94a4bbdf9879be33c8</SHA256>
 </FILE>
 
 <!--
@@ -40,10 +40,10 @@ do
     kill $pid >/dev/null 2>&1
 done
 
-upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.06.17-noarch-1.txz
+upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.06.28-noarch-1.txz
 
 # cleanup old versions
-rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.06.17')
+rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.06.28')
 
 mkdir -p /var/log/file.activity
 
@@ -52,7 +52,7 @@ mkdir -p /var/log/file.activity
 echo ""
 echo "----------------------------------------------------"
 echo " file.activity has been installed."
-echo " Version: 2025.06.17"
+echo " Version: 2025.06.28"
 echo "----------------------------------------------------"
 echo ""
 ]]>
