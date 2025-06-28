@@ -1,0 +1,8 @@
+/var/log/fileactivity-watcher.log {
+   compress
+   daily
+   rotate 4
+   notifempty
+   missingok
+   copytruncate
+}
