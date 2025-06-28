@@ -10,7 +10,6 @@ require (
 )
 
 require (
-	github.com/jar-o/limlog v0.0.0-20200826200915-9d66a36febe9 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/sys v0.33.0 // indirect
