@@ -29,9 +29,6 @@ if ( ! defined(__NAMESPACE__ . '\PLUGIN_ROOT') || ! defined(__NAMESPACE__ . '\PL
 
 $tr = $tr ?? new Translator(PLUGIN_ROOT);
 
-// Parse the plugin config file.
-// $file_activity_cfg = Utils::parse_plugin_cfg('file.activity');
-
 $fileactivity_cfg = new Config();
 
 ?>
