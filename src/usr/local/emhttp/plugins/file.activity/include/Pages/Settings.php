@@ -41,6 +41,7 @@ $(function() {
 	showStatus('fileactivity-watcher');
 });
 </script>
+<script src="/plugins/file.activity/assets/re2js.js"></script>
 
 <table class="tablesorter shift ups">
 
@@ -127,7 +128,8 @@ $(function() {
             <?php foreach ($fileactivity_cfg->getExclusions() as $exclusion) { ?>
                 <dl><dt>&nbsp;</dt>
                 <dd>
-                    <input type="text" name="exclusions[]" value="<?= htmlspecialchars($exclusion); ?>">
+                    <input type="text" name="exclusions[]" oninput="validateRE2(this)" value="<?= htmlspecialchars($exclusion); ?>">
+                    <i class="fa fa-exclamation-circle regex-error"></i>
                     <button type="button" class="exclusion-button" onclick="removeExclusion(this)"><?= $tr->tr("remove"); ?></button>
                 </dd></dl>
             <?php } ?>
@@ -140,7 +142,8 @@ $(function() {
             var newExclusion = document.createElement('dl');
             newExclusion.innerHTML = `<dt>&nbsp;</dt>
                                        <dd>
-                                           <input type="text" name="exclusions[]" value="">
+                                           <input type="text" oninput="validateRE2(this)" name="exclusions[]" value="">
+                                           <i class="fa fa-exclamation-circle regex-error"></i>
                                            <button type="button" class="remove-exclusion" onclick="this.parentElement.remove()"><?= $tr->tr("remove"); ?></button>
                                        </dd>`;
             container.appendChild(newExclusion);
@@ -157,6 +160,25 @@ $(function() {
             var form = $('#file_activity');
             form.find('input[value="Apply"],input[value="Apply"],input[name="cmdEditShare"],input[name="cmdUserEdit"]').not('input.lock').prop('disabled',false);
             form.find('input[value="Done"],input[value="Done"]').not('input.lock').val("Reset").prop('onclick',null).off('click').click(function(){formHasUnsavedChanges=false;refresh(form.offset().top);});
+        }
+
+        function validateRE2(input) {
+            // Get a reference to the <i> element right after the input
+            var errorIcon = input.nextElementSibling;
+
+            // Validate using RE2JS
+            try {
+                var re2 = RE2JS.RE2JS.compile(input.value.trim());
+                // If the pattern is valid, remove any error class
+                input.classList.remove('regex-error');
+                input.setCustomValidity(""); // Clear any custom validity message
+                errorIcon.style.display = 'none'; // Hide the error icon
+            } catch (e) {
+                // If the pattern is invalid, add an error class
+                input.classList.add('regex-error');
+                input.setCustomValidity("Invalid regex pattern: " + e.message);
+                errorIcon.style.display = 'inline'; // Show the error icon
+            }
         }
     </script>
 
