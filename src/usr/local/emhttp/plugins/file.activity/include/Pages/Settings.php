@@ -124,19 +124,17 @@ $(function() {
         <dd><button type="button" id="add-exclusion" class="exclusion-button" onclick="addExclusion()"><?= $tr->tr("add"); ?></button></dd>
     </dl>
     <div id="exclusions-container">
-            <!-- Add an input for each item in $fileactivity_cfg->getExclusions(), along with buttons to remove entries and a button to add a new one -->
-            <?php foreach ($fileactivity_cfg->getExclusions() as $exclusion) { ?>
-                <dl><dt>&nbsp;</dt>
-                <dd>
-                    <input type="text" name="exclusions[]" oninput="validateRE2(this)" value="<?= htmlspecialchars($exclusion); ?>">
-                    <i class="fa fa-exclamation-circle regex-error"></i>
-                    <button type="button" class="exclusion-button" onclick="removeExclusion(this)"><?= $tr->tr("remove"); ?></button>
-                </dd></dl>
-            <?php } ?>
+        <?php foreach ($fileactivity_cfg->getExclusions() as $exclusion) { ?>
+            <dl><dt>&nbsp;</dt>
+            <dd>
+                <input type="text" name="exclusions[]" oninput="validateRE2(this)" value="<?= htmlspecialchars($exclusion); ?>">
+                <i class="fa fa-exclamation-circle regex-error"></i>
+                <button type="button" class="exclusion-button" onclick="removeExclusion(this)"><?= $tr->tr("remove"); ?></button>
+            </dd></dl>
+        <?php } ?>
     </div>
 
     <script>
-        // Function to add a new exclusion input
         function addExclusion() {
             var container = document.getElementById('exclusions-container');
             var newExclusion = document.createElement('dl');
@@ -144,14 +142,14 @@ $(function() {
                                        <dd>
                                            <input type="text" oninput="validateRE2(this)" name="exclusions[]" value="">
                                            <i class="fa fa-exclamation-circle regex-error"></i>
-                                           <button type="button" class="remove-exclusion" onclick="this.parentElement.remove()"><?= $tr->tr("remove"); ?></button>
+                                           <button type="button" class="exclusion-button" onclick="removeExclusion(this)"><?= $tr->tr("remove"); ?></button>
                                        </dd>`;
             container.appendChild(newExclusion);
             formChanged();
         }
 
         function removeExclusion(button) {
-            button.parentElement.remove();
+            button.parentElement.parentElement.remove();
             formChanged();
         }
 
@@ -163,7 +161,6 @@ $(function() {
         }
 
         function validateRE2(input) {
-            // Get a reference to the <i> element right after the input
             var errorIcon = input.nextElementSibling;
 
             // Validate using RE2JS
