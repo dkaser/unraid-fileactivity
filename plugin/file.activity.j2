@@ -45,6 +45,7 @@ upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-
 # cleanup old versions
 rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '{{ env['PLUGIN_VERSION'] }}')
 
+/usr/local/emhttp/plugins/file.activity/scripts/migrate-config.php
 mkdir -p /var/log/file.activity
 
 /usr/local/emhttp/plugins/file.activity/scripts/rc.file.activity update

@@ -44,11 +44,6 @@ var exclusionFilters []*regexp.Regexp
 
 var logPath = "/var/log/fileactivity-watcher.log"
 var activityPath = "/var/log/file.activity/data.log"
-var maxRecords = 20000
-
-var includeCache bool
-var includeUD bool
-var includeSSD bool
 
 var addPath = false
 
@@ -60,17 +55,12 @@ func init() {
 		log.Info("Failed to log to file, using default stderr")
 	}
 
-	cfg, err := ini.Load("/boot/config/plugins/file.activity/file.activity.cfg")
+	loadConfig()
 
-	if err != nil {
-		log.WithFields(log.Fields{"error": err}).Fatal("Error loading config file")
+	if !appConfig.Enable {
+		log.Info("File activity watcher is disabled, exiting")
+		os.Exit(0)
 	}
-
-	includeCache = cfg.Section("").Key("INCLUDE_CACHE").MustBool(false)
-	includeUD = cfg.Section("").Key("INCLUDE_UD").MustBool(false)
-	includeSSD = cfg.Section("").Key("INCLUDE_SSD").MustBool(false)
-
-	log.WithFields(log.Fields{"INCLUDE_CACHE": includeCache, "INCLUDE_UD": includeUD, "INCLUDE_SSD": includeSSD}).Info("Configuration loaded")
 }
 
 func main() {
@@ -93,7 +83,7 @@ func main() {
 }
 
 func loadUnassignedDisks() {
-	if !includeUD {
+	if !appConfig.UnassignedDevices {
 		log.Info("Unassigned devices monitoring is disabled")
 		return
 	}
@@ -125,9 +115,8 @@ func loadUnassignedDisks() {
 }
 
 func initExclusionFilters() {
-	exclusions := []string{`(?i)appdata`, `(?i)docker`, `(?i)system`, `(?i)syslogs`}
-	exclusionFilters = make([]*regexp.Regexp, 0, len(exclusions))
-	for _, filter := range exclusions {
+	exclusionFilters = make([]*regexp.Regexp, 0, len(appConfig.Exclusions))
+	for _, filter := range appConfig.Exclusions {
 		filter = strings.TrimSpace(filter)
 		log.WithFields(log.Fields{"filter": filter}).Info("Compiling exclusion filter")
 		exclusionFilters = append(exclusionFilters, regexp.MustCompile(filter))
@@ -147,7 +136,7 @@ func loadDisks() {
 			log.WithFields(log.Fields{"disk": newDisk.Name, "type": newDisk.Type}).Debug("Skipping invalid disk type")
 			continue
 		}
-		if !newDisk.Rotational && !includeSSD {
+		if !newDisk.Rotational && !appConfig.SSD {
 			log.WithFields(log.Fields{"disk": newDisk.Name}).Debug("Skipping SSD")
 			continue
 		}
@@ -155,7 +144,7 @@ func loadDisks() {
 			arrayDisks = append(arrayDisks, newDisk)
 			log.WithFields(log.Fields{"disk": newDisk.Name}).Debug("Added to array disks")
 		}
-		if newDisk.Type == "cache" && includeCache && newDisk.Filesystem != "" {
+		if newDisk.Type == "cache" && appConfig.Cache && newDisk.Filesystem != "" {
 			poolDisks = append(poolDisks, newDisk)
 			log.WithFields(log.Fields{"disk": newDisk.Name}).Debug("Added to pool disks")
 		}
@@ -278,7 +267,7 @@ func startEventListener(watcher *fsnotify.Watcher) {
 				activityWriter.Write([]string{time.Now().Format("2006-01-02T15:04:05.000Z07:00"), event.Op.String(), event.Name})
 				activityWriter.Flush()
 				currentLines++
-				if currentLines >= maxRecords {
+				if currentLines >= appConfig.MaxRecords {
 					// Close the file, then roll it over to .1 (deleting any existing .1 file) and truncate the original
 					activityFile.Close()
 					rolloverPath := activityPath + ".1"
