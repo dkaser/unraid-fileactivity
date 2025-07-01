@@ -50,6 +50,8 @@ var addPath = false
 
 func init() {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
+	log.Logger = zerolog.New(os.Stdout).With().Timestamp().Logger()
+
 	debug := flag.Bool("debug", false, "sets log level to debug")
 
 	flag.Parse()
