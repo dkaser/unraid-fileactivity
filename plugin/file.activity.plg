@@ -15,7 +15,7 @@
 <CHANGES>
 <![CDATA[
 ###2025.07.01###
-- Feat: Exclude files/folders from activity reporting
+Feat: custom exclusions
 
 For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
 ]]>
@@ -23,7 +23,7 @@ For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
 
 <FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.07.01-noarch-1.txz">
 <URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.07.01/unraid-fileactivity-2025.07.01-noarch-1.txz</URL>
-<SHA256>049471330cfda1cb5bc515835e38ae038ff635ae4f42a4958d5647587bcedaa2</SHA256>
+<SHA256>056d905bc3ccf1e3aecc19edc91a04d5391f6e14ebc4ffe46bfecd3ec83713b2</SHA256>
 </FILE>
 
 <!--
