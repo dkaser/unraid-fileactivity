@@ -14,7 +14,7 @@ file_activity_start() {
 		file_activity_stop
 	fi
 	
-	/usr/local/php/unraid-fileactivity/bin/fileactivity-watcher >/dev/null 2>&1 & disown
+	/usr/local/php/unraid-fileactivity/bin/fileactivity-watcher >/var/log/fileactivity-watcher.log 2>/dev/null & disown
 }
 
 file_activity_stop() {

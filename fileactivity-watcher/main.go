@@ -4,6 +4,7 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"errors"
+	"flag"
 	"os"
 	"regexp"
 	"strconv"
@@ -14,7 +15,8 @@ import (
 	"path/filepath"
 
 	"github.com/containernetworking/plugins/pkg/utils/sysctl"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"gopkg.in/ini.v1"
 
 	"github.com/fsnotify/fsnotify"
@@ -42,29 +44,31 @@ var watchDisks []Disk
 var watchFolders map[string]int
 var exclusionFilters []*regexp.Regexp
 
-var logPath = "/var/log/fileactivity-watcher.log"
 var activityPath = "/var/log/file.activity/data.log"
 
 var addPath = false
 
 func init() {
-	logWriter, err := os.OpenFile(logPath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	if err == nil {
-		log.SetOutput(logWriter)
-	} else {
-		log.Info("Failed to log to file, using default stderr")
+	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
+	debug := flag.Bool("debug", false, "sets log level to debug")
+
+	flag.Parse()
+
+	zerolog.SetGlobalLevel(zerolog.InfoLevel)
+	if *debug {
+		zerolog.SetGlobalLevel(zerolog.DebugLevel)
 	}
 
 	loadConfig()
 
 	if !appConfig.Enable {
-		log.Info("File activity watcher is disabled, exiting")
+		log.Info().Msg("File activity watcher is disabled, exiting")
 		os.Exit(0)
 	}
 }
 
 func main() {
-	log.Info("Starting file activity watcher...")
+	log.Info().Msg("Starting file activity watcher...")
 
 	watchFolders = make(map[string]int)
 
@@ -78,13 +82,13 @@ func main() {
 	startEventListener(watcher)
 	addFoldersToWatcher(watcher)
 
-	log.Info("Watcher ready")
+	log.Info().Msg("Watcher ready")
 	<-make(chan struct{})
 }
 
 func loadUnassignedDisks() {
 	if !appConfig.UnassignedDevices {
-		log.Info("Unassigned devices monitoring is disabled")
+		log.Info().Msg("Unassigned devices monitoring is disabled")
 		return
 	}
 
@@ -92,24 +96,24 @@ func loadUnassignedDisks() {
 	unassignedDevicesFile := "/var/state/unassigned.devices/unassigned.devices.json"
 	data, err := os.ReadFile(unassignedDevicesFile)
 	if err != nil {
-		log.WithFields(log.Fields{"error": err}).Error("Error reading unassigned devices file")
+		log.Warn().Err(err).Msg("Error reading unassigned devices file")
 		return
 	}
 	// Parse the JSON data
 	var unassignedDevices map[string]UDInfo
 	if err := json.Unmarshal(data, &unassignedDevices); err != nil {
-		log.WithFields(log.Fields{"error": err}).Error("Error parsing unassigned devices JSON")
+		log.Warn().Err(err).Msg("Error parsing unassigned devices JSON")
 		return
 	}
 	// Iterate through the devices and filter based on type
 	for name, device := range unassignedDevices {
-		log.WithFields(log.Fields{"name": name, "mounted": device.Mounted, "mountpoint": device.Mountpoint}).Info("Found unassigned device")
+		log.Info().Str("name", name).Str("mountpoint", device.Mountpoint).Bool("mounted", device.Mounted).Msg("Unassigned device details")
 		if device.Mounted && device.Mountpoint != "" {
 			newDisk := Disk{Name: name, Type: "unassigned", Filesystem: device.Fstype, Rotational: true, Mountpoint: device.Mountpoint}
 			unassignedDisks = append(unassignedDisks, newDisk)
-			log.WithFields(log.Fields{"disk": newDisk.Name}).Info("Added unassigned disk")
+			log.Info().Str("disk", newDisk.Name).Msg("Added unassigned disk")
 		} else {
-			log.WithFields(log.Fields{"disk": name}).Info("Skipping unassigned disk as it is not mounted or has no mountpoint")
+			log.Info().Str("disk", name).Msg("Skipping unassigned disk as it is not mounted or has no mountpoint")
 		}
 	}
 }
@@ -118,7 +122,7 @@ func initExclusionFilters() {
 	exclusionFilters = make([]*regexp.Regexp, 0, len(appConfig.Exclusions))
 	for _, filter := range appConfig.Exclusions {
 		filter = strings.TrimSpace(filter)
-		log.WithFields(log.Fields{"filter": filter}).Info("Compiling exclusion filter")
+		log.Info().Str("filter", filter).Msg("Adding exclusion filter")
 		exclusionFilters = append(exclusionFilters, regexp.MustCompile(filter))
 	}
 }
@@ -126,30 +130,30 @@ func initExclusionFilters() {
 func loadDisks() {
 	disks, err := ini.Load("/var/local/emhttp/disks.ini")
 	if err != nil {
-		log.WithFields(log.Fields{"error": err}).Fatal("Error loading disks file")
+		log.Fatal().Err(err).Msg("Error loading disks file")
 	}
 	for _, section := range disks.Sections() {
 		mountpoint := "/mnt/" + section.Key("name").MustString("")
 		newDisk := Disk{Name: section.Key("name").MustString(""), Type: strings.ToLower(section.Key("type").MustString("")), Filesystem: section.Key("fsType").MustString(""), Rotational: section.Key("rotational").MustBool(false), Mountpoint: mountpoint}
-		log.WithFields(log.Fields{"disk": newDisk.Name, "type": newDisk.Type, "filesystem": newDisk.Filesystem, "rotational": newDisk.Rotational}).Debug("Found disk")
+		log.Debug().Str("disk", newDisk.Name).Str("type", newDisk.Type).Str("filesystem", newDisk.Filesystem).Bool("rotational", newDisk.Rotational).Msg("Found disk")
 		if !IsValidDiskType(newDisk.Type) {
-			log.WithFields(log.Fields{"disk": newDisk.Name, "type": newDisk.Type}).Debug("Skipping invalid disk type")
+			log.Debug().Str("disk", newDisk.Name).Str("type", newDisk.Type).Msg("Skipping invalid disk type")
 			continue
 		}
 		if !newDisk.Rotational && !appConfig.SSD {
-			log.WithFields(log.Fields{"disk": newDisk.Name}).Debug("Skipping SSD")
+			log.Debug().Str("disk", newDisk.Name).Msg("Skipping SSD")
 			continue
 		}
 		if newDisk.Type == "data" {
 			arrayDisks = append(arrayDisks, newDisk)
-			log.WithFields(log.Fields{"disk": newDisk.Name}).Debug("Added to array disks")
+			log.Debug().Str("disk", newDisk.Name).Msg("Added to array disks")
 		}
 		if newDisk.Type == "cache" && appConfig.Cache && newDisk.Filesystem != "" {
 			poolDisks = append(poolDisks, newDisk)
-			log.WithFields(log.Fields{"disk": newDisk.Name}).Debug("Added to pool disks")
+			log.Debug().Str("disk", newDisk.Name).Msg("Added to pool disks")
 		}
 	}
-	log.WithFields(log.Fields{"array_disks": len(arrayDisks), "pool_disks": len(poolDisks)}).Info("Disk count")
+	log.Info().Int("array_disks", len(arrayDisks)).Int("pool_disks", len(poolDisks)).Msg("Disk count")
 }
 
 func getWatchFolders() {
@@ -157,26 +161,26 @@ func getWatchFolders() {
 	watchDisks = append(watchDisks, unassignedDisks...)
 
 	for _, disk := range watchDisks {
-		log.WithFields(log.Fields{"disk": disk.Name, "mountpoint": disk.Mountpoint, "type": disk.Type, "filesystem": disk.Filesystem, "rotational": disk.Rotational}).Info("Watching disk")
+		log.Info().Str("disk", disk.Name).Str("mountpoint", disk.Mountpoint).Str("type", disk.Type).Str("filesystem", disk.Filesystem).Bool("rotational", disk.Rotational).Msg("Watching disk")
 		addPath = false // Reset addPath for each disk
 		err := filepath.WalkDir(disk.Mountpoint, walk)
 		if err != nil {
-			log.WithFields(log.Fields{"disk": disk.Name, "error": err}).Error("Error walking directory for disk")
+			log.Error().Str("disk", disk.Name).Err(err).Msg("Error walking directory for disk")
 		}
 	}
-	log.WithFields(log.Fields{"count": len(watchFolders)}).Info("Watch folders")
+	log.Info().Int("count", len(watchFolders)).Msg("Watch folders")
 }
 
 func setInotifyLimit() {
 	currentNotifyLimit, err := sysctl.Sysctl("fs/inotify/max_user_watches")
 	if err != nil {
-		log.WithFields(log.Fields{"error": err}).Fatal("Error getting current inotify watch limit")
+		log.Fatal().Err(err).Msg("Error getting current inotify watch limit")
 	}
-	log.WithFields(log.Fields{"current_limit": currentNotifyLimit}).Info("Current inotify watch limit")
+	log.Info().Str("current_limit", currentNotifyLimit).Msg("Current inotify watch limit")
 	currentNotifyWatches := 0
 	procs, err := os.ReadDir("/proc/")
 	if err != nil {
-		log.WithFields(log.Fields{"error": err}).Error("Error reading /proc/")
+		log.Fatal().Err(err).Msg("Error reading /proc/")
 		return
 	}
 	for _, proc := range procs {
@@ -192,15 +196,15 @@ func setInotifyLimit() {
 			if entry.Type()&fs.ModeSymlink != 0 {
 				target, err := os.Readlink(fdPath + entry.Name())
 				if err != nil {
-					log.WithFields(log.Fields{"link_path": entry.Name(), "error": err}).Debug("Error reading link")
+					log.Debug().Str("link_path", entry.Name()).Err(err).Msg("Error reading link")
 					continue
 				}
 				if strings.Contains(target, "anon_inode:inotify") {
-					log.WithFields(log.Fields{"source": fdPath + entry.Name(), "target": target}).Debug("Found inotify watch")
+					log.Debug().Str("source", fdPath+entry.Name()).Str("target", target).Msg("Found inotify watch")
 					fdinfoPath := "/proc/" + proc.Name() + "/fdinfo/" + entry.Name()
 					fdinfo, err := os.ReadFile(fdinfoPath)
 					if err != nil {
-						log.WithFields(log.Fields{"fdinfo_path": fdinfoPath, "error": err}).Debug("Error reading fdinfo")
+						log.Debug().Str("fdinfo_path", fdinfoPath).Err(err).Msg("Error reading fdinfo")
 						continue
 					}
 					lines := strings.Split(string(fdinfo), "\n")
@@ -210,25 +214,25 @@ func setInotifyLimit() {
 							inotifyLines++
 						}
 					}
-					log.WithFields(log.Fields{"path": fdinfoPath, "lines": inotifyLines}).Debug("Inotify lines")
+					log.Debug().Str("path", fdinfoPath).Int("lines", inotifyLines).Msg("Inotify lines")
 					currentNotifyWatches += inotifyLines
 				}
 			}
 		}
 	}
-	log.WithFields(log.Fields{"current_watches": currentNotifyWatches}).Info("Active inotify watches")
+	log.Info().Int("current_watches", currentNotifyWatches).Msg("Active inotify watches")
 	wantedNotifyLimit := int(float64(len(watchFolders)+currentNotifyWatches) * 1.1)
-	log.WithFields(log.Fields{"required_limit": wantedNotifyLimit}).Info("Required inotify watch limit")
+	log.Info().Int("required_limit", wantedNotifyLimit).Msg("Required inotify watch limit")
 	currentNotifyLimitInt, err := strconv.Atoi(currentNotifyLimit)
 	if err != nil {
-		log.WithFields(log.Fields{"error": err}).Fatal("Error converting current inotify watch limit to int")
+		log.Fatal().Err(err).Msg("Error converting current inotify watch limit to int")
 	}
 	if wantedNotifyLimit > currentNotifyLimitInt {
 		_, err = sysctl.Sysctl("fs/inotify/max_user_watches", strconv.Itoa(wantedNotifyLimit))
 		if err != nil {
-			log.WithFields(log.Fields{"error": err}).Fatal("Error setting inotify watch limit")
+			log.Fatal().Err(err).Msg("Error setting inotify watch limit")
 		} else {
-			log.WithFields(log.Fields{"new_limit": wantedNotifyLimit}).Info("Inotify watch limit increased")
+			log.Info().Int("new_limit", wantedNotifyLimit).Msg("Inotify watch limit increased")
 		}
 	}
 }
@@ -236,26 +240,26 @@ func setInotifyLimit() {
 func buildFsnotifyWatcher() *fsnotify.Watcher {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("Error creating fsnotify watcher")
 	}
 	return watcher
 }
 
 func startEventListener(watcher *fsnotify.Watcher) {
 	go func() {
-		log.Info("Starting event listener...")
+		log.Info().Msg("Starting event listener...")
 		currentLines := 0
 		activityFile, err := os.OpenFile(activityPath, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0644)
 		if err != nil {
-			log.WithFields(log.Fields{"error": err}).Fatal("Error opening activity file")
+			log.Fatal().Err(err).Msg("Error opening activity file")
 		}
 		defer activityFile.Close()
 		lines, err := csv.NewReader(activityFile).ReadAll()
 		if err != nil {
-			log.WithFields(log.Fields{"error": err}).Fatal("Error reading activity file")
+			log.Fatal().Err(err).Msg("Error reading activity file")
 		}
 		currentLines = len(lines)
-		log.WithFields(log.Fields{"current_lines": currentLines}).Info("Current activity records")
+		log.Info().Int("current_lines", currentLines).Msg("Current activity records")
 		activityWriter := csv.NewWriter(activityFile)
 		ignoreOverflow := false
 		for {
@@ -272,23 +276,23 @@ func startEventListener(watcher *fsnotify.Watcher) {
 					activityFile.Close()
 					rolloverPath := activityPath + ".1"
 					if _, err := os.Stat(rolloverPath); err == nil {
-						log.WithFields(log.Fields{"rollover_path": rolloverPath}).Info("Removing existing rollover file")
+						log.Info().Str("rollover_path", rolloverPath).Msg("Removing existing rollover file")
 						if err := os.Remove(rolloverPath); err != nil {
-							log.WithFields(log.Fields{"error": err}).Error("Error removing existing rollover file")
+							log.Error().Err(err).Msg("Error removing existing rollover file")
 						}
 					}
 					if err := os.Rename(activityPath, rolloverPath); err != nil {
-						log.WithFields(log.Fields{"error": err}).Error("Error renaming activity file")
+						log.Error().Err(err).Msg("Error renaming activity file")
 					}
 					// Reopen the activity file for writing
 					activityFile, err = os.OpenFile(activityPath, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0644)
 					if err != nil {
-						log.WithFields(log.Fields{"error": err}).Fatal("Error reopening activity file")
+						log.Fatal().Err(err).Msg("Error reopening activity file")
 					}
 					activityWriter = csv.NewWriter(activityFile)
 					// Reset the current lines count
 					currentLines = 0
-					log.Info("Activity file rolled over")
+					log.Info().Msg("Activity file rolled over")
 				}
 			case err, ok := <-watcher.Errors:
 				if !ok {
@@ -301,29 +305,29 @@ func startEventListener(watcher *fsnotify.Watcher) {
 					// Event overflow occurred, we should increase sysctl fs.notify.max_queued_events
 					currentEventLimit, err := sysctl.Sysctl("fs/inotify/max_queued_events")
 					if err != nil {
-						log.WithFields(log.Fields{"error": err}).Error("Error getting current inotify event limit")
+						log.Error().Err(err).Msg("Error getting current inotify event limit")
 						continue
 					}
 					currentEventLimitInt, err := strconv.Atoi(currentEventLimit)
 					if err != nil {
-						log.WithFields(log.Fields{"error": err}).Error("Error converting current inotify event limit to int")
+						log.Error().Err(err).Msg("Error converting current inotify event limit to int")
 						continue
 					}
 
 					if currentEventLimitInt > 300000 {
-						log.WithFields(log.Fields{"currentLimit": currentEventLimitInt}).Info("Current inotify event limit is high, not increasing, ignoring overflow")
+						log.Info().Int("currentLimit", currentEventLimitInt).Msg("Current inotify event limit is high, not increasing, ignoring overflow")
 						ignoreOverflow = true
 						continue
 					}
 					wantedEventLimit := currentEventLimitInt * 2
 					_, err = sysctl.Sysctl("fs/inotify/max_queued_events", strconv.Itoa(wantedEventLimit))
 					if err != nil {
-						log.WithFields(log.Fields{"error": err}).Error("Error setting inotify event limit")
+						log.Error().Err(err).Msg("Error setting inotify event limit")
 					} else {
-						log.WithFields(log.Fields{"new_limit": wantedEventLimit}).Info("inotify event limit increased")
+						log.Info().Int("new_limit", wantedEventLimit).Msg("inotify event limit increased")
 					}
 				} else {
-					log.WithFields(log.Fields{"error": err}).Error("Watcher error")
+					log.Error().Err(err).Msg("Watcher error")
 				}
 			}
 		}
@@ -334,7 +338,7 @@ func addFoldersToWatcher(watcher *fsnotify.Watcher) {
 	for folder := range watchFolders {
 		err := watcher.AddWith(folder, fsnotify.WithOps(fsnotify.Create|fsnotify.Write|fsnotify.Remove|fsnotify.Rename|fsnotify.Chmod|fsnotify.UnportableOpen))
 		if err != nil {
-			log.WithFields(log.Fields{"folder": folder, "error": err}).Error("Error adding folder to watcher")
+			log.Error().Str("folder", folder).Err(err).Msg("Error adding folder to watcher")
 			continue
 		}
 	}
@@ -356,7 +360,7 @@ func walk(s string, d fs.DirEntry, err error) error {
 	}
 	if d.Type() == fs.ModeSymlink {
 		// Skip symlinks
-		log.WithFields(log.Fields{"link": s}).Debug("Skipping symlink")
+		log.Debug().Str("link", s).Msg("Skipping symlink")
 		return nil
 	}
 	// addPath is false on the first run of the loop so we don't monitor that
@@ -365,7 +369,7 @@ func walk(s string, d fs.DirEntry, err error) error {
 		// Skip directories that match exclusion filters
 		for _, filter := range exclusionFilters {
 			if filter.MatchString(s) {
-				log.WithFields(log.Fields{"directory": s}).Debug("Skipping excluded directory")
+				log.Debug().Str("directory", s).Msg("Skipping excluded directory")
 				return nil
 			}
 		}

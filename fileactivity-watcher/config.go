@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"os"
 
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 type ActivityConfig struct {
@@ -38,15 +38,15 @@ func loadConfig() {
 	if err != nil {
 		if os.IsNotExist(err) {
 			// File does not exist, use default config
-			log.Info("Config file not found, using default configuration")
+			log.Info().Msg("Config file not found, using default configuration")
 			return
 		}
-		log.WithFields(log.Fields{"error": err}).Fatal("Error reading config file")
+		log.Fatal().Err(err).Msg("Error reading config file")
 	}
 	err = json.Unmarshal(file, &appConfig)
 	if err != nil {
-		log.WithFields(log.Fields{"error": err}).Fatalf("Error parsing config file")
+		log.Fatal().Err(err).Msg("Error parsing config file")
 	}
 
-	log.WithFields(log.Fields{"Config": appConfig}).Info("Configuration loaded")
+	log.Info().Interface("Exclusions", appConfig.Exclusions).Bool("Enable", appConfig.Enable).Bool("UnassignedDevices", appConfig.UnassignedDevices).Bool("Cache", appConfig.Cache).Bool("SSD", appConfig.SSD).Int("DisplayEvents", appConfig.DisplayEvents).Int("MaxRecords", appConfig.MaxRecords).Msg("File Activity Watcher Configuration")
 }
