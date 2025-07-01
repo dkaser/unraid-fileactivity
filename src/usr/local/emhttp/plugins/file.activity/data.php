@@ -5,6 +5,7 @@ namespace EDACerton\FileActivity;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
+use EDACerton\PluginUtils\Utils;
 
 /*
     Copyright (C) 2025  Derek Kaser
@@ -34,6 +35,51 @@ if ( ! defined(__NAMESPACE__ . '\PLUGIN_ROOT') || ! defined(__NAMESPACE__ . '\PL
 $app = AppFactory::create();
 $app->addRoutingMiddleware();
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
+
+$app->post("{$prefix}/default", function (Request $request, Response $response, $args) {
+    // Reset the config to default values
+    $config = new Config(false);
+    $config->save();
+
+    $utils           = new Utils("fileactivity");
+    $restart_command = '/usr/local/emhttp/plugins/file.activity/scripts/rc.file.activity update';
+    $utils->run_command($restart_command);
+
+    return $response
+        ->withHeader('Location', '/Tools/FileActivity')
+        ->withStatus(303);
+});
+
+$app->post("{$prefix}/config", function (Request $request, Response $response, $args) {
+    // We can't POST JSON directly from the WebGUI, it has to be submitted as form data due to the CSRF token.
+    $data   = (array) $request->getParsedBody();
+    $config = new Config();
+
+    $config->setEnable(isset($data['enable']) ? filter_var($data['enable'], FILTER_VALIDATE_BOOLEAN) : $config->isEnabled());
+    $config->setUnassignedDevices(isset($data['unassigned_devices']) ? filter_var($data['unassigned_devices'], FILTER_VALIDATE_BOOLEAN) : $config->isUnassignedDevicesEnabled());
+    $config->setCache(isset($data['cache']) ? filter_var($data['cache'], FILTER_VALIDATE_BOOLEAN) : $config->isCacheEnabled());
+    $config->setSSD(isset($data['ssd']) ? filter_var($data['ssd'], FILTER_VALIDATE_BOOLEAN) : $config->isSSDEnabled());
+    $config->setDisplayEvents(isset($data['display_events']) && is_numeric($data['display_events']) ? intval($data['display_events']) : $config->getDisplayEvents());
+    if (isset($data['exclusions']) && is_array($data['exclusions'])) {
+        $exclusions = [];
+        foreach ($data['exclusions'] as $exclusion) {
+            if (is_string($exclusion) && ! empty($exclusion)) {
+                $exclusions[] = trim($exclusion);
+            }
+        }
+        $config->setExclusions($exclusions);
+    }
+    $config->setMaxRecords(isset($data['max_records']) && is_numeric($data['max_records']) ? intval($data['max_records']) : $config->getMaxRecords());
+    $config->save();
+
+    $utils           = new Utils("fileactivity");
+    $restart_command = '/usr/local/emhttp/plugins/file.activity/scripts/rc.file.activity update';
+    $utils->run_command($restart_command);
+
+    return $response
+        ->withHeader('Location', '/Tools/FileActivity')
+        ->withStatus(303);
+});
 
 $app->get("{$prefix}/share", function (Request $request, Response $response, $args) {
     $activity = new Activity();

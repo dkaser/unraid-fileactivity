@@ -14,12 +14,7 @@ file_activity_start() {
 		file_activity_stop
 	fi
 	
-	if [ "$SERVICE" = "enable" ]; then
-		log "Starting file activity monitoring."
-		/usr/local/php/unraid-fileactivity/bin/fileactivity-watcher >/dev/null 2>&1 & disown
-	else
-		log "File activity monitoring is disabled."
-	fi
+	/usr/local/php/unraid-fileactivity/bin/fileactivity-watcher >/var/log/fileactivity-watcher.log 2>/dev/null & disown
 }
 
 file_activity_stop() {
@@ -42,11 +37,6 @@ file_activity_update() {
 	log "Updating file activity configuration."
 	file_activity_start
 }
-
-plugin="file.activity"
-CONFIG="/boot/config/plugins/${plugin}/${plugin}.cfg"
-source $CONFIG
-PROG_NAME=${plugin}
 
 case "$1" in
 	'start')

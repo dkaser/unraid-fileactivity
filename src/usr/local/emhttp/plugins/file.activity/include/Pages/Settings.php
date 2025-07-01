@@ -29,8 +29,7 @@ if ( ! defined(__NAMESPACE__ . '\PLUGIN_ROOT') || ! defined(__NAMESPACE__ . '\PL
 
 $tr = $tr ?? new Translator(PLUGIN_ROOT);
 
-// Parse the plugin config file.
-$file_activity_cfg = Utils::parse_plugin_cfg('file.activity');
+$fileactivity_cfg = new Config();
 
 ?>
 
@@ -39,6 +38,7 @@ $(function() {
 	showStatus('fileactivity-watcher');
 });
 </script>
+<script src="/plugins/file.activity/assets/re2js.js"></script>
 
 <table class="tablesorter shift ups">
 
@@ -52,17 +52,14 @@ $(function() {
 <p><?= $tr->tr("settings.note"); ?></p>
 
 <div>
-	<form markdown="1" name="file_activity" method="POST" action="/update.php" target="progressFrame">
-	<input type="hidden" name="#file" value="file.activity/file.activity.cfg">
-	<input type="hidden" name="#command" value="/plugins/file.activity/scripts/rc.file.activity">
-	<input type="hidden" name="#arg[1]" value="update">
+	<form markdown="1" id="file_activity" method="POST" action="/plugins/file.activity/data.php/config">
 
     <dl>
         <dt><?= $tr->tr("enable_monitoring"); ?></dt>
         <dd>
-            <select name="SERVICE" size="1">
-		        <?= Utils::make_option($file_activity_cfg['SERVICE'] == "disable", "disable", $tr->tr("no"));?>
-		        <?= Utils::make_option($file_activity_cfg['SERVICE'] == "enable", "enable", $tr->tr("yes"));?>
+            <select name="enable" size="1">
+		        <?= Utils::make_option( ! $fileactivity_cfg->isEnabled(), "no", $tr->tr("no"));?>
+		        <?= Utils::make_option($fileactivity_cfg->isEnabled(), "yes", $tr->tr("yes"));?>
 	        </select>
         </dd>
     </dl>
@@ -73,9 +70,9 @@ $(function() {
     <dl>
         <dt><?= $tr->tr("enable_ssd"); ?></dt>
         <dd>
-            <select name="INCLUDE_SSD" size="1">
-		        <?= Utils::make_option($file_activity_cfg['INCLUDE_SSD'] == "no", "no", $tr->tr("no"));?>
-		        <?= Utils::make_option($file_activity_cfg['INCLUDE_SSD'] == "yes", "yes", $tr->tr("yes"));?>
+            <select name="ssd" size="1">
+		        <?= Utils::make_option( ! $fileactivity_cfg->isSSDEnabled(), "no", $tr->tr("no"));?>
+		        <?= Utils::make_option($fileactivity_cfg->isSSDEnabled(), "yes", $tr->tr("yes"));?>
 	        </select>
         </dd>
     </dl>
@@ -86,9 +83,9 @@ $(function() {
     <dl>
         <dt><?= $tr->tr("enable_unassigned"); ?></dt>
         <dd>
-            <select name="INCLUDE_UD" size="1">
-                <?= Utils::make_option($file_activity_cfg['INCLUDE_UD'] == "yes", "yes", $tr->tr("yes"));?>
-                <?= Utils::make_option($file_activity_cfg['INCLUDE_UD'] == "no", "no", $tr->tr("no"));?>
+            <select name="unassigned_devices" size="1">
+                <?= Utils::make_option($fileactivity_cfg->isUnassignedDevicesEnabled(), "yes", $tr->tr("yes"));?>
+                <?= Utils::make_option( ! $fileactivity_cfg->isUnassignedDevicesEnabled(), "no", $tr->tr("no"));?>
             </select>
         </dd>
     </dl>
@@ -99,9 +96,9 @@ $(function() {
     <dl>
         <dt><?= $tr->tr("enable_cache"); ?></dt>
         <dd>
-            <select name="INCLUDE_CACHE" size="1">
-                <?= Utils::make_option($file_activity_cfg['INCLUDE_CACHE'] == "no", "no", $tr->tr("no"));?>
-                <?= Utils::make_option($file_activity_cfg['INCLUDE_CACHE'] == "yes", "yes", $tr->tr("yes"));?>
+            <select name="cache" size="1">
+                <?= Utils::make_option( ! $fileactivity_cfg->isCacheEnabled(), "no", $tr->tr("no"));?>
+                <?= Utils::make_option($fileactivity_cfg->isCacheEnabled(), "yes", $tr->tr("yes"));?>
             </select>
         </dd>
     </dl>
@@ -112,7 +109,7 @@ $(function() {
     <dl>
         <dt><?= $tr->tr("display_events"); ?></dt>
         <dd>
-            <input type="number" name="DISPLAY_EVENTS" min="1" step="1" class="narrow" value="<?= htmlspecialchars($file_activity_cfg['DISPLAY_EVENTS']);?>" placeholder="250">
+            <input type="number" name="display_events" min="1" step="1" class="narrow" value="<?= htmlspecialchars(strval($fileactivity_cfg->getDisplayEvents()));?>" placeholder="250">
         </dd>
     </dl>
     <blockquote class="inline_help">
@@ -120,14 +117,82 @@ $(function() {
     </blockquote>
 
     <dl>
-        <dt>
-            <input type="submit" name="#default" value="<?= $tr->tr("default"); ?>" title="<?= $tr->tr("settings.apply_defaults"); ?>">
-        </dt>
+        <dt><?= $tr->tr("exclusions"); ?></dt>
+        <dd><button type="button" id="add-exclusion" class="exclusion-button" onclick="addExclusion()"><?= $tr->tr("add"); ?></button></dd>
+    </dl>
+    <div id="exclusions-container">
+        <?php foreach ($fileactivity_cfg->getExclusions() as $exclusion) { ?>
+            <dl><dt>&nbsp;</dt>
+            <dd>
+                <input type="text" name="exclusions[]" oninput="validateRE2(this)" value="<?= htmlspecialchars($exclusion); ?>">
+                <i class="fa fa-exclamation-circle regex-error"></i>
+                <button type="button" class="exclusion-button" onclick="removeExclusion(this)"><?= $tr->tr("remove"); ?></button>
+            </dd></dl>
+        <?php } ?>
+    </div>
+
+    <script>
+        function addExclusion() {
+            var container = document.getElementById('exclusions-container');
+            var newExclusion = document.createElement('dl');
+            newExclusion.innerHTML = `<dt>&nbsp;</dt>
+                                       <dd>
+                                           <input type="text" oninput="validateRE2(this)" name="exclusions[]" value="">
+                                           <i class="fa fa-exclamation-circle regex-error"></i>
+                                           <button type="button" class="exclusion-button" onclick="removeExclusion(this)"><?= $tr->tr("remove"); ?></button>
+                                       </dd>`;
+            container.appendChild(newExclusion);
+            formChanged();
+        }
+
+        function removeExclusion(button) {
+            button.parentElement.parentElement.remove();
+            formChanged();
+        }
+
+        function formChanged() {
+            formHasUnsavedChanges = true;
+            var form = $('#file_activity');
+            form.find('input[value="Apply"],input[value="Apply"],input[name="cmdEditShare"],input[name="cmdUserEdit"]').not('input.lock').prop('disabled',false);
+            form.find('input[value="Done"],input[value="Done"]').not('input.lock').val("Reset").prop('onclick',null).off('click').click(function(){formHasUnsavedChanges=false;refresh(form.offset().top);});
+        }
+
+        function validateRE2(input) {
+            var errorIcon = input.nextElementSibling;
+
+            // Validate using RE2JS
+            try {
+                var re2 = RE2JS.RE2JS.compile(input.value.trim());
+                // If the pattern is valid, remove any error class
+                input.classList.remove('regex-error');
+                input.setCustomValidity(""); // Clear any custom validity message
+                errorIcon.style.display = 'none'; // Hide the error icon
+            } catch (e) {
+                // If the pattern is invalid, add an error class
+                input.classList.add('regex-error');
+                input.setCustomValidity("Invalid regex pattern: " + e.message);
+                errorIcon.style.display = 'inline'; // Show the error icon
+            }
+        }
+    </script>
+
+    <dl>
+        <dt><strong><?= $tr->tr("save"); ?></strong></dt>
         <dd>
-            <input type="submit" name="#apply" value="<?= $tr->tr("apply"); ?>"><input type="button" value="<?= $tr->tr("done"); ?>" onclick="done()">
+            <input type="submit" id="apply" value="<?= $tr->tr("apply"); ?>"><input type="button" value="<?= $tr->tr("done"); ?>" onclick="done()">
         </dd>
     </dl>
 </form>
+
+<form method="POST" action="/plugins/file.activity/data.php/default">
+<dl>
+    <dt><strong><?= $tr->tr("settings.apply_defaults"); ?></strong></dt>
+    <dd>
+        <input type="submit" value="<?= $tr->tr("default"); ?>">
+    </dd>
+</dl>
+</form>
+
 <form method="POST" action="/update.php" target="progressFrame">
 <input type="hidden" name="#command" value="/plugins/file.activity/scripts/rc.file.activity">
 <input type="hidden" name="#arg[1]" value="clear">

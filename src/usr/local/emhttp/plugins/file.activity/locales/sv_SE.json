@@ -27,6 +27,10 @@
     "reset": "Återställ filter",
     "group": "Grupp",
     "clear_filters": "Rensa filter",
+    "add": "Lägg till undantag",
+    "remove": "Ta bort undantag",
+    "save": "Spara inställningar",
+    "exclusions": "Undantag",
     "settings": {
         "monitoring": "Övervakning av filaktivitet",
         "description": "Öppning, läsning, skrivning och ändring av filer övervakas och loggas på arrayen med inotify och visas per disk eller share, UD-diskar och cache. Du måste starta Filaktivitet för att logga diskkaktiviteten. Filaktivitet är avsedd att köras under korta perioder så att du kan kontrollera diskaktivitet. En server med mycket filaktivitet kan fylla loggutrymmet. Katalogerna \"appdata\", \"docker\", \"syslogs\" och \"system\" (skiftlägesokänsligt) är undantagna.",

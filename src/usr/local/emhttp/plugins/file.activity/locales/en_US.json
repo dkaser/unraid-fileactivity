@@ -27,6 +27,10 @@
     "reset": "Reset Filters",
     "group": "Group",
     "clear_filters": "Clear Filters",
+    "add": "Add Exclusion",
+    "remove": "Remove Exclusion",
+    "save": "Save Settings",
+    "exclusions": "Exclusions",
     "settings": {
         "monitoring": "File Activity Monitoring",
         "description": "File open, read, write, and modify activity is monitored and logged on the array using inotify and is displayed by disk or share, UD disks, and cache. You need to start the File Activity in order to log the disk activity. File Activity is intended to be running for short periods so you can check disk activity. A server with a lot of file activity can fill the log space. The 'appdata', 'docker', 'syslogs', and 'system' directories (case insensitive) are excluded.",
