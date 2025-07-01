@@ -27,6 +27,10 @@
     "reset": "Redefinir filtros",
     "group": "Grupo",
     "clear_filters": "Limpar filtros",
+    "add": "Adicionar Exclusão",
+    "remove": "Remover Exclusão",
+    "save": "Salvar Configurações",
+    "exclusions": "Exclusões",
     "settings": {
         "monitoring": "Monitoramento de Atividade de Arquivos",
         "description": "A atividade de abrir, ler, escrever e modificar arquivos é monitorada e registrada na matriz usando o inotify, e é exibida por disco ou compartilhamento, discos UD e cache. Você precisa iniciar o Monitoramento de Atividade de Arquivos para registrar a atividade do disco. O Monitoramento de Atividade de Arquivos é destinado a ser executado por períodos curtos para que você possa verificar a atividade do disco. Um servidor com muita atividade de arquivos pode preencher o espaço de log. Os diretórios 'appdata', 'docker', 'syslogs' e 'system' (independentemente de maiúsculas ou minúsculas) são excluídos.",
