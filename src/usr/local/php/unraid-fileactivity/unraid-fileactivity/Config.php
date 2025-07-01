@@ -138,6 +138,9 @@ class Config
     }
     public function setDisplayEvents(int $display_events): void
     {
+        if ($display_events <= 0) {
+            throw new \InvalidArgumentException("Display events must be a positive integer.");
+        }
         $this->display_events = $display_events;
     }
     /**
@@ -147,8 +150,12 @@ class Config
     {
         $this->exclusions = $exclusions;
     }
+
     public function setMaxRecords(int $max_records): void
     {
+        if ($max_records <= 0) {
+            throw new \InvalidArgumentException("Max records must be a positive integer.");
+        }
         $this->max_records = $max_records;
     }
 }
