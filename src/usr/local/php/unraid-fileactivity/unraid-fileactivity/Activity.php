@@ -28,8 +28,8 @@ class Activity
     public function __construct()
     {
         // Constructor can be used for initialization if needed.
-        $file_activity_cfg    = Utils::parse_plugin_cfg('file.activity');
-        $this->display_events = ((isset($file_activity_cfg['DISPLAY_EVENTS'])) && (is_numeric($file_activity_cfg['DISPLAY_EVENTS']))) ? intval($file_activity_cfg['DISPLAY_EVENTS']) : 250;
+        $config               = new Config();
+        $this->display_events = $config->getDisplayEvents();
     }
     /**
      * @return array<string, list<array<string, string>>>
