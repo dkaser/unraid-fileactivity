@@ -3,7 +3,6 @@
 namespace EDACerton\FileActivity;
 
 use EDACerton\PluginUtils\Translator;
-use EDACerton\PluginUtils\Utils;
 
 /*
     Copyright (C) 2017-2025, Dan Landon
@@ -48,6 +47,8 @@ $(function() {
 <h3><?= $tr->tr("settings.monitoring"); ?></h3>
 
 <p><?= $tr->tr("settings.description"); ?></p>
+
+<p><?= $tr->tr("settings.re2"); ?>: <a href="https://github.com/google/re2/wiki/syntax" target="_blank"><?= $tr->tr("settings.reference"); ?></a></p>
 
 <p><?= $tr->tr("settings.note"); ?></p>
 
@@ -114,6 +115,16 @@ $(function() {
     </dl>
     <blockquote class="inline_help">
         <?= $tr->tr("settings.help.display_events"); ?>
+    </blockquote>
+
+    <dl>
+        <dt><?= $tr->tr("rollover"); ?></dt>
+        <dd>
+            <input type="number" name="max_records" min="1" step="1" class="narrow" value="<?= htmlspecialchars(strval($fileactivity_cfg->getMaxRecords()));?>" placeholder="20000"> <?= $tr->tr("current_usage"); ?>: <?= Utils::size_readable(Utils::getActivitySize()); ?>
+        </dd>
+    </dl>
+    <blockquote class="inline_help">
+        <?= $tr->tr("settings.help.rollover"); ?>
     </blockquote>
 
     <dl>
