@@ -31,10 +31,14 @@
     "remove": "Ta bort undantag",
     "save": "Spara inställningar",
     "exclusions": "Undantag",
+    "rollover": "Tröskelvärde för överföring",
+    "current_usage": "Nuvarande användning",
     "settings": {
         "monitoring": "Övervakning av filaktivitet",
-        "description": "Öppning, läsning, skrivning och ändring av filer övervakas och loggas på arrayen med inotify och visas per disk eller share, UD-diskar och cache. Du måste starta Filaktivitet för att logga diskkaktiviteten. Filaktivitet är avsedd att köras under korta perioder så att du kan kontrollera diskaktivitet. En server med mycket filaktivitet kan fylla loggutrymmet. Katalogerna \"appdata\", \"docker\", \"syslogs\" och \"system\" (skiftlägesokänsligt) är undantagna.",
+        "description": "Aktivitet som öppnar, läser, skriver och ändrar filer övervakas och loggas på arrayen med inotify och visas per disk eller delning, UD-diskar och cache.",
         "note": "Observera: Övervakning av filaktivitet stoppas om arrayen stoppas, och startar om när arrayen startas om det är aktiverat.",
+        "re2": "Undantag använder RE2-syntax",
+        "reference": "Referens",
         "apply_defaults": "Ladda och använd standardvärden",
         "clear_data": "Rensa data",
         "clear_data_description": "Radera loggen för filaktivitet.",
@@ -43,7 +47,8 @@
             "enable_ssd": "Ställ in på **Ja** för att aktivera övervakning av filaktivitet för alla SSD-enheter, annars övervakas endast roterande enheter. Övervakning av SSD-enheter kan överbelasta servern vid hög aktivitet på SSD:er.",
             "enable_unassigned": "Ställ in på **Ja** för att aktivera övervakning av filaktivitet för Oassignerade enheter om Oassignerade enheter-pluginet är installerat.",
             "enable_cache": "Ställ in på **Ja** för att aktivera övervakning av filaktivitet för cache och pool-diskar.",
-            "display_events": "Detta är antalet filhändelser som visas på diskar och shares från loggen för filaktivitet för varje share eller disk."
+            "display_events": "Detta är antalet filhändelser som visas på diskar och shares från loggen för filaktivitet för varje share eller disk.",
+            "rollover": "Antalet filhändelser som sparas i loggen för filaktiviteter innan en ny loggfil påbörjas. Den nuvarande loggfilen och en tidigare loggfil sparas."
         }
     }
 }

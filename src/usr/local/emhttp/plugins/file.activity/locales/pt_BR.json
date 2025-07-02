@@ -31,10 +31,14 @@
     "remove": "Remover Exclusão",
     "save": "Salvar Configurações",
     "exclusions": "Exclusões",
+    "rollover": "Limite de Transferência",
+    "current_usage": "Uso Atual",
     "settings": {
         "monitoring": "Monitoramento de Atividade de Arquivos",
-        "description": "A atividade de abrir, ler, gravar e modificar arquivos é monitorada e registrada no array usando o inotify e exibida por disco ou compartilhamento, discos UD e cache. Você precisa iniciar a Atividade de Arquivos para registrar a atividade do disco. A Atividade de Arquivos deve ser executada por períodos curtos para que você possa verificar a atividade do disco. Um servidor com muita atividade de arquivo pode preencher o espaço de log. Os diretórios 'appdata', 'docker', 'syslogs' e 'system' (não diferenciam maiúsculas de minúsculas) são excluídos.",
+        "description": "Abertura, leitura, gravação e modificação de arquivos são monitoradas e registradas no array usando inotify e são exibidas por disco ou compartilhamento, discos UD e cache.",
         "note": "Nota: O monitoramento de Atividade de Arquivos é interrompido se o array for parado, e será reiniciado quando o array for iniciado, se estiver ativado.",
+        "re2": "Exclusões usam a sintaxe RE2",
+        "reference": "Referência",
         "apply_defaults": "Carregar e aplicar valores padrão",
         "clear_data": "Limpar dados",
         "clear_data_description": "Limpar o log de Atividade de Arquivo.",
@@ -43,7 +47,8 @@
             "enable_ssd": "Defina como **Sim** para ativar o monitoramento de Atividade de Arquivos para quaisquer Dispositivos SSD, caso contrário, somente Dispositivos de Disco Giratório serão monitorados. Monitorar dispositivos SSD pode sobrecarregar o servidor devido à hiperatividade nos SSDs.",
             "enable_unassigned": "Defina como **Sim** para ativar o monitoramento de Atividade de Arquivos para Dispositivos não Atribuídos, se o plugin Dispositivos não Atribuídos estiver instalado.",
             "enable_cache": "Defina como **Sim** para ativar o monitoramento de Atividade de Arquivos para os Discos de Cache e de Pool.",
-            "display_events": "Este é o número de eventos de arquivo exibidos em discos e compartilhamentos a partir do log de Atividade de Arquivos para cada compartilhamento ou disco."
+            "display_events": "Este é o número de eventos de arquivo exibidos em discos e compartilhamentos a partir do log de Atividade de Arquivos para cada compartilhamento ou disco.",
+            "rollover": "O número de eventos de arquivo a serem mantidos no registro de Atividade de Arquivos antes de passar para um novo arquivo de registro. O arquivo de registro atual e um arquivo de registro anterior são mantidos."
         }
     }
 }

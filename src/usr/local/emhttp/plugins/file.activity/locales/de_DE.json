@@ -31,10 +31,14 @@
     "remove": "Ausschluss entfernen",
     "save": "Einstellungen speichern",
     "exclusions": "Ausschlüsse",
+    "rollover": "Übertragsgrenze",
+    "current_usage": "Aktueller Verbrauch",
     "settings": {
         "monitoring": "Dateiaktivitätsüberwachung",
-        "description": "Das Öffnen, Lesen, Schreiben und Ändern von Dateien wird auf dem Array mithilfe von inotify überwacht und protokolliert und wird nach Laufwerk oder Freigabe, UD-Laufwerken und Cache angezeigt. Um die Festplattenaktivität zu protokollieren, müssen Sie die Dateiaktivitätsüberwachung starten. Die Dateiaktivitätsüberwachung ist dafür gedacht, nur für kurze Zeiträume zu laufen, damit Sie die Festplattenaktivität überprüfen können. Bei einem Server mit vielen Dateiaktivitäten kann der Protokollspeicher schnell gefüllt werden. Die Verzeichnisse \"appdata\", \"docker\", \"syslogs\" und \"system\" (Groß-/Kleinschreibung wird nicht beachtet) sind ausgeschlossen.",
+        "description": "Dateiöffnungs-, Lese-, Schreib- und Änderungsaktivitäten werden auf dem Array mithilfe von inotify überwacht und protokolliert und werden nach Laufwerk oder Freigabe, UD-Laufwerken und Cache angezeigt.",
         "note": "Hinweis: Die Dateiaktivitätsüberwachung wird gestoppt, wenn das Array gestoppt wird und startet neu, wenn das Array gestartet wird, sofern sie aktiviert ist.",
+        "re2": "Ausschlüsse verwenden die RE2-Syntax",
+        "reference": "Referenz",
         "apply_defaults": "Standardwerte laden und anwenden",
         "clear_data": "Daten löschen",
         "clear_data_description": "Das Dateiaktivitätsprotokoll löschen.",
@@ -43,7 +47,8 @@
             "enable_ssd": "Auf **Ja** setzen, um die Dateiaktivitätsüberwachung für alle SSD-Geräte zu aktivieren, ansonsten werden nur sich drehende Geräte überwacht. Die Überwachung von SSD-Geräten kann durch hohe Aktivität auf SSDs den Server überfordern.",
             "enable_unassigned": "Auf **Ja** setzen, um die Dateiaktivitätsüberwachung für Unassigned Devices zu aktivieren, wenn das Unassigned Devices Plugin installiert ist.",
             "enable_cache": "Auf **Ja** setzen, um die Dateiaktivitätsüberwachung für Cache- und Pool-Laufwerke zu aktivieren.",
-            "display_events": "Dies ist die Anzahl der Dateivorgänge, die auf den Laufwerken und Freigaben aus dem Dateiaktivitätsprotokoll für jede Freigabe oder jedes Laufwerk angezeigt werden."
+            "display_events": "Dies ist die Anzahl der Dateivorgänge, die auf den Laufwerken und Freigaben aus dem Dateiaktivitätsprotokoll für jede Freigabe oder jedes Laufwerk angezeigt werden.",
+            "rollover": "Die Anzahl der Datei-Ereignisse, die im Dateiaktivitätsprotokoll aufbewahrt werden, bevor auf eine neue Protokolldatei umgestellt wird. Die aktuelle Protokolldatei und eine vorherige Protokolldatei werden aufbewahrt."
         }
     }
 }

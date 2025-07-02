@@ -31,10 +31,14 @@
     "remove": "Rimuovi esclusione",
     "save": "Salva impostazioni",
     "exclusions": "Esclusioni",
+    "rollover": "Soglia di Riporto",
+    "current_usage": "Utilizzo attuale",
     "settings": {
         "monitoring": "Monitoraggio dell'attività dei file",
-        "description": "Le attività di apertura, lettura, scrittura e modifica dei file vengono monitorate e registrate sull'array usando inotify e vengono visualizzate per disco o condivisione, dischi UD e cache. È necessario avviare Attività File per registrare l'attività del disco. Attività File è pensata per essere eseguita per brevi periodi per consentirti di verificare l'attività del disco. Un server con molta attività di file può riempire lo spazio dei log. Le cartelle \"appdata\", \"docker\", \"syslogs\" e \"system\" (senza distinzione tra maiuscole e minuscole) sono escluse.",
+        "description": "L'apertura, la lettura, la scrittura e la modifica dei file vengono monitorate e registrate sull'array utilizzando inotify e sono visualizzate per disco o condivisione, dischi UD e cache.",
         "note": "Nota: Il monitoraggio dell'attività dei file viene arrestato se l'array viene fermato e si riavvierà quando l'array sarà riavviato, se abilitato.",
+        "re2": "Le esclusioni utilizzano la sintassi RE2",
+        "reference": "Riferimento",
         "apply_defaults": "Carica e applica i valori predefiniti",
         "clear_data": "Cancella dati",
         "clear_data_description": "Pulisci il registro attività file.",
@@ -43,7 +47,8 @@
             "enable_ssd": "Imposta su **Sì** per abilitare il monitoraggio dell'attività dei file per tutti i dispositivi SSD, altrimenti verranno monitorati solo i dispositivi meccanici. Il monitoraggio dei dispositivi SSD può sovraccaricare il server a causa dell'elevata attività sugli SSD.",
             "enable_unassigned": "Imposta su **Sì** per abilitare il monitoraggio dell'attività dei file per i Dispositivi Non Assegnati se il plugin Dispositivi Non Assegnati è installato.",
             "enable_cache": "Imposta su **Sì** per abilitare il monitoraggio dell'attività dei file per il Cache e i Dischi del Pool.",
-            "display_events": "Questo è il numero di eventi sui file mostrati su dischi e condivisioni dal registro dell'Attività File per ogni condivisione o disco."
+            "display_events": "Questo è il numero di eventi sui file mostrati su dischi e condivisioni dal registro dell'Attività File per ogni condivisione o disco.",
+            "rollover": "Il numero di eventi di file da mantenere nel registro delle attività dei file prima di passare a un nuovo file di registro. Vengono mantenuti il file di registro attuale e uno precedente."
         }
     }
 }

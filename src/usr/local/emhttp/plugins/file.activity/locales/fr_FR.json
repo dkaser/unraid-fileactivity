@@ -31,10 +31,14 @@
     "remove": "Supprimer l'exclusion",
     "save": "Enregistrer les paramètres",
     "exclusions": "Exclusions",
+    "rollover": "Seuil de report",
+    "current_usage": "Utilisation actuelle",
     "settings": {
         "monitoring": "Surveillance de l'activité des fichiers",
-        "description": "L'activité d'ouverture, de lecture, d'écriture et de modification des fichiers est surveillée et enregistrée sur la grappe à l'aide d'inotify et s'affiche par disque ou partage, disques UD et cache. Vous devez démarrer l'activité des fichiers pour pouvoir enregistrer l'activité des disques. L'activité des fichiers est prévue pour fonctionner durant de courtes périodes afin de vérifier l'activité des disques. Un serveur avec beaucoup d'activité de fichiers peut remplir l'espace de logs. Les dossiers « appdata », « docker », « syslogs » et « system » (insensible à la casse) sont exclus.",
+        "description": "L'activité d'ouverture, de lecture, d'écriture et de modification de fichiers est surveillée et enregistrée sur l'array à l'aide d'inotify, et s'affiche par disque ou partage, disques UD et cache.",
         "note": "Remarque : la surveillance de l'activité des fichiers s'arrête si la grappe est arrêtée, et elle redémarrera lorsque la grappe sera relancée si elle est activée.",
+        "re2": "Les exclusions utilisent la syntaxe RE2",
+        "reference": "Référence",
         "apply_defaults": "Charger et appliquer les valeurs par défaut",
         "clear_data": "Effacer les données",
         "clear_data_description": "Effacer le journal d'activité des fichiers.",
@@ -43,7 +47,8 @@
             "enable_ssd": "Sélectionnez **Oui** pour activer la surveillance de l'activité des fichiers sur les périphériques SSD, sinon seuls les périphériques à plateaux seront surveillés. La surveillance des SSD peut surcharger le serveur en cas d'activité importante sur les SSD.",
             "enable_unassigned": "Sélectionnez **Oui** pour activer la surveillance de l'activité des fichiers pour les périphériques non assignés si le plugin Unassigned Devices est installé.",
             "enable_cache": "Sélectionnez **Oui** pour activer la surveillance de l'activité des fichiers pour les disques cache et de pool.",
-            "display_events": "Ceci est le nombre d'événements de fichiers affichés sur les disques et partages depuis le journal d'activité des fichiers pour chaque partage ou disque."
+            "display_events": "Ceci est le nombre d'événements de fichiers affichés sur les disques et partages depuis le journal d'activité des fichiers pour chaque partage ou disque.",
+            "rollover": "Le nombre d\u000027\u00009\u0000e9v\u0000e9nements de fichiers \u0000e0 conserver dans le journal d\u000027activit\u0000e9 des fichiers avant de passer \u0000e0 un nouveau fichier journal. Le fichier journal actuel et un fichier journal pr\u0000e9c\u0000e9dent sont conserv\u0000e9s."
         }
     }
 }

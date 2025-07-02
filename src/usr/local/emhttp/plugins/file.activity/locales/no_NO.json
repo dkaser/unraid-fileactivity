@@ -31,10 +31,14 @@
     "remove": "Fjern unntak",
     "save": "Lagre innstillinger",
     "exclusions": "Unntak",
+    "rollover": "Overføringsgrense",
+    "current_usage": "Nåværende bruk",
     "settings": {
         "monitoring": "Overvåking av filaktivitet",
-        "description": "Filåpning, lesing, skriving og endringsaktivitet overvåkes og logges på arrayet ved hjelp av inotify og vises etter disk eller deling, UD-disker og cache. Du må starte File Activity for å logge diskaktivitet. File Activity er ment å kjøres i korte perioder slik at du kan sjekke diskaktiviteten. En server med mye filaktivitet kan fylle loggområdet. Katalogene 'appdata', 'docker', 'syslogs' og 'system' (skiller ikke mellom små og store bokstaver) er ekskludert.",
+        "description": "Åpning, lesing, skriving og endring av filer overvåkes og logges på arrayet ved hjelp av inotify, og vises per disk eller fildeling, UD-disker og cache.",
         "note": "Merk: Overvåking av filaktivitet stoppes hvis arrayet stoppes, og vil starte på nytt når arrayet startes, hvis den er aktivert.",
+        "re2": "Unntak bruker RE2-syntaks",
+        "reference": "Referanse",
         "apply_defaults": "Last inn og bruk standardverdier",
         "clear_data": "Tøm data",
         "clear_data_description": "Tøm logg for filaktivitet.",
@@ -43,7 +47,8 @@
             "enable_ssd": "Sett til **Ja** for å aktivere overvåking av filaktivitet for alle SSD-enheter; ellers overvåkes kun roterende enheter. Overvåking av SSD-enheter kan overbelaste serveren på grunn av mye aktivitet på SSD-ene.",
             "enable_unassigned": "Sett til **Ja** for å aktivere overvåking av filaktivitet for Unassigned Devices hvis Unassigned Devices-pluginen er installert.",
             "enable_cache": "Sett til **Ja** for å aktivere overvåking av filaktivitet for cache- og pool-disker.",
-            "display_events": "Dette er antallet filhendelser som vises på diskene og delingene fra loggen for filaktivitet for hver deling eller disk."
+            "display_events": "Dette er antallet filhendelser som vises på diskene og delingene fra loggen for filaktivitet for hver deling eller disk.",
+            "rollover": "Antall filhendelser som skal beholdes i loggen for Filaktivitet før den rulles over til en ny loggfil. Den nåværende loggfilen og én tidligere loggfil beholdes."
         }
     }
 }

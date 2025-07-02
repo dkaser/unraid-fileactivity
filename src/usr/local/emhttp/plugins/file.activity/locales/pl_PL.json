@@ -31,10 +31,14 @@
     "remove": "Usuń wykluczenie",
     "save": "Zapisz ustawienia",
     "exclusions": "Wykluczenia",
+    "rollover": "Próg przeniesienia",
+    "current_usage": "Bieżące użycie",
     "settings": {
         "monitoring": "Monitorowanie aktywności plików",
-        "description": "Aktywność otwierania, odczytu, zapisu i modyfikacji plików jest monitorowana i rejestrowana na macierzy za pomocą inotify i wyświetlana według dysku lub udziału, dysków UD oraz pamięci podręcznej. Aby rejestrować aktywność dysków, musisz uruchomić monitorowanie aktywności plików. Monitorowanie aktywności plików jest przeznaczone do uruchamiania na krótkie okresy, aby sprawdzić aktywność dysków. Serwer z dużą aktywnością plików może szybko zapełnić miejsce w logach. Katalogi 'appdata', 'docker', 'syslogs' oraz 'system' (niezależnie od wielkości liter) są pomijane.",
+        "description": "Aktywność związana z otwieraniem, odczytem, zapisem i modyfikacją plików jest monitorowana i rejestrowana na macierzy przy użyciu inotify i wyświetlana według dysku lub udziału, dysków UD oraz pamięci podręcznej.",
         "note": "Uwaga: Monitorowanie aktywności plików zostaje zatrzymane, jeżeli macierz zostanie zatrzymana i zostanie wznowione po uruchomieniu macierzy, jeżeli funkcja jest włączona.",
+        "re2": "Wykluczenia używają składni RE2",
+        "reference": "Referencja",
         "apply_defaults": "Załaduj i zastosuj wartości domyślne",
         "clear_data": "Wyczyść dane",
         "clear_data_description": "Usuń dziennik aktywności plików.",
@@ -43,7 +47,8 @@
             "enable_ssd": "Ustaw na **Tak**, aby włączyć monitorowanie aktywności plików dla wszystkich urządzeń SSD, w przeciwnym razie monitorowane będą tylko urządzenia talerzowe. Monitorowanie urządzeń SSD może przeciążyć serwer z powodu bardzo wysokiej aktywności SSD.",
             "enable_unassigned": "Ustaw na **Tak**, aby włączyć monitorowanie aktywności plików dla urządzeń nieprzypisanych, jeśli zainstalowano wtyczkę Unassigned Devices.",
             "enable_cache": "Ustaw na **Tak**, aby włączyć monitorowanie aktywności plików dla dysków cache i puli.",
-            "display_events": "To jest liczba zdarzeń plików wyświetlanych na dyskach i udziałach z dziennika aktywności plików dla każdego udziału lub dysku."
+            "display_events": "To jest liczba zdarzeń plików wyświetlanych na dyskach i udziałach z dziennika aktywności plików dla każdego udziału lub dysku.",
+            "rollover": "Liczba zdarzeń plików, które mają być przechowywane w dzienniku aktywności plików, zanim zostanie utworzony nowy plik dziennika. Przechowywany jest bieżący plik dziennika oraz jeden poprzedni."
         }
     }
 }

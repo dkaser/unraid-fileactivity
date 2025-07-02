@@ -31,10 +31,14 @@
     "remove": "Quitar exclusión",
     "save": "Guardar configuración",
     "exclusions": "Exclusiones",
+    "rollover": "Umbral de transferencia",
+    "current_usage": "Uso actual",
     "settings": {
         "monitoring": "Supervisión de actividad de archivos",
-        "description": "La actividad de apertura, lectura, escritura y modificación de archivos se supervisa y registra en el array utilizando inotify y se muestra por disco o recurso compartido, discos UD y caché. Debe iniciar la actividad de archivos para registrar la actividad del disco. La actividad de archivos está pensada para ejecutarse por períodos cortos, de modo que pueda revisar la actividad del disco. Un servidor con mucha actividad de archivos puede llenar el espacio del registro. Los directorios 'appdata', 'docker', 'syslogs' y 'system' (no distingue mayúsculas/minúsculas) están excluidos.",
+        "description": "La actividad de apertura, lectura, escritura y modificación de archivos se supervisa y registra en la matriz utilizando inotify y se muestra por disco o recurso compartido, discos UD y caché.",
         "note": "Nota: La supervisión de actividad de archivos se detendrá si se detiene el array y se reiniciará cuando se inicie el array, si está habilitado.",
+        "re2": "Las exclusiones usan sintaxis RE2",
+        "reference": "Referencia",
         "apply_defaults": "Cargar y aplicar valores predeterminados",
         "clear_data": "Borrar datos",
         "clear_data_description": "Borrar el registro de actividad de archivos.",
@@ -43,7 +47,8 @@
             "enable_ssd": "Establezca en **Sí** para habilitar la supervisión de actividad de archivos en cualquier dispositivo SSD, de lo contrario solo se supervisarán los dispositivos giratorios. Supervisar dispositivos SSD puede sobrecargar el servidor debido a la hiperactividad en los SSD.",
             "enable_unassigned": "Establezca en **Sí** para habilitar la supervisión de actividad de archivos para Dispositivos Sin Asignar si el complemento de Dispositivos Sin Asignar está instalado.",
             "enable_cache": "Establezca en **Sí** para habilitar la supervisión de actividad de archivos en los discos de caché y pool.",
-            "display_events": "Este es el número de eventos de archivo que se muestran en discos y recursos compartidos desde el registro de actividad de archivos para cada recurso compartido o disco."
+            "display_events": "Este es el número de eventos de archivo que se muestran en discos y recursos compartidos desde el registro de actividad de archivos para cada recurso compartido o disco.",
+            "rollover": "La cantidad de eventos de archivos que se guardan en el registro de actividad de archivos antes de pasar a un nuevo archivo de registro. Se mantiene el archivo de registro actual y uno anterior."
         }
     }
 }
