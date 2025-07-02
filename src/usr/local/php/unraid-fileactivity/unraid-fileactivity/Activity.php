@@ -2,8 +2,6 @@
 
 namespace EDACerton\FileActivity;
 
-use EDACerton\PluginUtils\Utils;
-
 /*
     Copyright (C) 2025  Derek Kaser
 

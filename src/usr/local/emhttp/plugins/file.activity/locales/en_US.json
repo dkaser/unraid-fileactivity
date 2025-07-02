@@ -31,10 +31,14 @@
     "remove": "Remove Exclusion",
     "save": "Save Settings",
     "exclusions": "Exclusions",
+    "rollover": "Rollover Threshold",
+    "current_usage": "Current Usage",
     "settings": {
         "monitoring": "File Activity Monitoring",
-        "description": "File open, read, write, and modify activity is monitored and logged on the array using inotify and is displayed by disk or share, UD disks, and cache. You need to start the File Activity in order to log the disk activity. File Activity is intended to be running for short periods so you can check disk activity. A server with a lot of file activity can fill the log space. The 'appdata', 'docker', 'syslogs', and 'system' directories (case insensitive) are excluded.",
+        "description": "File open, read, write, and modify activity is monitored and logged on the array using inotify and is displayed by disk or share, UD disks, and cache.",
         "note": "Note: File Activity monitoring is stopped if the array is stopped, and will restart when the array is started if it is enabled.",
+        "re2": "Exclusions use RE2 syntax",
+        "reference": "Reference",
         "apply_defaults": "Load and apply default values",
         "clear_data": "Clear data",
         "clear_data_description": "Erase the file activity log.",
@@ -43,7 +47,8 @@
             "enable_ssd": "Set to **Yes** to enable File Activity monitoring for any SSD Devices, otherwise only Spinning Devices are monitored. Monitoring SSD devices can overwhelm the server from hyper activity on SSDs.",
             "enable_unassigned": "Set to **Yes** to enable File Activity monitoring for Unassigned Devices if the Unassigned Devices plugin is installed.",
             "enable_cache": "Set to **Yes** to enable File Activity monitoring for the Cache and Pool Disks.",
-            "display_events": "This is the number of file events shown on disks and shares from the File Activity log for each share or disk."
+            "display_events": "This is the number of file events shown on disks and shares from the File Activity log for each share or disk.",
+            "rollover": "The number of file events to keep in the File Activity log before rolling over to a new log file. The current log file and one previous log file are kept."
         }
     }
 }
