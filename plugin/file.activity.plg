@@ -4,7 +4,7 @@
 <PLUGIN 
   name="file.activity"
   author="Derek Kaser"
-  version="2025.07.01"
+  version="2025.07.02"
   pluginURL="https://raw.githubusercontent.com/dkaser/unraid-fileactivity/main/plugin/file.activity.plg"
   support="https://forums.unraid.net/topic/191180-plugin-file-activity-see-whats-keeping-your-unraid-disks-busy/"
   min="7.0.0"
@@ -14,16 +14,16 @@
 
 <CHANGES>
 <![CDATA[
-###2025.07.01###
-Feat: custom exclusions
+###2025.07.02###
+- Feat: allow user to select number of saved events
 
 For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
 ]]>
 </CHANGES>
 
-<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.07.01-noarch-1.txz">
-<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.07.01/unraid-fileactivity-2025.07.01-noarch-1.txz</URL>
-<SHA256>056d905bc3ccf1e3aecc19edc91a04d5391f6e14ebc4ffe46bfecd3ec83713b2</SHA256>
+<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.07.02-noarch-1.txz">
+<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.07.02/unraid-fileactivity-2025.07.02-noarch-1.txz</URL>
+<SHA256>7880677b366d1d5a4499fec37bf3e299957a376dc9df5d9a7e538b2c122545b2</SHA256>
 </FILE>
 
 <!--
@@ -40,10 +40,10 @@ do
     kill $pid >/dev/null 2>&1
 done
 
-upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.07.01-noarch-1.txz
+upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.07.02-noarch-1.txz
 
 # cleanup old versions
-rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.07.01')
+rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.07.02')
 
 /usr/local/emhttp/plugins/file.activity/scripts/migrate-config.php
 mkdir -p /var/log/file.activity
@@ -53,7 +53,7 @@ mkdir -p /var/log/file.activity
 echo ""
 echo "----------------------------------------------------"
 echo " file.activity has been installed."
-echo " Version: 2025.07.01"
+echo " Version: 2025.07.02"
 echo "----------------------------------------------------"
 echo ""
 ]]>
