@@ -48,10 +48,6 @@ DataTable.feature.register("dateRange", function (settings, opts) {
   maxInput.type = "text";
   toolbar.appendChild(maxInput);
 
-  const calcTime = luxon.DateTime.now();
-
-  const minTime = calcTime.minus({ minutes: 30 }).toJSDate();
-
   const dateSettings = {
     enableTime: true,
     dateFormat: "Y-m-d H:i",
@@ -59,8 +55,6 @@ DataTable.feature.register("dateRange", function (settings, opts) {
 
   minDate[settings.sTableId] = new flatpickr(minInput, dateSettings);
   maxDate[settings.sTableId] = new flatpickr(maxInput, dateSettings);
-
-  minDate[settings.sTableId].setDate(minTime);
 
   minInput.addEventListener("change", () => settings.api.draw());
   maxInput.addEventListener("change", () => settings.api.draw());
