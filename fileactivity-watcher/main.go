@@ -19,7 +19,7 @@ import (
 	"github.com/rs/zerolog/log"
 	"gopkg.in/ini.v1"
 
-	"github.com/fsnotify/fsnotify"
+	"github.com/dkaser/fsnotify"
 )
 
 type Disk struct {
@@ -272,6 +272,13 @@ func startEventListener(watcher *fsnotify.Watcher) {
 				}
 				activityWriter.Write([]string{time.Now().Format("2006-01-02T15:04:05.000Z07:00"), event.Op.String(), event.Name})
 				activityWriter.Flush()
+				if event.IsDir && event.Has(fsnotify.Create) {
+					err := watcher.AddWith(event.Name, fsnotify.WithOps(fsnotify.Create|fsnotify.Write|fsnotify.Remove|fsnotify.Rename|fsnotify.Chmod|fsnotify.UnportableOpen))
+					if err != nil {
+						log.Error().Str("folder", event.Name).Err(err).Msg("Error adding folder to watcher")
+						continue
+					}
+				}
 				currentLines++
 				if currentLines >= appConfig.MaxRecords {
 					// Close the file, then roll it over to .1 (deleting any existing .1 file) and truncate the original
