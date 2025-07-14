@@ -4,7 +4,7 @@
 <PLUGIN 
   name="file.activity"
   author="Derek Kaser"
-  version="2025.07.08"
+  version="2025.07.13"
   pluginURL="https://raw.githubusercontent.com/dkaser/unraid-fileactivity/main/plugin/file.activity.plg"
   support="https://forums.unraid.net/topic/191180-plugin-file-activity-see-whats-keeping-your-unraid-disks-busy/"
   min="7.0.0"
@@ -14,16 +14,19 @@
 
 <CHANGES>
 <![CDATA[
-###2025.07.08###
-Fix: remove default time filter (confusing for some users)
+###2025.07.13###
+* fix: better handling of directory creation by @dkaser in https://github.com/dkaser/unraid-fileactivity/pull/10
+
+
+**Full Changelog**: https://github.com/dkaser/unraid-fileactivity/compare/2025.07.08...2025.07.13
 
 For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
 ]]>
 </CHANGES>
 
-<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.07.08-noarch-1.txz">
-<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.07.08/unraid-fileactivity-2025.07.08-noarch-1.txz</URL>
-<SHA256>7ce05619e502ee1d369d2c60e0f3134eefb8f4034db473effb5db3a3068be673</SHA256>
+<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.07.13-noarch-1.txz">
+<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.07.13/unraid-fileactivity-2025.07.13-noarch-1.txz</URL>
+<SHA256>3119a8f96dbfb295f73e46c6c881f8c9ee31b0371741712a5f1198ce08a4d706</SHA256>
 </FILE>
 
 <!--
@@ -40,10 +43,10 @@ do
     kill $pid >/dev/null 2>&1
 done
 
-upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.07.08-noarch-1.txz
+upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.07.13-noarch-1.txz
 
 # cleanup old versions
-rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.07.08')
+rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.07.13')
 
 /usr/local/emhttp/plugins/file.activity/scripts/migrate-config.php
 mkdir -p /var/log/file.activity
@@ -53,7 +56,7 @@ mkdir -p /var/log/file.activity
 echo ""
 echo "----------------------------------------------------"
 echo " file.activity has been installed."
-echo " Version: 2025.07.08"
+echo " Version: 2025.07.13"
 echo "----------------------------------------------------"
 echo ""
 ]]>
