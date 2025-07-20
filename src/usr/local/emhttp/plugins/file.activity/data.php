@@ -68,6 +68,8 @@ $app->post("{$prefix}/config", function (Request $request, Response $response, $
             }
         }
         $config->setExclusions($exclusions);
+    } else {
+        $config->setExclusions([]);
     }
     $config->setMaxRecords(isset($data['max_records']) && is_numeric($data['max_records']) ? intval($data['max_records']) : $config->getMaxRecords());
     $config->save();
