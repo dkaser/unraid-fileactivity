@@ -1,0 +1,8 @@
+{
+    "files": [
+        "/var/log/fileactivity-watcher.log",
+        "/var/log/fileactivity-watcher.log.*",
+        "/var/log/fileactivity.log",
+        "/var/log/fileactivity-error.log"
+    ]
+}
