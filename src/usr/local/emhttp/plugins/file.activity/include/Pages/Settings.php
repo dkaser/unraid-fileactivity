@@ -58,7 +58,7 @@ $(function() {
     <dl>
         <dt><?= $tr->tr("enable_monitoring"); ?></dt>
         <dd>
-            <select name="enable" size="1">
+            <select name="enable" size="1" class="narrow">
 		        <?= Utils::make_option( ! $fileactivity_cfg->isEnabled(), "no", $tr->tr("no"));?>
 		        <?= Utils::make_option($fileactivity_cfg->isEnabled(), "yes", $tr->tr("yes"));?>
 	        </select>
@@ -71,7 +71,7 @@ $(function() {
     <dl>
         <dt><?= $tr->tr("enable_ssd"); ?></dt>
         <dd>
-            <select name="ssd" size="1">
+            <select name="ssd" size="1" class="narrow">
 		        <?= Utils::make_option( ! $fileactivity_cfg->isSSDEnabled(), "no", $tr->tr("no"));?>
 		        <?= Utils::make_option($fileactivity_cfg->isSSDEnabled(), "yes", $tr->tr("yes"));?>
 	        </select>
@@ -84,7 +84,7 @@ $(function() {
     <dl>
         <dt><?= $tr->tr("enable_unassigned"); ?></dt>
         <dd>
-            <select name="unassigned_devices" size="1">
+            <select name="unassigned_devices" size="1" class="narrow">
                 <?= Utils::make_option($fileactivity_cfg->isUnassignedDevicesEnabled(), "yes", $tr->tr("yes"));?>
                 <?= Utils::make_option( ! $fileactivity_cfg->isUnassignedDevicesEnabled(), "no", $tr->tr("no"));?>
             </select>
@@ -97,7 +97,7 @@ $(function() {
     <dl>
         <dt><?= $tr->tr("enable_cache"); ?></dt>
         <dd>
-            <select name="cache" size="1">
+            <select name="cache" size="1" class="narrow">
                 <?= Utils::make_option( ! $fileactivity_cfg->isCacheEnabled(), "no", $tr->tr("no"));?>
                 <?= Utils::make_option($fileactivity_cfg->isCacheEnabled(), "yes", $tr->tr("yes"));?>
             </select>
@@ -129,7 +129,7 @@ $(function() {
 
     <dl>
         <dt><?= $tr->tr("exclusions"); ?></dt>
-        <dd><button type="button" id="add-exclusion" class="exclusion-button" onclick="addExclusion()"><?= $tr->tr("add"); ?></button></dd>
+        <dd><span><button type="button" id="add-exclusion" class="exclusion-button" onclick="addExclusion()"><?= $tr->tr("add"); ?></button></span></dd>
     </dl>
     <div id="exclusions-container">
         <?php foreach ($fileactivity_cfg->getExclusions() as $exclusion) { ?>
@@ -137,7 +137,7 @@ $(function() {
             <dd>
                 <input type="text" name="exclusions[]" oninput="validateRE2(this)" value="<?= htmlspecialchars($exclusion); ?>">
                 <i class="fa fa-exclamation-circle regex-error"></i>
-                <button type="button" class="exclusion-button" onclick="removeExclusion(this)"><?= $tr->tr("remove"); ?></button>
+                <span><button type="button" class="exclusion-button" onclick="removeExclusion(this)"><?= $tr->tr("remove"); ?></button></span>
             </dd></dl>
         <?php } ?>
     </div>
@@ -150,7 +150,7 @@ $(function() {
                                        <dd>
                                            <input type="text" oninput="validateRE2(this)" name="exclusions[]" value="">
                                            <i class="fa fa-exclamation-circle regex-error"></i>
-                                           <button type="button" class="exclusion-button" onclick="removeExclusion(this)"><?= $tr->tr("remove"); ?></button>
+                                           <span><button type="button" class="exclusion-button" onclick="removeExclusion(this)"><?= $tr->tr("remove"); ?></button></span>
                                        </dd>`;
             container.appendChild(newExclusion);
             formChanged();
@@ -190,7 +190,7 @@ $(function() {
     <dl>
         <dt><strong><?= $tr->tr("save"); ?></strong></dt>
         <dd>
-            <input type="submit" id="apply" value="<?= $tr->tr("apply"); ?>"><input type="button" value="<?= $tr->tr("done"); ?>" onclick="done()">
+            <span><input type="submit" id="apply" value="<?= $tr->tr("apply"); ?>"><input type="button" value="<?= $tr->tr("done"); ?>" onclick="done()"></span>
         </dd>
     </dl>
 </form>
@@ -199,7 +199,7 @@ $(function() {
 <dl>
     <dt><strong><?= $tr->tr("settings.apply_defaults"); ?></strong></dt>
     <dd>
-        <input type="submit" value="<?= $tr->tr("default"); ?>">
+        <span><input type="submit" value="<?= $tr->tr("default"); ?>"></span>
     </dd>
 </dl>
 </form>
@@ -210,7 +210,7 @@ $(function() {
 <dl>
     <dt><strong><?= $tr->tr("settings.clear_data_description"); ?></strong></dt>
     <dd>
-        <input type="submit" value="<?= $tr->tr('settings.clear_data'); ?>">
+        <span><input type="submit" value="<?= $tr->tr('settings.clear_data'); ?>"></span>
     </dd>
 </dl>
 </form>

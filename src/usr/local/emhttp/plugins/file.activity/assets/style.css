@@ -29,10 +29,6 @@ div.flatpickr-calendar {
     font-size: 1.2rem;
 }
 
-div.dtcc-dropdown * {
-    color: black;
-}
-
 span.dtcc-button-icon svg {
     color: white;
     background-color: gray;
@@ -67,4 +63,8 @@ i.regex-error {
     margin-left: -18px;
     margin-right: 18px;
     display: none;
+}
+
+div.dt-length {
+    white-space: pre;
 }

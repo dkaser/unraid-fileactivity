@@ -30,6 +30,11 @@ if ( ! defined(__NAMESPACE__ . '\PLUGIN_ROOT') || ! defined(__NAMESPACE__ . '\PL
 
 $tr = $tr ?? new Translator(PLUGIN_ROOT);
 
+// Fix for black theme in Unraid 7.1 and earlier
+$vars = parse_ini_file('/usr/local/emhttp/state/var.ini');
+if (version_compare($vars['version'] ?? "", '7.1', '<=')) {
+    echo "<style>div.dtcc-dropdown * { color: black }</style>";
+}
 ?>
 <link type="text/css" rel="stylesheet" href="/plugins/file.activity/assets/style.css">
 
