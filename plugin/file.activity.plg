@@ -4,7 +4,7 @@
 <PLUGIN 
   name="file.activity"
   author="Derek Kaser"
-  version="2025.08.02"
+  version="2025.08.15"
   pluginURL="https://raw.githubusercontent.com/dkaser/unraid-fileactivity/main/plugin/file.activity.plg"
   support="https://forums.unraid.net/topic/191180-plugin-file-activity-see-whats-keeping-your-unraid-disks-busy/"
   min="7.0.0"
@@ -14,16 +14,16 @@
 
 <CHANGES>
 <![CDATA[
-###2025.08.02###
-- fix: style for Unraid 7.2
+###2025.08.15###
+- Update name in README
 
 For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
 ]]>
 </CHANGES>
 
-<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.08.02-noarch-1.txz">
-<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.08.02/unraid-fileactivity-2025.08.02-noarch-1.txz</URL>
-<SHA256>ef089bcaff00958f11996e9fe1c2019198050ba0eb7b0b7ad4db1f36dab8fec8</SHA256>
+<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2025.08.15-noarch-1.txz">
+<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2025.08.15/unraid-fileactivity-2025.08.15-noarch-1.txz</URL>
+<SHA256>53653453c14194259917cde820db2aeff415905b3901ea3ce1a442c1767d610f</SHA256>
 </FILE>
 
 <!--
@@ -40,10 +40,10 @@ do
     kill $pid >/dev/null 2>&1
 done
 
-upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.08.02-noarch-1.txz
+upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2025.08.15-noarch-1.txz
 
 # cleanup old versions
-rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.08.02')
+rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2025.08.15')
 
 /usr/local/emhttp/plugins/file.activity/scripts/migrate-config.php
 mkdir -p /var/log/file.activity
@@ -53,7 +53,7 @@ mkdir -p /var/log/file.activity
 echo ""
 echo "----------------------------------------------------"
 echo " file.activity has been installed."
-echo " Version: 2025.08.02"
+echo " Version: 2025.08.15"
 echo "----------------------------------------------------"
 echo ""
 ]]>
