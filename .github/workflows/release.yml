@@ -1,7 +1,9 @@
 on:
   release:
     types:
-      - created
+      - prereleased
+      - released
+      - published
 
 env:
   FILE_NAME: unraid-fileactivity
