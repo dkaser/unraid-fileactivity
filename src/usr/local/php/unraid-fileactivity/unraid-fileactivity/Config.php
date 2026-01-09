@@ -60,7 +60,7 @@ class Config
         if ($json) {
             $data = json_decode($json, true);
             if (is_array($data)) {
-                $this->enable             = $data['enable']             ?? $this->enable;
+                $this->enable             = is_bool($data['enable']) ? $data['enable'] : $this->enable;
                 $this->unassigned_devices = $data['unassigned_devices'] ?? $this->unassigned_devices;
                 $this->cache              = $data['cache']              ?? $this->cache;
                 $this->ssd                = $data['ssd']                ?? $this->ssd;
