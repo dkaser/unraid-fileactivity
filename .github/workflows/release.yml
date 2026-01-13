@@ -60,7 +60,7 @@ jobs:
             ${{ env.FILE_NAME }}-${{ github.event.release.name}}-noarch-1.txz : ${{ steps.build_files.outputs.checksum }}
 
       - name: Template
-        uses: cuchi/jinja2-action@0264c440d5561d32eee3d8239a9a637a96eb5a61
+        uses: cuchi/jinja2-action@8bd801365a8d36a0b20f45ee969161685de7785a
         with:
           template: main/plugin/file.activity.j2
           output_file: main/plugin/file.activity.plg
