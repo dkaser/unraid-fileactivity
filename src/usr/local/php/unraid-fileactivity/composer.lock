@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "edacerton/plugin-utils",
-            "version": "1.6.0-stable",
+            "version": "1.6.1-stable",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dkaser/unraid-utils.git",
-                "reference": "b5c574fbbae82f4fc80818e2e446db2993035406"
+                "reference": "41fc9e76e6953afc54c2d1d9750f32643fa8abea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dkaser/unraid-utils/zipball/b5c574fbbae82f4fc80818e2e446db2993035406",
-                "reference": "b5c574fbbae82f4fc80818e2e446db2993035406",
+                "url": "https://api.github.com/repos/dkaser/unraid-utils/zipball/41fc9e76e6953afc54c2d1d9750f32643fa8abea",
+                "reference": "41fc9e76e6953afc54c2d1d9750f32643fa8abea",
                 "shasum": ""
             },
             "require": {
@@ -45,9 +45,9 @@
             "description": "Utility classes",
             "support": {
                 "issues": "https://github.com/dkaser/unraid-utils/issues",
-                "source": "https://github.com/dkaser/unraid-utils/tree/1.6.0-stable"
+                "source": "https://github.com/dkaser/unraid-utils/tree/1.6.1-stable"
             },
-            "time": "2026-01-04T15:19:06+00:00"
+            "time": "2026-01-17T15:53:16+00:00"
         },
         {
             "name": "fig/http-message-util",
