@@ -41,8 +41,20 @@ func New(appConfig config.ActivityConfig) *Filter {
 	exclusionFilters := make([]*regexp.Regexp, 0, len(appConfig.Exclusions))
 	for _, filter := range appConfig.Exclusions {
 		filter = strings.TrimSpace(filter)
+		if filter == "" {
+			continue
+		}
+
+		compiledFilter, err := regexp.Compile(filter)
+		if err != nil {
+			log.Warn().Str("filter", filter).Err(err).Msg("Failed to compile exclusion filter")
+
+			continue
+		}
+
 		log.Info().Str("filter", filter).Msg("Adding exclusion filter")
-		exclusionFilters = append(exclusionFilters, regexp.MustCompile(filter))
+
+		exclusionFilters = append(exclusionFilters, compiledFilter)
 	}
 
 	filter := &Filter{
