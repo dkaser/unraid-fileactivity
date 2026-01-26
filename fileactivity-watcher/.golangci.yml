@@ -1,0 +1,48 @@
+version: "2"
+linters:
+  default: all
+  disable:
+    - wsl # Superseded by wsl_v5
+    - depguard
+    - err113
+    - exhaustruct
+    - forbidigo
+    - mnd
+    - noctx
+    - lll
+    - revive
+    - testpackage
+    - tagliatelle
+    - paralleltest
+    - tagalign # Provided by golines
+  exclusions:
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - path: _test\.go
+        linters:
+          - varnamelen
+          - errcheck
+          - errchkjson
+          - goconst
+          - gosec
+          - noinlineerr
+          - cyclop
+          - unparam
+          - predeclared
+          - funlen
+  settings:
+    varnamelen:
+      ignore-decls:
+        - fs afero.Fs
+
+formatters:
+  enable:
+    - gofmt
+    - gofumpt
+    - goimports
+    - golines
+    - swaggo

@@ -1,0 +1,30 @@
+name: Go Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: "fileactivity-watcher/go.mod"
+
+      - name: Build fileactivity-watcher
+        working-directory: fileactivity-watcher
+        run: ./build.sh
+
+      - name: Run tests
+        working-directory: fileactivity-watcher
+        run: go test ./...
