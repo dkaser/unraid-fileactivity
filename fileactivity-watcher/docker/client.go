@@ -86,8 +86,6 @@ func (c *Client) refreshContainerCache() {
 		return
 	}
 
-	
-
 	// Create new cache
 	newCache := make(map[string]string)
 
