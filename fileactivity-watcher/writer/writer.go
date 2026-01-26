@@ -71,6 +71,11 @@ func (w *Writer) Close() {
 
 	if w.activityWriter != nil {
 		w.activityWriter.Flush()
+
+		err := w.activityWriter.Error()
+		if err != nil {
+			log.Warn().Err(err).Msg("Error flushing activity writer")
+		}
 	}
 
 	if w.activityFile != nil {
@@ -90,39 +95,51 @@ func (w *Writer) Write(record []string) error {
 	}
 
 	err := w.activityWriter.Write(record)
-	w.activityWriter.Flush()
-
 	if err != nil {
 		return fmt.Errorf("error writing activity record: %w", err)
 	}
 
+	w.activityWriter.Flush()
+
+	err = w.activityWriter.Error()
+	if err != nil {
+		return fmt.Errorf("error flushing activity writer: %w", err)
+	}
+
 	w.currentLines++
 	if w.currentLines > w.maxRecords {
-		w.rolloverActivityFile()
+		err := w.rolloverActivityFile()
+		if err != nil {
+			log.Error().Err(err).Msg("Error rolling over activity file")
+		}
 	}
 
 	return nil
 }
 
-func (w *Writer) rolloverActivityFile() {
-	w.activityFile.Close()
+func (w *Writer) rolloverActivityFile() error {
+	err := w.activityFile.Close()
+	if err != nil {
+		return fmt.Errorf("error closing activity file: %w", err)
+	}
 
 	rolloverPath := w.activityPath + ".1"
 
-	_, err := os.Stat(rolloverPath)
+	_, err = os.Stat(rolloverPath)
 	if err == nil {
 		log.Info().Str("rollover_path", rolloverPath).Msg("Removing existing rollover file")
 
 		err = os.Remove(rolloverPath)
 		if err != nil {
-			log.Error().Err(err).Msg("Error removing existing rollover file")
+			return fmt.Errorf("error removing existing rollover file: %w", err)
 		}
 	}
 
 	err = os.Rename(w.activityPath, rolloverPath)
 	if err != nil {
-		log.Error().Err(err).Msg("Error renaming activity file")
+		return fmt.Errorf("error renaming activity file: %w", err)
 	}
+
 	// Reopen the activity file for writing
 	w.activityFile, err = os.OpenFile(
 		w.activityPath,
@@ -130,7 +147,7 @@ func (w *Writer) rolloverActivityFile() {
 		0o644,
 	)
 	if err != nil {
-		log.Fatal().Err(err).Msg("Error reopening activity file")
+		return fmt.Errorf("error reopening activity file: %w", err)
 	}
 
 	w.activityWriter = csv.NewWriter(w.activityFile)
@@ -138,4 +155,6 @@ func (w *Writer) rolloverActivityFile() {
 	w.currentLines = 0
 
 	log.Info().Msg("Activity file rolled over")
+
+	return nil
 }
