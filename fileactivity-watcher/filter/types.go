@@ -20,6 +20,6 @@ package filter
 
 import "time"
 
-type EventTimestamp struct {
+type eventTimestamp struct {
 	lastSeen time.Time
 }

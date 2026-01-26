@@ -32,7 +32,7 @@ import (
 type Filter struct {
 	Exclusions []*regexp.Regexp
 
-	recentEvents      map[types.Event]*EventTimestamp
+	recentEvents      map[types.Event]*eventTimestamp
 	recentEventsMutex sync.RWMutex
 	dedupeWindow      time.Duration
 }
@@ -59,7 +59,7 @@ func New(appConfig config.ActivityConfig) *Filter {
 
 	filter := &Filter{
 		Exclusions:   exclusionFilters,
-		recentEvents: make(map[types.Event]*EventTimestamp),
+		recentEvents: make(map[types.Event]*eventTimestamp),
 		dedupeWindow: time.Duration(appConfig.DedupeWindow) * time.Second,
 	}
 

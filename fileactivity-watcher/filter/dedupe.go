@@ -69,7 +69,7 @@ func (f *Filter) isDuplicateEvent(event types.Event) bool {
 
 		timestamp.lastSeen = now
 	} else {
-		f.recentEvents[event] = &EventTimestamp{lastSeen: now}
+		f.recentEvents[event] = &eventTimestamp{lastSeen: now}
 	}
 
 	return false

@@ -309,7 +309,7 @@ func TestFilter_ConcurrentAccess(t *testing.T) {
 
 func TestEventTimestamp(t *testing.T) {
 	now := time.Now()
-	timestamp := &EventTimestamp{
+	timestamp := &eventTimestamp{
 		lastSeen: now,
 	}
 
