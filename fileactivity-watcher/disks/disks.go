@@ -49,7 +49,7 @@ func New(appConfig config.ActivityConfig) *Disks {
 func (d *Disks) GetWatchFolders() map[string]int {
 	watchFolders := make(map[string]int)
 
-	d.watchDisks = d.arrayDisks
+	d.watchDisks = append([]Disk{}, d.arrayDisks...)
 	d.watchDisks = append(d.watchDisks, d.poolDisks...)
 	d.watchDisks = append(d.watchDisks, d.unassignedDisks...)
 
