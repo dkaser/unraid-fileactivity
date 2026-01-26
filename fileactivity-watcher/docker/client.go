@@ -22,6 +22,7 @@ import (
 	"context"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/moby/moby/client"
 	"github.com/rs/zerolog/log"
@@ -85,13 +86,13 @@ func (c *Client) refreshContainerCache() {
 		return
 	}
 
-	c.containerCacheMutex.Lock()
-	defer c.containerCacheMutex.Unlock()
+	
 
 	// Create new cache
-	c.containerCache = make(map[string]string)
+	newCache := make(map[string]string)
 
-	ctx := context.Background()
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 
 	result, err := c.dockerClient.ContainerList(ctx, client.ContainerListOptions{})
 	if err != nil {
@@ -101,8 +102,12 @@ func (c *Client) refreshContainerCache() {
 	}
 
 	for _, ctr := range result.Items {
-		c.containerCache[ctr.ID] = strings.TrimPrefix(ctr.Names[0], "/")
+		newCache[ctr.ID] = strings.TrimPrefix(ctr.Names[0], "/")
 	}
+
+	c.containerCacheMutex.Lock()
+	c.containerCache = newCache
+	c.containerCacheMutex.Unlock()
 
 	log.Debug().Int("cached_containers", len(c.containerCache)).Msg("Refreshed container cache")
 }
