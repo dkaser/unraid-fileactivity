@@ -10,7 +10,6 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"slices"
 	"strconv"
 
 	"github.com/rs/zerolog/log"
@@ -148,7 +147,7 @@ func (handle *NotifyFD) Mark(flags uint, mask uint64, dirFd int, path string) er
 }
 
 // GetEvent returns an event from the fanotify handle.
-func (handle *NotifyFD) GetEvent(skipPIDs ...int) (*EventMetadata, error) {
+func (handle *NotifyFD) GetEvent() (*EventMetadata, error) {
 	event := new(EventMetadata)
 
 	err := binary.Read(handle.Rd, binary.LittleEndian, &event.FanotifyEventMetadata)
@@ -182,10 +181,6 @@ func (handle *NotifyFD) GetEvent(skipPIDs ...int) (*EventMetadata, error) {
 		if err != nil {
 			return nil, fmt.Errorf("fanotify: error parsing info records, %w", err)
 		}
-	}
-
-	if slices.Contains(skipPIDs, int(event.Pid)) {
-		return nil, event.Close()
 	}
 
 	return event, nil
