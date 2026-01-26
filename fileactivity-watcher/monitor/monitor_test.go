@@ -194,12 +194,18 @@ func TestGetMountPath(t *testing.T) {
 
 func TestMountFDCache_Struct(t *testing.T) {
 	cache := MountFDCache{
-		fd:       42,
-		lastUsed: time.Now(),
+		fd: 42,
 	}
+	cache.lastUsedUnixNano.Store(time.Now().UnixNano())
 
 	if cache.fd != 42 {
 		t.Errorf("Expected fd to be 42, got %d", cache.fd)
+	}
+
+	// Verify lastUsed can be read
+	lastUsed := time.Unix(0, cache.lastUsedUnixNano.Load())
+	if time.Since(lastUsed) > time.Second {
+		t.Error("Expected lastUsed to be recent")
 	}
 }
 

@@ -21,6 +21,7 @@ package monitor
 import (
 	"encoding/hex"
 	"fmt"
+	"sync/atomic"
 	"time"
 	"unsafe"
 
@@ -34,8 +35,8 @@ type MountInfo struct {
 }
 
 type MountFDCache struct {
-	fd       int
-	lastUsed time.Time
+	fd               int
+	lastUsedUnixNano atomic.Int64 // Unix nanoseconds
 }
 
 func getFsid(path string) ([8]byte, error) {
@@ -94,7 +95,8 @@ func (m *Monitor) cleanupStaleMountFDs() {
 	defer m.mountFDCacheMutex.Unlock()
 
 	for fsid, cache := range m.mountFDCache {
-		if now.Sub(cache.lastUsed) > m.mountTTL {
+		lastUsed := time.Unix(0, cache.lastUsedUnixNano.Load())
+		if now.Sub(lastUsed) > m.mountTTL {
 			unix.Close(cache.fd)
 			delete(m.mountFDCache, fsid)
 			log.Debug().Str("fsid", hex.EncodeToString(fsid[:])).Msg("Closed stale mount FD")
@@ -107,7 +109,7 @@ func (m *Monitor) getOrOpenMountFD(fsid [8]byte, mountPath string) (int, error) 
 	m.mountFDCacheMutex.RLock()
 
 	if cache, exists := m.mountFDCache[fsid]; exists {
-		cache.lastUsed = time.Now()
+		cache.lastUsedUnixNano.Store(time.Now().UnixNano())
 		fd := cache.fd
 
 		m.mountFDCacheMutex.RUnlock()
@@ -123,7 +125,7 @@ func (m *Monitor) getOrOpenMountFD(fsid [8]byte, mountPath string) (int, error) 
 
 	// Double-check after acquiring write lock
 	if cache, exists := m.mountFDCache[fsid]; exists {
-		cache.lastUsed = time.Now()
+		cache.lastUsedUnixNano.Store(time.Now().UnixNano())
 
 		return cache.fd, nil
 	}
@@ -135,10 +137,11 @@ func (m *Monitor) getOrOpenMountFD(fsid [8]byte, mountPath string) (int, error) 
 	}
 
 	// Cache it
-	m.mountFDCache[fsid] = &MountFDCache{
-		fd:       mountFd,
-		lastUsed: time.Now(),
+	cache := &MountFDCache{
+		fd: mountFd,
 	}
+	cache.lastUsedUnixNano.Store(time.Now().UnixNano())
+	m.mountFDCache[fsid] = cache
 
 	log.Debug().
 		Str("fsid", hex.EncodeToString(fsid[:])).
