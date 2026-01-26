@@ -23,11 +23,13 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"sync"
 
 	"github.com/rs/zerolog/log"
 )
 
 type Writer struct {
+	mu             sync.Mutex
 	currentLines   int
 	maxRecords     int
 	activityPath   string
@@ -64,6 +66,9 @@ func New(path string, maxRecords int) *Writer {
 }
 
 func (w *Writer) Close() {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+
 	if w.activityWriter != nil {
 		w.activityWriter.Flush()
 	}
@@ -77,6 +82,9 @@ func (w *Writer) Close() {
 }
 
 func (w *Writer) Write(record []string) error {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+
 	if w.activityWriter == nil {
 		return errors.New("activity writer is not initialized")
 	}
