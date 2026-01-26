@@ -37,6 +37,7 @@ func (m *Monitor) GetEvent() (types.Event, error) {
 	if err != nil {
 		return types.Event{}, fmt.Errorf("error getting event: %w", err)
 	}
+	defer data.Close()
 
 	opName := getOp(data)
 	pid := data.GetPID()
