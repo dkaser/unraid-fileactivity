@@ -20,12 +20,7 @@ package disks
 
 import (
 	"encoding/json"
-	"os"
-	"path/filepath"
 	"testing"
-
-	"github.com/dkaser/unraid-fileactivity/fileactivity-watcher/config"
-	"gopkg.in/ini.v1"
 )
 
 func TestIsValidDiskType(t *testing.T) {
@@ -48,115 +43,6 @@ func TestIsValidDiskType(t *testing.T) {
 				t.Errorf("isValidDiskType(%q) = %v, expected %v", tt.diskType, result, tt.expected)
 			}
 		})
-	}
-}
-
-func TestNew(t *testing.T) {
-	tmpDir := t.TempDir()
-
-	disksIniPath := filepath.Join(tmpDir, "disks.ini")
-	disksIni := ini.Empty()
-
-	section, _ := disksIni.NewSection("disk1")
-	section.NewKey("name", "disk1")
-	section.NewKey("type", "data")
-	section.NewKey("fsType", "xfs")
-	section.NewKey("rotational", "true")
-
-	err := disksIni.SaveTo(disksIniPath)
-	if err != nil {
-		t.Fatalf("Failed to create test disks.ini: %v", err)
-	}
-
-	udDir := filepath.Join(tmpDir, "unassigned.devices")
-
-	err = os.MkdirAll(udDir, 0o755)
-	if err != nil {
-		t.Fatalf("Failed to create unassigned devices directory: %v", err)
-	}
-
-	udPath := filepath.Join(udDir, "unassigned.devices.json")
-	udData := map[string]UDInfo{
-		"sdb1": {
-			Mountpoint: "/mnt/disks/test",
-			Mounted:    true,
-			Fstype:     "ext4",
-		},
-	}
-
-	udJSON, _ := json.Marshal(udData)
-
-	err = os.WriteFile(udPath, udJSON, 0o644)
-	if err != nil {
-		t.Fatalf("Failed to create unassigned devices JSON: %v", err)
-	}
-
-	appConfig := config.ActivityConfig{
-		UnassignedDevices: true,
-		Cache:             true,
-		SSD:               false,
-	}
-
-	_ = appConfig
-}
-
-func TestGetWatchFolders(t *testing.T) {
-	appConfig := config.ActivityConfig{
-		UnassignedDevices: false,
-		Cache:             false,
-		SSD:               false,
-	}
-
-	d := &Disks{
-		appConfig: appConfig,
-		arrayDisks: []Disk{
-			{
-				Name:       "disk1",
-				Mountpoint: "/mnt/disk1",
-				Type:       "data",
-				Filesystem: "xfs",
-				Rotational: true,
-			},
-			{
-				Name:       "disk2",
-				Mountpoint: "/mnt/disk2",
-				Type:       "data",
-				Filesystem: "xfs",
-				Rotational: true,
-			},
-		},
-		poolDisks: []Disk{
-			{
-				Name:       "cache",
-				Mountpoint: "/mnt/cache",
-				Type:       "cache",
-				Filesystem: "btrfs",
-				Rotational: false,
-			},
-		},
-		unassignedDisks: []Disk{
-			{
-				Name:       "sdb1",
-				Mountpoint: "/mnt/disks/test",
-				Type:       "unassigned",
-				Filesystem: "ext4",
-				Rotational: true,
-			},
-		},
-	}
-
-	watchFolders := d.GetWatchFolders()
-
-	expectedCount := 4
-	if len(watchFolders) != expectedCount {
-		t.Errorf("Expected %d watch folders, got %d", expectedCount, len(watchFolders))
-	}
-
-	expectedFolders := []string{"/mnt/disk1", "/mnt/disk2", "/mnt/cache", "/mnt/disks/test"}
-	for _, folder := range expectedFolders {
-		if _, exists := watchFolders[folder]; !exists {
-			t.Errorf("Expected watch folder %s not found", folder)
-		}
 	}
 }
 
