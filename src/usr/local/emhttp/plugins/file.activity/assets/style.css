@@ -83,7 +83,17 @@ div.dt-length {
   --dt-header-align-items: center;
   --dt-header-vertical-align: middle;
   --dt-html-background: white;
+  --dt-row-hover-alpha: 0.035;
+  --dt-row-stripe-alpha: 0.1;
+  --dt-column-ordering-alpha: 0.019;
+  --dt-row-selected-stripe-alpha: 0.923;
+  --dt-row-selected-column-ordering-alpha: 0.919;
 }
 :root.dark {
   --dt-html-background: transparent;
+}
+html.dark {
+  --dt-row-hover: 255, 255, 255;
+  --dt-row-stripe: 128, 128, 128;
+  --dt-column-ordering: 255, 255, 255;
 }

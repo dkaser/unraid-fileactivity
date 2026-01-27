@@ -99,7 +99,12 @@ function getDatatableConfig(url) {
         },
       },
       {
+        targets: [2, 3, 4],
+        className: "dt-head-left",
+      },
+      {
         targets: [1, 5, 6],
+        className: "dt-head-left",
         columnControl: {
           target: 0,
           content: [
