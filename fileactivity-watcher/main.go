@@ -19,6 +19,7 @@ package main
 */
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"os"
@@ -74,7 +75,7 @@ func main() {
 
 	app.watchFolders = app.GetWatchFolders()
 
-	app.startEventListener()
+	app.startEventListener(context.Background())
 
 	log.Info().Msg("Watcher ready")
 	<-make(chan struct{})
@@ -98,7 +99,7 @@ func (a *App) GetWatchFolders() map[string]int {
 	return disks.GetWatchFolders()
 }
 
-func (a *App) startEventListener() {
+func (a *App) startEventListener(ctx context.Context) {
 	go func() {
 		log.Info().Msg("Starting event listener...")
 
@@ -114,36 +115,43 @@ func (a *App) startEventListener() {
 		monitor := monitor.New(a.watchFolders)
 
 		for {
-			event, err := monitor.GetEvent()
-			if err != nil {
-				log.Error().Err(err).Msg("Error getting event")
+			select {
+			case <-ctx.Done():
+				log.Info().Msg("Event listener shutting down...")
 
-				continue
-			}
+				return
+			default:
+				event, err := monitor.GetEvent()
+				if err != nil {
+					log.Error().Err(err).Msg("Error getting event")
 
-			if filter.IsExcluded(event) {
-				continue
-			}
+					continue
+				}
 
-			eventDetails := monitor.GetEventDetails(event)
+				if filter.IsExcluded(event) {
+					continue
+				}
 
-			containerName := ""
-			if eventDetails.ContainerID != "" {
-				containerName = dockerClient.GetContainerNameByID(eventDetails.ContainerID)
-			}
+				eventDetails := monitor.GetEventDetails(event)
 
-			err = activityFile.Write(
-				[]string{
-					time.Now().Format("2006-01-02T15:04:05.000Z07:00"),
-					event.Op,
-					event.File,
-					strconv.Itoa(event.PID),
-					eventDetails.ProcessPath,
-					containerName,
-				},
-			)
-			if err != nil {
-				log.Error().Err(err).Msg("Error writing activity record")
+				containerName := ""
+				if eventDetails.ContainerID != "" {
+					containerName = dockerClient.GetContainerNameByID(eventDetails.ContainerID, ctx)
+				}
+
+				err = activityFile.Write(
+					[]string{
+						time.Now().Format("2006-01-02T15:04:05.000Z07:00"),
+						event.Op,
+						event.File,
+						strconv.Itoa(event.PID),
+						eventDetails.ProcessPath,
+						containerName,
+					},
+				)
+				if err != nil {
+					log.Error().Err(err).Msg("Error writing activity record")
+				}
 			}
 		}
 	}()

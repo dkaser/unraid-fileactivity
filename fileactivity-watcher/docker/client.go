@@ -51,7 +51,7 @@ func New() *Client {
 	}
 }
 
-func (c *Client) GetContainerNameByID(containerID string) string {
+func (c *Client) GetContainerNameByID(containerID string, ctx context.Context) string {
 	if c.dockerClient == nil {
 		return ""
 	}
@@ -68,7 +68,7 @@ func (c *Client) GetContainerNameByID(containerID string) string {
 	c.containerCacheMutex.RUnlock()
 
 	// Not in cache, refresh container list
-	c.refreshContainerCache()
+	c.refreshContainerCache(ctx)
 
 	// Check cache again after refresh (read lock)
 	c.containerCacheMutex.RLock()
@@ -81,7 +81,7 @@ func (c *Client) GetContainerNameByID(containerID string) string {
 	return ""
 }
 
-func (c *Client) refreshContainerCache() {
+func (c *Client) refreshContainerCache(ctx context.Context) {
 	if c.dockerClient == nil {
 		return
 	}
@@ -89,7 +89,7 @@ func (c *Client) refreshContainerCache() {
 	// Create new cache
 	newCache := make(map[string]string)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
 	result, err := c.dockerClient.ContainerList(ctx, client.ContainerListOptions{})

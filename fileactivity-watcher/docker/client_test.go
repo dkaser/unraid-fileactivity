@@ -19,6 +19,7 @@ package docker
 */
 
 import (
+	"context"
 	"maps"
 	"testing"
 
@@ -47,7 +48,7 @@ func TestGetContainerNameByID_WithoutDockerClient(t *testing.T) {
 		dockerClient:   nil,
 	}
 
-	result := client.GetContainerNameByID("test-container-id")
+	result := client.GetContainerNameByID("test-container-id", context.Background())
 	if result != "" {
 		t.Errorf("Expected empty string when dockerClient is nil, got %s", result)
 	}
@@ -66,12 +67,12 @@ func TestGetContainerNameByID_FromCache(t *testing.T) {
 	}
 
 	// Test cache hits - these should return immediately without using dockerClient
-	result := client.GetContainerNameByID("abc123")
+	result := client.GetContainerNameByID("abc123", context.Background())
 	if result != "test-container" {
 		t.Errorf("GetContainerNameByID(%q) = %q, expected %q", "abc123", result, "test-container")
 	}
 
-	result = client.GetContainerNameByID("def456")
+	result = client.GetContainerNameByID("def456", context.Background())
 	if result != "another-container" {
 		t.Errorf(
 			"GetContainerNameByID(%q) = %q, expected %q",
@@ -91,7 +92,7 @@ func TestGetContainerNameByID_WithNilDockerClient(t *testing.T) {
 		dockerClient: nil,
 	}
 
-	result := client.GetContainerNameByID("abc123")
+	result := client.GetContainerNameByID("abc123", context.Background())
 	if result != "" {
 		t.Errorf("Expected empty string when dockerClient is nil, got %q", result)
 	}
@@ -108,9 +109,9 @@ func TestContainerCache_ConcurrentAccess(t *testing.T) {
 	for range 10 {
 		go func() {
 			for range 100 {
-				_ = client.GetContainerNameByID("container1")
-				_ = client.GetContainerNameByID("container2")
-				_ = client.GetContainerNameByID("nonexistent")
+				_ = client.GetContainerNameByID("container1", context.Background())
+				_ = client.GetContainerNameByID("container2", context.Background())
+				_ = client.GetContainerNameByID("nonexistent", context.Background())
 			}
 
 			done <- true
@@ -136,7 +137,7 @@ func TestClient_Initialization(t *testing.T) {
 	client.containerCache[testID] = testName
 	client.containerCacheMutex.Unlock()
 
-	result := client.GetContainerNameByID(testID)
+	result := client.GetContainerNameByID(testID, context.Background())
 	if result != testName {
 		t.Errorf("Expected to retrieve %q, got %q", testName, result)
 	}
@@ -150,7 +151,7 @@ func TestRefreshContainerCache_WithoutDockerClient(t *testing.T) {
 		dockerClient: nil,
 	}
 
-	client.refreshContainerCache()
+	client.refreshContainerCache(context.Background())
 
 	// When dockerClient is nil, refreshContainerCache() returns early without clearing cache
 	if len(client.containerCache) != 1 {
@@ -169,7 +170,7 @@ func TestRefreshContainerCache_WithoutDockerClient(t *testing.T) {
 func TestClient_EmptyCache(t *testing.T) {
 	client := New()
 
-	result := client.GetContainerNameByID("any-id")
+	result := client.GetContainerNameByID("any-id", context.Background())
 	if result != "" {
 		t.Errorf("Expected empty string from empty cache, got %s", result)
 	}
@@ -191,7 +192,7 @@ func TestClient_CachePopulation(t *testing.T) {
 	client.containerCacheMutex.Unlock()
 
 	for id, expectedName := range testCases {
-		result := client.GetContainerNameByID(id)
+		result := client.GetContainerNameByID(id, context.Background())
 		if result != expectedName {
 			t.Errorf("GetContainerNameByID(%q) = %q, expected %q", id, result, expectedName)
 		}
