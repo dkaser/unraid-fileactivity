@@ -90,21 +90,20 @@ function getDatatableConfig(url) {
     },
     columnDefs: [
       {
+        targets: '_all',
+        render: DataTable.render.text(),
+        className: "dt-head-left",
+      },
+      {
         targets: 0,
         render: DataTable.render.datetime(),
-        className: "dt-head-left",
         columnControl: {
           target: 0,
           content: [],
         },
       },
       {
-        targets: [2, 3, 4],
-        className: "dt-head-left",
-      },
-      {
         targets: [1, 5, 6],
-        className: "dt-head-left",
         columnControl: {
           target: 0,
           content: [
