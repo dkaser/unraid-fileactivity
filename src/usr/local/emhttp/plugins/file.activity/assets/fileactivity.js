@@ -1,5 +1,6 @@
 const minDate = {};
 const maxDate = {};
+const autoRefreshIntervals = {};
 
 DataTable.ext.search.push((settings, data, dataIndex) => {
   if (
@@ -59,6 +60,55 @@ DataTable.feature.register("dateRange", (settings, opts) => {
   minInput.addEventListener("change", () => settings.api.draw());
   maxInput.addEventListener("change", () => settings.api.draw());
 
+  return toolbar;
+});
+
+DataTable.feature.register("autoRefresh", (settings, opts) => {
+  const toolbar = document.createElement("div");
+   
+  const select = document.createElement("select");
+  select.id = `autorefresh-${settings.sTableId}`;
+  select.name = `autorefresh-${settings.sTableId}`;
+  
+  const options = [
+    { value: "0", label: "Auto Refresh Disabled" },
+    { value: "2000", label: "2 seconds" },
+    { value: "5000", label: "5 seconds" },
+    { value: "10000", label: "10 seconds" },
+    { value: "30000", label: "30 seconds" },
+    { value: "60000", label: "1 minute" },
+    { value: "120000", label: "2 minutes" }
+  ];
+  
+  for (const opt of options) {
+    const option = document.createElement("option");
+    option.value = opt.value;
+    option.textContent = opt.label;
+    select.appendChild(option);
+  }
+  
+  toolbar.appendChild(select);
+  
+  // Initialize interval tracking
+  autoRefreshIntervals[settings.sTableId] = null;
+  
+  select.addEventListener("change", (e) => {
+    const interval = Number.parseInt(e.target.value);
+    
+    // Clear existing interval if any
+    if (autoRefreshIntervals[settings.sTableId]) {
+      clearInterval(autoRefreshIntervals[settings.sTableId]);
+      autoRefreshIntervals[settings.sTableId] = null;
+    }
+    
+    // Set new interval if not disabled
+    if (interval > 0) {
+      autoRefreshIntervals[settings.sTableId] = setInterval(() => {
+        settings.api.ajax.reload(null, false); // false = stay on current page
+      }, interval);
+    }
+  });
+  
   return toolbar;
 });
 
@@ -144,6 +194,7 @@ function getDatatableConfig(url) {
         },
       },
       topEnd: {
+        autoRefresh: {},
         dateRange: {},
       },
     },
