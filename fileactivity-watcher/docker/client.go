@@ -103,6 +103,7 @@ func (c *Client) refreshContainerCache() {
 		if len(ctr.Names) == 0 {
 			continue
 		}
+
 		newCache[ctr.ID] = strings.TrimPrefix(ctr.Names[0], "/")
 	}
 

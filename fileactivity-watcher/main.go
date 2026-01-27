@@ -105,7 +105,10 @@ func (a *App) startEventListener() {
 		dockerClient := docker.New()
 		filter := filter.New(a.appConfig)
 
-		activityFile := writer.New(a.appConfig.ActivityPath, a.appConfig.MaxRecords)
+		activityFile, err := writer.New(a.appConfig.ActivityPath, a.appConfig.MaxRecords)
+		if err != nil {
+			log.Fatal().Err(err).Msg("Error creating activity file writer")
+		}
 		defer activityFile.Close()
 
 		monitor := monitor.New(a.watchFolders)

@@ -37,10 +37,10 @@ type Writer struct {
 	activityWriter *csv.Writer
 }
 
-func New(path string, maxRecords int) *Writer {
+func New(path string, maxRecords int) (*Writer, error) {
 	activityFile, err := os.OpenFile(path, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0o644)
 	if err != nil {
-		log.Fatal().Err(err).Msg("Error opening activity file")
+		return nil, fmt.Errorf("error opening activity file: %w", err)
 	}
 
 	reader := csv.NewReader(activityFile)
@@ -48,7 +48,7 @@ func New(path string, maxRecords int) *Writer {
 
 	lines, err := reader.ReadAll()
 	if err != nil {
-		log.Fatal().Err(err).Msg("Error reading activity file")
+		return nil, fmt.Errorf("error reading activity file: %w", err)
 	}
 
 	currentLines := len(lines)
@@ -62,7 +62,7 @@ func New(path string, maxRecords int) *Writer {
 		activityFile:   activityFile,
 		activityWriter: activityWriter,
 		maxRecords:     maxRecords,
-	}
+	}, nil
 }
 
 func (w *Writer) Close() {

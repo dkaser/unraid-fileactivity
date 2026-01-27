@@ -29,7 +29,7 @@ func TestNew(t *testing.T) {
 	tmpDir := t.TempDir()
 	activityPath := filepath.Join(tmpDir, "activity.log")
 
-	writer := New(activityPath, 1000)
+	writer, _ := New(activityPath, 1000)
 
 	if writer == nil {
 		t.Fatal("Expected New() to return a non-nil writer")
@@ -77,7 +77,7 @@ func TestNew_WithExistingFile(t *testing.T) {
 	file.Close()
 
 	// Open with New()
-	writer := New(activityPath, 1000)
+	writer, _ := New(activityPath, 1000)
 
 	// Should count existing lines
 	if writer.currentLines != 3 {
@@ -91,7 +91,7 @@ func TestWrite(t *testing.T) {
 	tmpDir := t.TempDir()
 	activityPath := filepath.Join(tmpDir, "activity.log")
 
-	writer := New(activityPath, 1000)
+	writer, _ := New(activityPath, 1000)
 	defer writer.Close()
 
 	// Write a record
@@ -141,7 +141,7 @@ func TestWrite_VerifyFileContents(t *testing.T) {
 	tmpDir := t.TempDir()
 	activityPath := filepath.Join(tmpDir, "activity.log")
 
-	writer := New(activityPath, 1000)
+	writer, _ := New(activityPath, 1000)
 
 	// Write some records
 	records := [][]string{
@@ -190,7 +190,7 @@ func TestRolloverActivityFile(t *testing.T) {
 	activityPath := filepath.Join(tmpDir, "activity.log")
 
 	// Create writer with very low max records to trigger rollover
-	writer := New(activityPath, 3)
+	writer, _ := New(activityPath, 3)
 
 	// Write records to exceed max
 	for range 5 {
@@ -237,7 +237,7 @@ func TestClose(t *testing.T) {
 	tmpDir := t.TempDir()
 	activityPath := filepath.Join(tmpDir, "activity.log")
 
-	writer := New(activityPath, 1000)
+	writer, _ := New(activityPath, 1000)
 
 	// Write a record
 	record := []string{"2026-01-26", "/test.txt", "WRITE", "1234"}
@@ -273,7 +273,7 @@ func TestClose_Multiple(t *testing.T) {
 	tmpDir := t.TempDir()
 	activityPath := filepath.Join(tmpDir, "activity.log")
 
-	writer := New(activityPath, 1000)
+	writer, _ := New(activityPath, 1000)
 
 	// Close multiple times should not panic
 	writer.Close()
@@ -295,7 +295,7 @@ func TestWriter_InitialState(t *testing.T) {
 	tmpDir := t.TempDir()
 	activityPath := filepath.Join(tmpDir, "activity.log")
 
-	writer := New(activityPath, 5000)
+	writer, _ := New(activityPath, 5000)
 	defer writer.Close()
 
 	if writer.currentLines != 0 {
@@ -315,7 +315,7 @@ func TestWriter_ConcurrentWrites(t *testing.T) {
 	tmpDir := t.TempDir()
 	activityPath := filepath.Join(tmpDir, "activity.log")
 
-	writer := New(activityPath, 10000)
+	writer, _ := New(activityPath, 10000)
 	defer writer.Close()
 
 	done := make(chan bool)
@@ -361,7 +361,7 @@ func TestRolloverActivityFile_RemovesExisting(t *testing.T) {
 	existingRollover.Close()
 
 	// Create writer with low max to trigger rollover
-	writer := New(activityPath, 2)
+	writer, _ := New(activityPath, 2)
 
 	// Write enough to trigger rollover
 	for range 4 {
@@ -391,7 +391,7 @@ func TestWriter_EmptyRecords(t *testing.T) {
 	tmpDir := t.TempDir()
 	activityPath := filepath.Join(tmpDir, "activity.log")
 
-	writer := New(activityPath, 1000)
+	writer, _ := New(activityPath, 1000)
 	defer writer.Close()
 
 	// Write empty record
