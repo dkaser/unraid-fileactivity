@@ -111,5 +111,5 @@ func (c *Client) refreshContainerCache() {
 	c.containerCache = newCache
 	c.containerCacheMutex.Unlock()
 
-	log.Debug().Int("cached_containers", len(c.containerCache)).Msg("Refreshed container cache")
+	log.Debug().Int("cached_containers", len(newCache)).Msg("Refreshed container cache")
 }
