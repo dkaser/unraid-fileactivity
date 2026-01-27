@@ -14,6 +14,10 @@ div.dtcc-list * {
     margin: 0 0 0 0;
 }
 
+.dt-length select {
+    background-color: transparent;
+}
+
 button.dtcc-list-selectAll,
 button.dtcc-list-selectNone,
 button.fg-button {
@@ -67,4 +71,19 @@ i.regex-error {
 
 div.dt-length {
     white-space: pre;
+}
+
+:root {
+  --dt-row-selected: 13, 110, 253;
+  --dt-row-selected-text: 255, 255, 255;
+  --dt-row-selected-link: 228, 228, 228;
+  --dt-row-stripe: 0, 0, 0;
+  --dt-row-hover: 0, 0, 0;
+  --dt-column-ordering: 0, 0, 0;
+  --dt-header-align-items: center;
+  --dt-header-vertical-align: middle;
+  --dt-html-background: white;
+}
+:root.dark {
+  --dt-html-background: transparent;
 }

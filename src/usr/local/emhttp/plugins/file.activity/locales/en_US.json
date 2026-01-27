@@ -33,6 +33,10 @@
     "exclusions": "Exclusions",
     "rollover": "Rollover Threshold",
     "current_usage": "Current Usage",
+    "pid": "PID",
+    "process_path": "Process Path",
+    "container_name": "Container Name",
+    "disk": "Disk",
     "settings": {
         "monitoring": "File Activity Monitoring",
         "description": "File open, read, write, and modify activity is monitored and logged on the array using inotify and is displayed by disk or share, UD disks, and cache.",

@@ -37,13 +37,19 @@ $tr = $tr ?? new Translator(PLUGIN_ROOT);
             <th><strong><?= $tr->tr("date"); ?></strong></th>
             <th><strong><?= $tr->tr("action"); ?></strong></th>
             <th><strong><?= $tr->tr("file_path"); ?></strong></th>
-            <th><strong><?= $tr->tr("group"); ?></strong></th>
+            <th><strong><?= $tr->tr("pid"); ?></strong></th>
+            <th><strong><?= $tr->tr("process_path"); ?></strong></th>
+            <th><strong><?= $tr->tr("container_name"); ?></strong></th>
+            <th><strong><?= $tr->tr("disk"); ?></strong></th>
         </tr>
     </thead>
     <tbody>
     </tbody>
     <tfoot>
         <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>

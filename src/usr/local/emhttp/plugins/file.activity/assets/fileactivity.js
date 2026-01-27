@@ -1,7 +1,7 @@
 const minDate = {};
 const maxDate = {};
 
-DataTable.ext.search.push(function (settings, data, dataIndex) {
+DataTable.ext.search.push((settings, data, dataIndex) => {
   if (
     minDate[settings.sTableId] === undefined ||
     maxDate[settings.sTableId] === undefined
@@ -20,8 +20,8 @@ DataTable.ext.search.push(function (settings, data, dataIndex) {
     return true;
   }
 
-  let min = minValEmpty ? luxon.DateTime.fromMillis(0).toJSDate() : minVal[0];
-  let max = maxValEmpty
+  const min = minValEmpty ? luxon.DateTime.fromMillis(0).toJSDate() : minVal[0];
+  const max = maxValEmpty
     ? luxon.DateTime.now().plus({ hours: 1 }).toJSDate()
     : maxVal[0];
 
@@ -31,20 +31,20 @@ DataTable.ext.search.push(function (settings, data, dataIndex) {
   return false;
 });
 
-DataTable.feature.register("dateRange", function (settings, opts) {
-  let toolbar = document.createElement("div");
+DataTable.feature.register("dateRange", (settings, opts) => {
+  const toolbar = document.createElement("div");
   toolbar.appendChild(document.createTextNode("From: "));
 
   const minInput = document.createElement("input");
-  minInput.id = "min-" + settings.sTableId;
-  minInput.name = "min-" + settings.sTableId;
+  minInput.id = `min-${settings.sTableId}`;
+  minInput.name = `min-${settings.sTableId}`;
   minInput.type = "text";
   toolbar.appendChild(minInput);
 
   toolbar.appendChild(document.createTextNode(" To: "));
   const maxInput = document.createElement("input");
-  maxInput.id = "max-" + settings.sTableId;
-  maxInput.name = "max-" + settings.sTableId;
+  maxInput.id = `max-${settings.sTableId}`;
+  maxInput.name = `max-${settings.sTableId}`;
   maxInput.type = "text";
   toolbar.appendChild(maxInput);
 
@@ -72,8 +72,12 @@ function getDatatableConfig(url) {
       { name: "Timestamp", data: "timestamp" },
       { name: "action", data: "action" },
       { name: "path", data: "filePath" },
+      { name: "pid", data: "pid" },
+      { name: "processPath", data: "processPath" },
+      { name: "containerName", data: "containerName" },
       { name: "disk", data: "disk", visible: true, orderable: false },
     ],
+    order: [[0, 'desc']],
     columnControl: {
       target: 0,
       content: [
@@ -95,7 +99,7 @@ function getDatatableConfig(url) {
         },
       },
       {
-        targets: [1, 3],
+        targets: [1, 5, 6],
         columnControl: {
           target: 0,
           content: [
@@ -111,22 +115,18 @@ function getDatatableConfig(url) {
     paging: true,
     pageLength: 50,
     ordering: true,
-    rowGroup: {
-      dataSrc: "disk",
-    },
-    orderFixed: [3, "asc"],
     layout: {
       topStart: {
         buttons: [
           {
             text: translator.tr("refresh"),
-            action: function (e, dt, node, config) {
+            action: (e, dt, node, config) => {
               dt.ajax.reload();
             },
           },
           {
             text: translator.tr("clear_filters"),
-            action: function (e, dt, node, config) {
+            action: (e, dt, node, config) => {
               minDate[dt.settings()[0].sTableId].clear();
               maxDate[dt.settings()[0].sTableId].clear();
               dt.search("");

@@ -36,7 +36,6 @@ if (version_compare($vars['version'] ?? "", '7.1', '<=')) {
     echo "<style>div.dtcc-dropdown * { color: black }</style>";
 }
 ?>
-<link type="text/css" rel="stylesheet" href="/plugins/file.activity/assets/style.css">
 
 <script src="/plugins/file.activity/assets/translate.js"></script>
 <script>
@@ -49,6 +48,8 @@ if (version_compare($vars['version'] ?? "", '7.1', '<=')) {
 <script src="/plugins/file.activity/assets/flatpickr.min.js"></script>
 <link rel="stylesheet" href="/plugins/file.activity/assets/flatpickr.min.css">
 
+<link type="text/css" rel="stylesheet" href="/plugins/file.activity/assets/style.css">
+
 <script src="/plugins/file.activity/assets/fileactivity.js"></script>
 
 <table id='logTable' class="stripe compact">
@@ -57,6 +58,9 @@ if (version_compare($vars['version'] ?? "", '7.1', '<=')) {
             <th><strong><?= $tr->tr("date"); ?></strong></th>
             <th><strong><?= $tr->tr("action"); ?></strong></th>
             <th><strong><?= $tr->tr("file_path"); ?></strong></th>
+            <th><strong><?= $tr->tr("pid"); ?></strong></th>
+            <th><strong><?= $tr->tr("process_path"); ?></strong></th>
+            <th><strong><?= $tr->tr("container_name"); ?></strong></th>
             <th><strong><?= $tr->tr("group"); ?></strong></th>
         </tr>
     </thead>
@@ -64,6 +68,9 @@ if (version_compare($vars['version'] ?? "", '7.1', '<=')) {
     </tbody>
     <tfoot>
         <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
