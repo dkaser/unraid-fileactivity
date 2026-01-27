@@ -24,14 +24,20 @@ class ActivityEntry
     private string $timestamp;
     private string $action;
     private string $filePath;
+    private string $processPath;
+    private string $containerName;
+    private string $pid;
 
     public function __construct(string $line)
     {
         $data = str_getcsv($line);
 
-        $this->timestamp = $data[0] ?? "";
-        $this->action    = $data[1] ?? "";
-        $this->filePath  = $data[2] ?? "";
+        $this->timestamp     = $data[0] ?? "";
+        $this->action        = $data[1] ?? "";
+        $this->filePath      = $data[2] ?? "";
+        $this->pid           = $data[3] ?? "";
+        $this->processPath   = $data[4] ?? "";
+        $this->containerName = $data[5] ?? "";
     }
 
     public function getTimestamp(): string
@@ -49,15 +55,33 @@ class ActivityEntry
         return $this->filePath;
     }
 
+    public function getProcessPath(): string
+    {
+        return $this->processPath;
+    }
+
+    public function getContainerName(): string
+    {
+        return $this->containerName;
+    }
+
+    public function getPID(): string
+    {
+        return $this->pid;
+    }
+
     /**
      * @return array<string, string>
      */
     public function toArray(): array
     {
         return [
-            'timestamp' => $this->getTimestamp(),
-            'action'    => $this->getAction(),
-            'filePath'  => $this->getFilePath()
+            'timestamp'     => $this->getTimestamp(),
+            'action'        => $this->getAction(),
+            'filePath'      => $this->getFilePath(),
+            'pid'           => $this->getPID(),
+            'processPath'   => $this->getProcessPath(),
+            'containerName' => $this->getContainerName()
         ];
     }
 }
