@@ -3,8 +3,10 @@ module github.com/dkaser/unraid-fileactivity/fileactivity-watcher
 go 1.24.0
 
 require (
+	github.com/moby/moby/client v0.2.1
 	github.com/rs/zerolog v1.34.0
-	gopkg.in/ini.v1 v1.67.0
+	golang.org/x/sys v0.40.0
+	gopkg.in/ini.v1 v1.67.1
 )
 
 require (
@@ -22,14 +24,12 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/moby/docker-image-spec v1.3.1 // indirect
 	github.com/moby/moby/api v1.52.0 // indirect
-	github.com/moby/moby/client v0.2.1 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.1 // indirect
-	github.com/stretchr/testify v1.10.0 // indirect
+	github.com/stretchr/testify v1.11.1 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.60.0 // indirect
 	go.opentelemetry.io/otel v1.35.0 // indirect
 	go.opentelemetry.io/otel/metric v1.35.0 // indirect
 	go.opentelemetry.io/otel/trace v1.35.0 // indirect
-	golang.org/x/sys v0.40.0 // indirect
 )
