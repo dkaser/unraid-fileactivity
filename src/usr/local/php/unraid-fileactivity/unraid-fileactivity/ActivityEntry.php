@@ -30,7 +30,7 @@ class ActivityEntry
 
     public function __construct(string $line)
     {
-        $data = str_getcsv($line);
+        $data = str_getcsv($line, ",", "\"", "");
 
         $this->timestamp     = $data[0] ?? "";
         $this->action        = $data[1] ?? "";
