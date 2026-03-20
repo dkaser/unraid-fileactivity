@@ -4,7 +4,7 @@
 <PLUGIN 
   name="file.activity"
   author="Derek Kaser"
-  version="2026.01.27.0511"
+  version="2026.03.20.0234"
   pluginURL="https://raw.githubusercontent.com/dkaser/unraid-fileactivity/main/plugin/file.activity.plg"
   support="https://forums.unraid.net/topic/191180-plugin-file-activity-see-whats-keeping-your-unraid-disks-busy/"
   min="7.0.0"
@@ -14,25 +14,18 @@
 
 <CHANGES>
 <![CDATA[
-###2026.01.27.0511###
-### 🚀 Features
-
-- Display process ID, name, container in activity reports ([#26](https://github.com/dkaser/unraid-fileactivity/pull/26))
-- Add auto refresh button ([#28](https://github.com/dkaser/unraid-fileactivity/pull/28))
-- Convert watcher to use fanotify ([#25](https://github.com/dkaser/unraid-fileactivity/pull/25))
-
+###2026.03.20.0234###
 ### 🐛 Bug Fixes
 
-- Select box theming ([#27](https://github.com/dkaser/unraid-fileactivity/pull/27))
-
+- Deprecation warning for str\_getcsv call ([#30](https://github.com/dkaser/unraid-fileactivity/pull/30))
 
 For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
 ]]>
 </CHANGES>
 
-<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2026.01.27.0511-noarch-1.txz">
-<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2026.01.27.0511/unraid-fileactivity-2026.01.27.0511-noarch-1.txz</URL>
-<SHA256>39d7eeb54580b3c8e42a97c6e5dd1e83c869df4ab92231ba0ac5ee8de3aa83ce</SHA256>
+<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2026.03.20.0234-noarch-1.txz">
+<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2026.03.20.0234/unraid-fileactivity-2026.03.20.0234-noarch-1.txz</URL>
+<SHA256>04911fc010a7c68c2a9f6b1da7bff6c1257c1d876a2a52c6414b531c2d42a65d</SHA256>
 </FILE>
 
 <!--
@@ -49,10 +42,10 @@ do
     kill $pid >/dev/null 2>&1
 done
 
-upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2026.01.27.0511-noarch-1.txz
+upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2026.03.20.0234-noarch-1.txz
 
 # cleanup old versions
-rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2026.01.27.0511')
+rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2026.03.20.0234')
 
 /usr/local/emhttp/plugins/file.activity/scripts/migrate-config.php
 mkdir -p /var/log/file.activity
@@ -62,7 +55,7 @@ mkdir -p /var/log/file.activity
 echo ""
 echo "----------------------------------------------------"
 echo " file.activity has been installed."
-echo " Version: 2026.01.27.0511"
+echo " Version: 2026.03.20.0234"
 echo "----------------------------------------------------"
 echo ""
 ]]>
