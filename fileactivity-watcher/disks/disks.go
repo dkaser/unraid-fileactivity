@@ -122,7 +122,9 @@ func (d *Disks) loadUnassignedDisks() {
 			d.unassignedDisks = append(d.unassignedDisks, newDisk)
 			log.Info().Str("disk", newDisk.Name).Msg("Added unassigned disk")
 		} else {
-			log.Info().Str("disk", name).Msg("Skipping unassigned disk as it is not mounted or has no mountpoint")
+			log.Info().
+				Str("disk", name).
+				Msg("Skipping unassigned disk as it is not mounted or has no mountpoint")
 		}
 	}
 }

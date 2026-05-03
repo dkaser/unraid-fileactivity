@@ -11,6 +11,7 @@ linters:
     - noctx
     - lll
     - revive
+    - gomodguard # Replaced by v2
     - testpackage
     - tagliatelle
     - paralleltest
