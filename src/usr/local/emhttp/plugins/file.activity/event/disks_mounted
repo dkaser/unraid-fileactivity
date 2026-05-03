@@ -1,11 +1,9 @@
 #!/bin/bash
 #
 # Read in the configuration.
-plugin="file.activity"
-CONFIG="/boot/config/plugins/${plugin}/${plugin}.cfg"
-source $CONFIG
+CONFIG="/boot/config/plugins/file.activity/config.json"
 
 # Start file activity if it is enabled.
-if [ "$SERVICE" = "enable" ]; then
-	/usr/local/emhttp/plugins/${plugin}/scripts/rc.${plugin} start
+if [ "$(jq -r '.enable' "$CONFIG" 2>/dev/null)" = "true" ]; then
+	/usr/local/emhttp/plugins/file.activity/scripts/rc.file.activity start 1>/dev/null
 fi
