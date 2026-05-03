@@ -1,6 +1,3 @@
 #!/bin/bash
 
-# Stop file activity logging if it is running.
-if [ -e "/var/run/file.activity.pid" ]; then
-	/usr/local/emhttp/plugins/file.activity/scripts/rc.file.activity stop
-fi
+/usr/local/emhttp/plugins/file.activity/scripts/rc.file.activity stop
