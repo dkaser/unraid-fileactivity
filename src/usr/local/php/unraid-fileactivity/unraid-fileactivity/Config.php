@@ -61,11 +61,11 @@ class Config
             $data = json_decode($json, true);
             if (is_array($data)) {
                 $this->enable             = is_bool($data['enable']) ? $data['enable'] : $this->enable;
-                $this->unassigned_devices = $data['unassigned_devices'] ?? $this->unassigned_devices;
-                $this->cache              = $data['cache']              ?? $this->cache;
-                $this->ssd                = $data['ssd']                ?? $this->ssd;
+                $this->unassigned_devices = is_bool($data['unassigned_devices'] ?? null) ? $data['unassigned_devices'] : $this->unassigned_devices;
+                $this->cache              = is_bool($data['cache'] ?? null) ? $data['cache'] : $this->cache;
+                $this->ssd                = is_bool($data['ssd'] ?? null) ? $data['ssd'] : $this->ssd;
                 $this->display_events     = isset($data['display_events']) && is_numeric($data['display_events']) ? intval($data['display_events']) : $this->display_events;
-                $this->exclusions         = $data['exclusions'] ?? $this->exclusions;
+                $this->exclusions         = is_array($data['exclusions'] ?? null) ? array_values(array_filter($data['exclusions'], static fn (mixed $v): bool => is_string($v))) : $this->exclusions;
                 $this->max_records        = isset($data['max_records']) && is_numeric($data['max_records']) ? intval($data['max_records']) : $this->max_records;
             }
         }

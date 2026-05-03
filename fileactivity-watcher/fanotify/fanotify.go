@@ -347,9 +347,9 @@ func (metadata *EventMetadata) parseFileHandle(fileHandleData []byte) error {
 }
 
 func (metadata *EventMetadata) extractFilename(filenameData []byte) {
-	nullPos := bytes.IndexByte(filenameData, 0)
-	if nullPos >= 0 {
-		metadata.filename = string(filenameData[:nullPos])
+	filename, _, found := bytes.Cut(filenameData, []byte{0})
+	if found {
+		metadata.filename = string(filename)
 	} else {
 		log.Warn().Msg("No null terminator found in filename data")
 	}

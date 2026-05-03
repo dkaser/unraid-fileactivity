@@ -28,6 +28,11 @@ import (
 	"gopkg.in/ini.v1"
 )
 
+const (
+	diskTypeCache = "cache"
+	diskTypeData  = "data"
+)
+
 type Disks struct {
 	arrayDisks      []Disk
 	poolDisks       []Disk
@@ -71,7 +76,7 @@ func (d *Disks) GetWatchFolders() map[string]int {
 
 func isValidDiskType(diskType string) bool {
 	switch diskType {
-	case "data", "cache":
+	case diskTypeData, diskTypeCache:
 		return true
 	}
 
@@ -122,7 +127,9 @@ func (d *Disks) loadUnassignedDisks() {
 			d.unassignedDisks = append(d.unassignedDisks, newDisk)
 			log.Info().Str("disk", newDisk.Name).Msg("Added unassigned disk")
 		} else {
-			log.Info().Str("disk", name).Msg("Skipping unassigned disk as it is not mounted or has no mountpoint")
+			log.Info().
+				Str("disk", name).
+				Msg("Skipping unassigned disk as it is not mounted or has no mountpoint")
 		}
 	}
 }
@@ -164,12 +171,12 @@ func (d *Disks) loadDisks() {
 			continue
 		}
 
-		if newDisk.Type == "data" {
+		if newDisk.Type == diskTypeData {
 			d.arrayDisks = append(d.arrayDisks, newDisk)
 			log.Debug().Str("disk", newDisk.Name).Msg("Added to array disks")
 		}
 
-		if newDisk.Type == "cache" && d.appConfig.Cache && newDisk.Filesystem != "" {
+		if newDisk.Type == diskTypeCache && d.appConfig.Cache && newDisk.Filesystem != "" {
 			d.poolDisks = append(d.poolDisks, newDisk)
 			log.Debug().Str("disk", newDisk.Name).Msg("Added to pool disks")
 		}
