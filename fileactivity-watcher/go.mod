@@ -3,9 +3,9 @@ module github.com/dkaser/unraid-fileactivity/fileactivity-watcher
 go 1.25.0
 
 require (
-	github.com/moby/moby/client v0.5.0
+	github.com/moby/moby/client v0.5.1
 	github.com/rs/zerolog v1.35.1
-	golang.org/x/sys v0.46.0
+	golang.org/x/sys v0.47.0
 	gopkg.in/ini.v1 v1.67.3
 )
 
