@@ -4,7 +4,7 @@
 <PLUGIN 
   name="file.activity"
   author="Derek Kaser"
-  version="2026.05.03.0212"
+  version="2026.10.18.0000"
   pluginURL="https://raw.githubusercontent.com/dkaser/unraid-fileactivity/main/plugin/file.activity.plg"
   support="https://forums.unraid.net/topic/191180-plugin-file-activity-see-whats-keeping-your-unraid-disks-busy/"
   min="7.0.0"
@@ -14,20 +14,18 @@
 
 <CHANGES>
 <![CDATA[
-###2026.05.03.0212###
-### 🐛 Bug Fixes
+###2026.10.18.0000###
+## End of Support
 
-- Update all non-major dependencies ([#23](https://github.com/dkaser/unraid-fileactivity/pull/23))
-- Make event scripts use JSON config ([#31](https://github.com/dkaser/unraid-fileactivity/pull/31))
-
+With the news around U8, I'm deciding to step back from maintaining any plugins that I don't actively use. As such, I won't be doing any further updates to the plugin. I will leave it in Community Applications. If someone wants to fork the plugin and continue maintaining it, feel free; once a replacement is ready, I'd be happy to help facilitate the migration to the new repo.
 
 For older releases, see https://github.com/dkaser/unraid-fileactivity/releases
 ]]>
 </CHANGES>
 
-<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2026.05.03.0212-noarch-1.txz">
-<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2026.05.03.0212/unraid-fileactivity-2026.05.03.0212-noarch-1.txz</URL>
-<SHA256>a53c3d1042e52d0909f62b8bae7001d0e639927d39ef97628037ed2a004c4957</SHA256>
+<FILE Name="/boot/config/plugins/file.activity/unraid-fileactivity-2026.10.18.0000-noarch-1.txz">
+<URL>https://github.com/dkaser/unraid-fileactivity/releases/download/2026.10.18.0000/unraid-fileactivity-2026.10.18.0000-noarch-1.txz</URL>
+<SHA256>038fe621410f515b7201db6810bae6db96971bad9d47d4247662d983086f60d0</SHA256>
 </FILE>
 
 <!--
@@ -44,10 +42,10 @@ do
     kill $pid >/dev/null 2>&1
 done
 
-upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2026.05.03.0212-noarch-1.txz
+upgradepkg --install-new /boot/config/plugins/file.activity/unraid-fileactivity-2026.10.18.0000-noarch-1.txz
 
 # cleanup old versions
-rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2026.05.03.0212')
+rm -f $(ls /boot/config/plugins/file.activity/unraid-fileactivity-*.txz 2>/dev/null | grep -v '2026.10.18.0000')
 
 /usr/local/emhttp/plugins/file.activity/scripts/migrate-config.php
 mkdir -p /var/log/file.activity
@@ -57,7 +55,7 @@ mkdir -p /var/log/file.activity
 echo ""
 echo "----------------------------------------------------"
 echo " file.activity has been installed."
-echo " Version: 2026.05.03.0212"
+echo " Version: 2026.10.18.0000"
 echo "----------------------------------------------------"
 echo ""
 ]]>
